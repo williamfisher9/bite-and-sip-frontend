@@ -1,0 +1,102 @@
+.menu-items-container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 30px;
+    flex-direction: column;
+}
+
+.menu-items-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    row-gap: 20px;
+    column-gap: 20px;
+}
+
+.menu-item {
+    position: relative;
+    background-color: #fff;
+    border-radius: 15px;
+    height: 350px;
+    overflow: hidden;
+    box-shadow: 1px 1px 2px #7963c0, -1px -1px 2px #7963c0, 1px -1px 2px #7963c0, -1px 1px 2px #7963c0;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 50%;
+}
+
+.image-container > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-item-add-icon {
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 9999;
+    color: #000;
+    font-size: large;
+    transition: 0.3s;
+}
+
+.menu-item-exists {
+    padding: 3px 5px;
+    border-radius: 5px;
+    background-color: #fff;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 9999;
+    color: #000;
+    font-size: small;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu-item-type {
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+    z-index: 9999;
+    color: #000;
+    font-size: x-small;
+}
+
+.menu-item-add-icon:hover {
+    scale: 1.2;
+}
+
+.text-container {
+    margin-top: 10px;
+}
+
+.price-container {
+    position: absolute;
+    bottom: 0;
+    padding-left: 10px;
+    color: rgb(255, 132, 0);
+}
+
+.inner-icon {
+    cursor: pointer;
+    font-size: small;
+}

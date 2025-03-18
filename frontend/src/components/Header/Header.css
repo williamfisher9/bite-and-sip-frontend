@@ -11,7 +11,6 @@
 
 .navbar-menu {
     display: flex;
-    gap: 15px;
     justify-content: center;
     align-items: center;
 }
@@ -23,46 +22,43 @@
     font-size: larger;
     position: relative;
     padding: 0 10px;
+    outline: none;
+    border: none;
 }
 
 .navbar-menu > li::after {
     content: "";
     position: absolute;
-    top: 0;
+    bottom: -2px;
     left: 0;
     width: 0;
-    height: 100%;
+    height: 2px;
     transition: width 0.3s;
-}
-
-.navbar-menu > li:hover:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-bottom: 3px solid #7963c0;
+    background-color: #7963c0;
 }
 
 .navbar-menu > li::before {
     content: "";
     position: absolute;
-    top: 0;
+    top: -2px;
     right: 0;
     width: 0;
-    height: 100%;
+    height: 2px;
     transition: width 0.3s;
+    background-color: #7963c0;
+}
+
+.navbar-menu > li:hover:after {
+    width: 100%;
 }
 
 .navbar-menu > li:hover:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
     width: 100%;
-    height: 100%;
-    border-top: 3px solid #7963c0;
+}
+
+.navbar-menu > .active-navbar {
+    border-bottom: 2px solid #7963c0;
+    border-top: 2px solid #7963c0;
 }
 
 .actions-container {
@@ -162,4 +158,19 @@
     font-size: xx-large;
     cursor: pointer;
     color: #7963c0;
+}
+
+.cart-container{
+    position: relative;
+}
+
+#cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #000;
+    border-radius: 50%;
+    font-size: 10px;
 }
