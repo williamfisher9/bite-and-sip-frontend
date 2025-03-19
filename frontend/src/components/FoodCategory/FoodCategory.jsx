@@ -22,7 +22,7 @@ const FoodCategory = ({showMessage}) => {
 
     return <div className='categories-container'>
         {showMessage ?
-        <h3>Explore by Food Category</h3> 
+        <h3 style={{fontWeight: "600", backgroundColor: "#7963c0", width: "100%", color: "#fff", height: "50px", display: "flex", justifyContent: "center", alignItems: "center"}}>Explore by Food Category</h3> 
     : null}
         <div className='categories-grid'>
         {
@@ -34,7 +34,6 @@ const FoodCategory = ({showMessage}) => {
             })
         }
         </div>
-        <hr style={{width: "100%", marginBottom: "20px", height: "3px", backgroundColor: "#7963c0"}}/>
     </div>
 }
 

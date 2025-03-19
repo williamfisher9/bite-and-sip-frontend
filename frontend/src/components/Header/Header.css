@@ -63,7 +63,7 @@
 
 .actions-container {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
     align-items: center;
 }

@@ -3,13 +3,28 @@ import logoImg from '../../assets/logo.png'
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/Cart.jsx';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Cart from '../Cart/Cart.jsx';
 import { GlobalStateContext } from '../../context/GlobalState.jsx';
+import MiniMenu from '../MiniMenu/MiniMenu.jsx';
 
 const Header = () => {
     const { globalState, setActiveNavbarItem } = useContext(GlobalStateContext)
     const navigate = useNavigate()
+
+        const [windowSize, setWindowSize] = useState(window.innerWidth)
+        const [showMiniMenu, setShowMiniMenu] = useState(false)
+    
+        useEffect(() => {
+            window.addEventListener("resize", () => {
+                setWindowSize(window.innerWidth)
+            })
+    
+            return window.removeEventListener("resize", () => {
+                setWindowSize(window.innerWidth)
+            })
+        }, [])
+
 
     return <div className='header-wrapper'>
         <div className="header-container">
@@ -19,7 +34,10 @@ const Header = () => {
             </Link>
         </div>
 
-        <div className="navbar-container">
+        
+
+        {
+            windowSize > 1200 && <div className="navbar-container">
             <ul className='navbar-menu'>
                 <li className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate("/goodies/home"); setActiveNavbarItem("HOME")}}>HOME</li>
                 <li className={globalState.activeNavbarItem == "MENU" ? 'active-navbar' : ''} onClick={() => {navigate("/goodies/menu"); setActiveNavbarItem("MENU")}}>MENU</li>
@@ -27,6 +45,7 @@ const Header = () => {
                 <li className={globalState.activeNavbarItem == "CONTACT" ? 'active-navbar' : ''} onClick={() => setActiveNavbarItem("CONTACT")}>CONTACT</li>
             </ul>
         </div>
+        }
 
         <div className="actions-container">
             
@@ -34,15 +53,11 @@ const Header = () => {
 
             <Cart />
 
-            {/*
-                <div className='cart-container'>
-                <CiShoppingBasket className='icon'/>
-                <span id='cart-count'>{cartItems.length}</span>
-            </div>
-            */
-            }
+            
 
-            <div className='btn'>
+            {
+                windowSize > 800 && <>
+                <div className='btn'>
                 <span>SIGN IN</span>
                 <div className='first-q'></div>
                 <div className='second-q'></div>
@@ -56,6 +71,17 @@ const Header = () => {
                 <div className='third-q'></div>
                 <div className='fourth-q'></div>
             </div>
+            </>
+            }
+
+        {
+            windowSize <= 1200 && <span className="material-symbols-rounded" onClick={() => setShowMiniMenu(prev => !prev)}
+            style={{color: "#7963c0", cursor: "pointer", fontSize: "30px"}}>menu</span>
+        }
+
+        
+        <MiniMenu showMiniMenu={showMiniMenu} windowSize={windowSize} closeMiniMenu={() => setShowMiniMenu(false)}/>
+        
         </div>
     </div>
     </div>

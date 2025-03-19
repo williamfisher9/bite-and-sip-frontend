@@ -8,7 +8,7 @@ const MenuItem = ({showMessage}) => {
     const [filteredMenuItems, setFilteredMenuItems] = useState([])
     const params = useParams();
 
-    const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext(CartContext)
+    const { cartItems, addToCart, removeFromCart } = useContext(CartContext)
 
     useEffect(() => {
         if(params.category == null || params.category == "all"){
@@ -60,19 +60,21 @@ const MenuItem = ({showMessage}) => {
             return <span className="material-symbols-rounded menu-item-add-icon" onClick={() => addToCart(menuItem)}>add</span>
         else {
             return <div className='menu-item-exists'>
-                <span className="material-symbols-rounded inner-icon" onClick={() => removeFromCart(menuItem)}>remove</span>
+                <span className="material-symbols-rounded inner-icon" style={{backgroundColor: "rgba(242, 103, 103, 0.3)"}} onClick={() => removeFromCart(menuItem)}>remove</span>
                 <span>{cartItemFound.quantity}</span>
-                <span className="material-symbols-rounded inner-icon" onClick={() => addToCart(menuItem)}>add</span>
+                <span className="material-symbols-rounded inner-icon" style={{backgroundColor: "rgba(105, 105, 248, 0.3)"}} onClick={() => addToCart(menuItem)}>add</span>
             </div>
         }
     }
 
     return <div className='menu-items-container'>
+        <div  style={{textAlign: "start", width: "100%"}}>
         {
             showMessage ?
-            <h3>Menu Items - <span  style={{textDecoration: "underline"}}>{params.category != null ? params.category.toUpperCase() : "ALL"}</span></h3>
+            <h3 style={{fontWeight: "600", backgroundColor: "#7963c0", width: "100%", color: "#fff", height: "50px", display: "flex", justifyContent: "center", alignItems: "center"}}><span>{params.category != null ? "Menu Items - "+params.category.toUpperCase() : "Menu Items - ALL"}</span></h3>
             : null
         }
+        </div>
         <div className='menu-items-grid'>
         {
             filteredMenuItems.map((item) => {

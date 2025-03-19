@@ -1,0 +1,45 @@
+.mini-menu-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    background-color: #7963c0;
+}
+
+#closeIcon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.mini-menu-items {  
+    position: absolute; 
+    top: 50px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    color: #fff;
+    font-size: larger;
+    gap: 10px;
+}
+
+.mini-menu-items > li {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.mini-menu-items > li:hover {
+    background-color: #8575ba;
+}

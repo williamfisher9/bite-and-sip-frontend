@@ -1,45 +1,79 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/Cart";
 import './CartItems.css'
+import CardDisplay from "../CartDisplay/CardDisplay";
+import TableDisplay from "../CartDisplay/TableDisplay";
 
 const CartItems = () => {
-    const {cartItems, getCartTotal, getCartItemsCount} = useContext(CartContext)
+    const {cartItems, getCartTotal, getCartItemsCount, removeItemFromCart, updateItemQuantity} = useContext(CartContext)
+    const [newQuantity, setNewQuantity] = useState(0)
+
+    const [windowSize, setWindowSize] = useState(window.innerWidth)
+
+    useEffect(() => {
+        window.addEventListener("resize", () => {
+            setWindowSize(window.innerWidth)
+        })
+
+        return window.removeEventListener("resize", () => {
+            setWindowSize(window.innerWidth)
+        })
+    }, [])
+
+    const changeItemQuantity = () => {
+        setNewQuantity(event.target.value)
+    }
+
+    const updateCart = (item) => {
+        if(newQuantity > 0){
+        updateItemQuantity(item, newQuantity)
+        } else {
+            removeItemFromCart(item)
+        }
+    }
 
     return <div className="cart-items-container">
-        <div style={{width: "50%"}}>
-            <div className="cart-item">
-                    <div style={{width: "10%"}}>Item</div>
-                    <div style={{width: "25%"}}>Name</div>
-                    <div style={{width: "10%"}}>Quantity</div>
-                    <div style={{width: "10%"}}>Price</div>
-                    <div style={{width: "10%"}}>Total</div>
-                    
-                </div>
-                <hr />
+        
         {
-            cartItems.map((item) => {
-                return <div className="cart-item">
-                    <div style={{width: "10%"}} ><img src={item.img} className="img" /></div>
-                    <div style={{width: "25%"}}>{item.name}</div>
-                    <div style={{width: "10%"}}>{item.quantity}</div>
-                    <div style={{width: "10%"}}>{item.price}</div>
-                    <div style={{width: "10%"}}>{item.price * item.quantity}</div>
-                </div>
-            })
+            windowSize < 800 ?
+            <CardDisplay />
+            :
+            <TableDisplay />
         }
-        </div>
 
-        <div style={{width: "50%", display: "flex", flexDirection: "column", justifyContent: "end"}}>
-            <div style={{display: "flex", height: "30px"}}><div style={{width: "200px"}}>Number of items</div><span>{getCartItemsCount()}</span></div>
-            <hr />
-            <div style={{display: "flex", height: "30px"}}><div style={{width: "200px"}}>Subtotal</div><span>${getCartTotal()}</span></div>
-            <hr />
-            <div style={{display: "flex", height: "30px"}}><div style={{width: "200px"}}>Delivery Fee</div><span>$5</span></div>
-            <hr />
-            <div style={{display: "flex", height: "30px"}}><div style={{width: "200px"}}>Tax</div><span>${getCartTotal() * 5/100}</span></div>
-            <hr />
-            <div style={{display: "flex", height: "30px"}}><div style={{width: "200px"}}>Total</div><span>${getCartTotal() * 5/100 + getCartTotal()}</span></div>
-        </div>
+        <table>
+            <tbody>
+            <tr>
+                <th>Number of items</th>
+                <td>{getCartItemsCount()}</td>
+            </tr>
+            <tr>
+                <th>Subtotal</th>
+                <td>${(getCartTotal()).toFixed(2)}</td>
+            </tr>
+            <tr>
+                <th>Delivery Fee</th>
+                <td>$5</td>
+            </tr>
+            <tr>
+                <th>Tax</th>
+                <td>${(getCartTotal() * 5/100).toFixed(2)}</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>${(getCartTotal() * 5/100 + getCartTotal() + 5).toFixed(2)}</td>
+            </tr>
+            <tr>
+                <th>Promo Code</th>
+                <td><input type="text" style={{width: "100%", height:"100%", border: "none", outline: "none",backgroundColor: "transparent", fontSize: "16px", color: "green", textTransform: "uppercase"}} placeholder="Enter promo code if you have any"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+            
+                <button id="proceedBtn"><span id="proceedBtnTitle">PROCEED TO CHECKOUT<span className="material-symbols-rounded">arrow_forward_ios</span></span></button>
+            
+        
     </div>
 }
 

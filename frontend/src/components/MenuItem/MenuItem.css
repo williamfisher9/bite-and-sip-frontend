@@ -99,4 +99,6 @@
 .inner-icon {
     cursor: pointer;
     font-size: small;
+    padding: 3px;
+    border-radius: 50%;
 }
