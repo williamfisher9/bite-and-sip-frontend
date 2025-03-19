@@ -1,11 +1,11 @@
+.cart-container{
+    position: relative;
+}
+
 .icon {
     font-size: xx-large;
     cursor: pointer;
     color: #7963c0;
-}
-
-.cart-container{
-    position: relative;
 }
 
 #cart-count {

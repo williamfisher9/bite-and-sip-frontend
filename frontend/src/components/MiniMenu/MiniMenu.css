@@ -18,7 +18,8 @@
 
 .mini-menu-items {  
     position: absolute; 
-    top: 50px;
+    top: 30%;
+    transform: translateY(-50%);
     left: 0;
     width: 100%;
     display: flex;

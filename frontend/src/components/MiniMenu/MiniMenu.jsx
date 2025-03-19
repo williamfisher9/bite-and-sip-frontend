@@ -18,8 +18,8 @@ const MiniMenu = ({ showMiniMenu, windowSize, closeMiniMenu }) => {
 
         
           <ul className="mini-menu-items">
-            <li onClick={() => {navigate("/goodies/home"); closeMiniMenu();}}>HOME</li>
-            <li onClick={() => {navigate("/goodies/menu"); closeMiniMenu();}}>MENU</li>
+            <li onClick={() => {navigate("/biteandsip/home"); closeMiniMenu();}}>HOME</li>
+            <li onClick={() => {navigate("/biteandsip/menu"); closeMiniMenu();}}>MENU</li>
             <li>ABOUT</li>
             <li>CONTACT</li>
 

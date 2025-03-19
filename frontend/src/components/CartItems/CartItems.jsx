@@ -3,6 +3,7 @@ import { CartContext } from "../../context/Cart";
 import './CartItems.css'
 import CardDisplay from "../CartDisplay/CardDisplay";
 import TableDisplay from "../CartDisplay/TableDisplay";
+import emptyBasket from '../../assets/empty-basket.png'
 
 const CartItems = () => {
     const {cartItems, getCartTotal, getCartItemsCount, removeItemFromCart, updateItemQuantity} = useContext(CartContext)
@@ -31,6 +32,12 @@ const CartItems = () => {
             removeItemFromCart(item)
         }
     }
+
+    if(cartItems.length == 0)
+        return <div className="empty-cart-items-container">
+            <h2>YOUR BASKET IS EMPTY!</h2>
+            <img id="emptyBasketImg" src={emptyBasket} alt="emptyBasket" />
+        </div>
 
     return <div className="cart-items-container">
         

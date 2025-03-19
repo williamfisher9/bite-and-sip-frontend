@@ -1,4 +1,4 @@
-.layout-wrapper {
+.layout-container {
     width: 100%;
     height: 100%;
     display: flex;
@@ -7,6 +7,13 @@
     flex-direction: column;
 }
 
-.layout-container {
-    width: 80%;
+.inner-layout {
+    width: 100%;
+    padding: 0 100px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .inner-layout {
+        padding: 0 40px;
+    }
 }

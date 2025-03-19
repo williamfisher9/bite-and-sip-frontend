@@ -26,7 +26,7 @@ const Home = () => {
           }, [])
 
   return (
-    <div className="">
+    <div className="home-container">
         <div className="hero-section-container">
           <img src={heroImg} alt="hero-img" id="hero-img" style={{filter: "brightness(0.6)"}}/>
          
@@ -34,10 +34,10 @@ const Home = () => {
           <div className="hero-img-text">
             <p style={{ fontSize: "30px" }}>VIEW & ORDER YOUR FAVORITE FOOD</p>
             <p style={{ marginTop: "5px" }}>
-              Our menu offers a diverse selection of delectable dishes, each crafted to perfection. Choose your favorite and prepare to be
-              enchanted!
+              Our menu offers a diverse selection of delectable dishes, each crafted to perfection. 
             </p>
-            <p style={{ marginTop: "10px" }}></p>
+            <p style={{ marginTop: "5px" }}>Choose your favorite and prepare to be
+            enchanted!</p>
             <div
               style={{
                 marginTop: "20px",
@@ -46,7 +46,7 @@ const Home = () => {
               }}
               className="view-menu-btn"
               onClick={() => {
-                navigate("/goodies/menu");
+                navigate("/biteandsip/menu");
                 setActiveNavbarItem("MENU");
               }}
             >
