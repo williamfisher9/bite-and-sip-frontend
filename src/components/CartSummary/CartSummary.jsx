@@ -3,8 +3,8 @@ import { CartContext } from "../../context/Cart"
 import './CartSummary.css'
 import { useNavigate } from "react-router-dom"
 
-const CartSummary = ({showCartSummary, closeCartSummary}) => {
-    const { cartItems, getCartItemsCount, getCartTotal } = useContext(CartContext)
+const CartSummary = ({showCartSummary}) => {
+    const { cartItems, getCartItemsCount, getCartTotal, clearCart } = useContext(CartContext)
     const navigate = useNavigate()
 
     if(!showCartSummary)
@@ -37,8 +37,8 @@ const CartSummary = ({showCartSummary, closeCartSummary}) => {
         </table>
 
         <div style={{display: "flex", justifyContent: "center", alignItems: "center", margin: "10px 0", gap: "10px"}}>
-        <button className="cart-summary-btn" onClick={() => {navigate("/biteandsip/cart"); closeCartSummary();}}>Go to Cart</button>
-        <button className="cart-summary-btn" onClick={closeCartSummary}>Close</button>
+        <button className="cart-summary-btn" onClick={() => {navigate("/biteandsip/cart"); }}>Go to Cart</button>
+        <button className="cart-summary-btn" onClick={clearCart}>Clear Cart</button>
         </div>
     </div>
 
