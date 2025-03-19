@@ -1,0 +1,14 @@
+.password-rule {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1px;
+}
+
+.text-greeen {
+    color: green;
+}
+
+.text-red {
+    color: red;
+}

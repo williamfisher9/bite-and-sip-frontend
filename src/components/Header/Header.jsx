@@ -1,8 +1,7 @@
-import { CiSearch, CiShoppingBasket } from 'react-icons/ci';
+import { CiSearch } from 'react-icons/ci';
 import logoImg from '../../assets/logo.png'
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom';
-import { CartContext } from '../../context/Cart.jsx';
 import { useContext, useEffect, useState } from 'react';
 import Cart from '../Cart/Cart.jsx';
 import { GlobalStateContext } from '../../context/GlobalState.jsx';
@@ -54,14 +53,14 @@ const Header = () => {
 
             {
                 windowSize > 800 && <>
-                        <div className='btn'>
+                        <div className='btn' onClick={() => {navigate("/biteandsip/login"); setActiveNavbarItem("LOGIN");}}>
                         <span>SIGN IN</span>
                         <div className='first-q'></div>
                         <div className='second-q'></div>
                         <div className='third-q'></div>
                         <div className='fourth-q'></div>
                     </div>
-                    <div className='btn'>
+                    <div className='btn' onClick={() => {navigate("/biteandsip/register"); setActiveNavbarItem("REGISTER");}}>
                         <span>SIGN UP</span>
                         <div className='first-q'></div>
                         <div className='second-q'></div>

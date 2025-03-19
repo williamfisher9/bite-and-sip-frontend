@@ -5,6 +5,7 @@
     width: 320px;
     background-color: #bdb9b9;
     padding: 10px 10px;
+    z-index: 9999;
 }
 
 .inner-cart-summary-container {

@@ -12,7 +12,7 @@ const MiniMenu = ({ showMiniMenu, windowSize, closeMiniMenu }) => {
   return (
     <div className="mini-menu-wrapper">
         
-        <span class="material-symbols-rounded" id="closeIcon" onClick={closeMiniMenu}>
+        <span className="material-symbols-rounded" id="closeIcon" onClick={closeMiniMenu}>
           close
         </span>
 

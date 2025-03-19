@@ -28,7 +28,7 @@ const Home = () => {
   return (
     <div className="home-container">
         <div className="hero-section-container">
-          <img src={heroImg} alt="hero-img" id="hero-img" style={{filter: "brightness(0.6)"}}/>
+          <img src={heroImg} alt="hero-img" id="hero-img" />
          
           
           <div className="hero-img-text">

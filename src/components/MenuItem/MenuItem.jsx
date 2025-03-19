@@ -50,7 +50,6 @@ const MenuItem = ({showMessage}) => {
         let cartItemFound = null;
         cartItems.forEach(cartItem => {
             if(menuItem.id == cartItem.id ){
-                console.log(menuItem.name)
                 exists = cartItem.quantity;
                 cartItemFound = cartItem;
             }

@@ -78,7 +78,7 @@ const CartItems = () => {
         </table>
 
             
-                <button id="proceedBtn"><span id="proceedBtnTitle">PROCEED TO CHECKOUT<span className="material-symbols-rounded">arrow_forward_ios</span></span></button>
+        <button id="proceedBtn"><span id="proceedBtnTitle">PROCEED TO CHECKOUT<span className="material-symbols-rounded">arrow_forward_ios</span></span></button>
             
         
     </div>
