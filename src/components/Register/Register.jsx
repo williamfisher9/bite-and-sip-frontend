@@ -5,6 +5,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import logoImg from '../../assets/logo.png'
+import { BACKEND_URL } from '../../constants/Constants';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -86,19 +87,21 @@ const Register = () => {
 
 
         if(!hasErrors){
-            axios.post("https://willtechbooth.dev/chatter/api/v1/users/signup", {"email_address": formFields.emailAddress, 
-                                                                    "first_name": formFields.firstName, 
-                                                                    "last_name": formFields.lastName, 
+            axios.post(`${BACKEND_URL}/api/v1/public/auth/register`, {"username": formFields.emailAddress, 
+                                                                    "firstName": formFields.firstName, 
+                                                                    "lastName": formFields.lastName, 
                                                                     "password": formFields.password})
             .then((res) => {
+                console.log(res)
                 if(res.status == 201){
+                    console.log(res)
                     setRegisterRequestError("")
-                    navigate('/chatter/login', { state: { message: 'VERIFY YOUR EMAIL ADDRESS TO LOGIN' } })
+                    navigate('/biteandsip/login', { state: { message: 'VERIFY YOUR EMAIL ADDRESS TO LOGIN' } })
                 }
             })
             .catch((err) => {
-                console.log(err.response.data.contents)
-                setRegisterRequestError(err.response.data.contents)
+                console.log(err.response.data.message)
+                setRegisterRequestError(err.response.data.message)
             })
         }
     }
@@ -134,16 +137,6 @@ const Register = () => {
                 <span className="material-symbols-rounded form-field-icon">id_card</span>
                 <p className='form-field-error'>{formFieldsErrors.lastName}</p>
             </div>
-
-            <div className='form-field-group'>
-                <input type='password' placeholder='Password' className='text-field' name='password' onChange={handleFieldChange} autoComplete='off'/>
-                <span className="material-symbols-rounded form-field-icon">password</span>
-                <p className='form-field-error'>{formFieldsErrors.password}</p>
-            </div>
-
-
-
-
 
             <div className='form-field-group'>
                 <input type='password' placeholder='Password' className='text-field' name='password' onChange={handleFieldChange} autoComplete='off'/>

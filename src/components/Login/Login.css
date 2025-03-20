@@ -37,9 +37,9 @@
 }
 
 .form-message {
-    color: black;
+    color: white;
     background-color: #7963c0;
-    padding: 1px 2px;
+    padding: 2px 4px;
     border-radius: 5px;
 }
 

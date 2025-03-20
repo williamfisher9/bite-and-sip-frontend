@@ -5,6 +5,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import logoImg from '../../assets/logo.png'
+import { BACKEND_URL } from '../../constants/Constants';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -37,19 +38,19 @@ const Login = () => {
 
 
         if(!hasErrors){
-            axios.post("https://willtechbooth.dev/chatter/api/v1/users/signin", {"email_address": formFields.emailAddress, "password": formFields.password})
+            axios.post(`${BACKEND_URL}/api/v1/public/auth/login`, {"username": formFields.emailAddress, "password": formFields.password})
             .then((res) => {
                 if(res.status == 200){
-                    Cookies.set("token", res.data.contents.token);
-                    Cookies.set("email_address", res.data.contents.email_address);
-                    Cookies.set("user_id", res.data.contents.user_id);
+                    Cookies.set("token", res.data.message.token);
+                    Cookies.set("username", res.data.message.username);
+                    Cookies.set("userId", res.data.message.userId);
                     setLoginRequestError("")
-                    navigate(`/chatter/home/${res.data.contents.user_id}/global`)
+                    navigate(`/biteandsip/home/${res.data.message.userId}`)
                 }
             })
             .catch((err) => {
-                console.log(err.response.data.contents)
-                setLoginRequestError(err.response.data.contents)
+                console.log(err.response.data.message)
+                setLoginRequestError(err.response.data.message)
             })
         }
     }

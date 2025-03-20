@@ -3,6 +3,7 @@ import './ForgotPassword.css'
 import { useState } from 'react';
 import axios from 'axios';
 import logoImg from '../../assets/logo.png'
+import { BACKEND_URL } from '../../constants/Constants';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
@@ -28,12 +29,12 @@ const ForgotPassword = () => {
         setFormFieldsErrors(newErrors);
 
         if(!hasErrors){
-            axios.post("https://willtechbooth.dev/chatter/api/v1/users/forgot-password", {"email_address": formFields.emailAddress})
+            axios.post(`${BACKEND_URL}/api/v1/users/forgot-password`, {"email_address": formFields.emailAddress})
             .then((res) => {
                 if(res.status == 200){
                     console.log(res)
                     setForgotPasswordRequestError("")
-                    navigate('/chatter/login', { state: { message: res.data.contents } })
+                    navigate('/biteandsip/login', { state: { message: res.data.contents } })
                 }
             })
             .catch((err) => {
