@@ -58,10 +58,11 @@ const MenuItem = ({showMessage}) => {
         if (exists == 0)
             return <span className="material-symbols-rounded menu-item-add-icon" onClick={() => addToCart(menuItem)}>add</span>
         else {
-            return <div className='menu-item-exists'>
+            return <div className='outer-menu-item-counter'>
                 <span className="material-symbols-rounded inner-icon" style={{backgroundColor: "rgba(242, 103, 103, 0.3)"}} onClick={() => removeFromCart(menuItem)}>remove</span>
-                <span>{cartItemFound.quantity}</span>
-                <span className="material-symbols-rounded inner-icon" style={{backgroundColor: "rgba(105, 105, 248, 0.3)"}} onClick={() => addToCart(menuItem)}>add</span>
+                    <span >{cartItemFound.quantity}</span>
+                    <span className="material-symbols-rounded inner-icon" style={{backgroundColor: "rgba(105, 105, 248, 0.3)"}} onClick={() => addToCart(menuItem)}>add</span>
+                   
             </div>
         }
     }

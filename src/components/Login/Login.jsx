@@ -94,9 +94,15 @@ const Login = () => {
                 null
             }
 
+            
+            <div className='form-link' style={{textAlign: "center"}}>
+                Don't have an account?&nbsp;
+                <Link to={"/biteandsip/register"}>
+                    <span>Sign Up</span>
+                </Link>
+            </div>
 
 
-            <span style={{color: "black"}}>Don't have an account? <a href='/biteandsip/register' style={{textDecoration: "underline", color: "black"}}>Sign Up</a></span>
         </form>
     </div>
 }

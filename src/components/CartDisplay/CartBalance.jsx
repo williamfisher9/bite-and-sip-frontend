@@ -12,6 +12,7 @@ const CartBalance = () => {
   const [newQuantity, setNewQuantity] = useState(0);
 
   return (
+    <>
     <table>
       <tbody>
         <tr>
@@ -36,27 +37,15 @@ const CartBalance = () => {
             ${((getCartTotal() * 5) / 100 + getCartTotal() + 5).toFixed(2)}
           </td>
         </tr>
-        <tr>
-          <th>Promo Code</th>
-          <td>
-            <input
-              type="text"
-              style={{
-                width: "100%",
-                height: "100%",
-                border: "none",
-                outline: "none",
-                backgroundColor: "transparent",
-                fontSize: "16px",
-                color: "green",
-                textTransform: "uppercase",
-              }}
-              placeholder="Enter promo code if you have any"
-            />
-          </td>
-        </tr>
       </tbody>
     </table>
+
+    <div className="promo-code-container">
+      <input type="text" placeholder="Promo Code" className="promo-code-input"/>
+      <span class="material-symbols-rounded promo-code-icon">local_activity</span>
+      <button className="promo-code-btn">APPLY</button>
+    </div>
+</>
   );
 };
 

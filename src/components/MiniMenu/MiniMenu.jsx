@@ -20,13 +20,14 @@ const MiniMenu = ({ showMiniMenu, windowSize, closeMiniMenu }) => {
           <ul className="mini-menu-items">
             <li onClick={() => {navigate("/biteandsip/home"); closeMiniMenu();}}>HOME</li>
             <li onClick={() => {navigate("/biteandsip/menu"); closeMiniMenu();}}>MENU</li>
+            <li onClick={() => {navigate("/biteandsip/cart"); closeMiniMenu();}}>CART</li>
             <li>ABOUT</li>
             <li>CONTACT</li>
 
             {windowSize <= 800 && (
               <>
-                <li>SIGN IN</li>
-                <li>SIGN UP</li>
+                <li onClick={() => {navigate("/biteandsip/login"); closeMiniMenu();}}>SIGN IN</li>
+                <li onClick={() => {navigate("/biteandsip/register"); closeMiniMenu();}}>SIGN UP</li>
               </>
             )}
           </ul>

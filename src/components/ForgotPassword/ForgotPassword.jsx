@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './ForgotPassword.css'
 import { useState } from 'react';
 import axios from 'axios';
@@ -64,8 +64,12 @@ return <div className='outer-form-container'>
                 null
             }
 
-            <span style={{color: "black"}}>Mave back to login page? <a href='/biteandsip/login' style={{textDecoration: "underline", color: "black"}}>Sign In</a></span>
-
+<div className='form-link' style={{textAlign: "center"}}>
+                Move back to login page?&nbsp;
+                <Link to={"/biteandsip/login"}>
+                    <span>Sign In</span>
+                </Link>
+            </div>
             </form>
     </div>
 }

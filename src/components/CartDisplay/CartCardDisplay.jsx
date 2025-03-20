@@ -24,7 +24,7 @@ const CartCardDisplay = () => {
             cartItems.map((item) => {
                 return <tr key={item.id}>
                     <th><img src={item.img} alt={item.img} className="item-img"/></th>
-                    <td style={{display: "flex", flexDirection: "column", gap: "10px"}}>
+                    <td className="card-details-container">
                         <div style={{fontWeight: "600"}}>
                         {item.name}
                         </div>
@@ -42,7 +42,7 @@ const CartCardDisplay = () => {
                         {(item.price * item.quantity).toFixed(2)}
                         </div>
                         <div>
-                        <span className="material-symbols-rounded delete-icon" onClick={() => removeItemFromCart(item)}>delete</span>
+                            <span className="material-symbols-rounded delete-icon" onClick={() => removeItemFromCart(item)}>delete</span>
                         </div>
                     </td>
                     </tr>

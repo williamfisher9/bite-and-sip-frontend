@@ -169,9 +169,14 @@ const Register = () => {
                 null
             }
 
+<div className='form-link' style={{textAlign: "center"}}>
+                Already have an account?&nbsp;
+                <Link to={"/biteandsip/login"}>
+                    <span>Sign In</span>
+                </Link>
+            </div>
 
-
-            <span style={{color: "black"}}>Already have an account? <a href='/biteandsip/login' style={{textDecoration: "underline", color: "black"}}>Sign In</a></span>
+            
         </form>
     </div>
 }
