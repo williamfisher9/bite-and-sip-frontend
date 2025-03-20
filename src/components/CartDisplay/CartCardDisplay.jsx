@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { CartContext } from "../../context/Cart"
 
-const CardDisplay = () => {
+const CartCardDisplay = () => {
     const {cartItems, getCartTotal, getCartItemsCount, removeItemFromCart, updateItemQuantity} = useContext(CartContext)
     const [newQuantity, setNewQuantity] = useState(null)
 
@@ -23,7 +23,7 @@ const CardDisplay = () => {
         {
             cartItems.map((item) => {
                 return <tr key={item.id}>
-                    <th><img src={item.img} style={{width: "180px", height: "180px"}} /></th>
+                    <th><img src={item.img} alt={item.img} className="item-img"/></th>
                     <td style={{display: "flex", flexDirection: "column", gap: "10px"}}>
                         <div style={{fontWeight: "600"}}>
                         {item.name}
@@ -42,7 +42,7 @@ const CardDisplay = () => {
                         {(item.price * item.quantity).toFixed(2)}
                         </div>
                         <div>
-                        <span className="material-symbols-rounded delete-icon" style={{cursor: "pointer",}} onClick={() => removeItemFromCart(item)}>delete_forever</span>
+                        <span className="material-symbols-rounded delete-icon" onClick={() => removeItemFromCart(item)}>delete</span>
                         </div>
                     </td>
                     </tr>
@@ -53,4 +53,4 @@ const CardDisplay = () => {
     </table>
 }
 
-export default CardDisplay
+export default CartCardDisplay

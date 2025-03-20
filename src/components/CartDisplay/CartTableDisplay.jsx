@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { CartContext } from "../../context/Cart"
 
-const TableDisplay = () => {
+const CartTableDisplay = () => {
     const {cartItems, getCartTotal, getCartItemsCount, removeItemFromCart, updateItemQuantity} = useContext(CartContext)
     const [newQuantity, setNewQuantity] = useState(0)
 
@@ -32,7 +32,7 @@ const TableDisplay = () => {
         {
             cartItems.map((item) => {
                 return <tr key={item.id}>
-                    <td><img src={item.img} className="img" /></td>
+                    <td><img src={item.img} alt={item.img} className="item-img" /></td>
                     <td>{item.name}</td>
                     <td style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "start"}}>
                         <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" , height: "100%"}}>
@@ -43,7 +43,10 @@ const TableDisplay = () => {
                     </td>
                     <td>{(parseFloat(item.price)).toFixed(2)}</td>
                     <td>{(item.price * item.quantity).toFixed(2)}</td>
-                    <td style={{textAlign: "center"}}><span className="material-symbols-rounded delete-icon" style={{cursor: "pointer",}} onClick={() => removeItemFromCart(item)}>delete_forever</span></td>
+                    <td style={{textAlign: "center"}}>
+                    <span className="material-symbols-rounded delete-icon" onClick={() => removeItemFromCart(item)}>delete</span>
+
+                    </td>
                 </tr>
             })
         }
@@ -51,4 +54,4 @@ const TableDisplay = () => {
     </table>
 }
 
-export default TableDisplay
+export default CartTableDisplay
