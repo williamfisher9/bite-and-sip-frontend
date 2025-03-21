@@ -1,17 +1,20 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Login.css'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import logoImg from '../../assets/logo.png'
 import { BACKEND_URL } from '../../constants/Constants';
+import { MenuContext } from '../../context/Menu';
 
 const Login = () => {
     const navigate = useNavigate();
     const [formFields, setFormFields] = useState({emailAddress: "", password: ""})
     const [formFieldsErrors, setFormFieldsErrors] = useState({emailAddress: "", password: ""})
     const [loginRequestError, setLoginRequestError] = useState("");
+
+    const {updateMenuItemsState} = useContext(MenuContext)
 
     const {state} = useLocation();
 
@@ -41,15 +44,18 @@ const Login = () => {
             axios.post(`${BACKEND_URL}/api/v1/public/auth/login`, {"username": formFields.emailAddress, "password": formFields.password})
             .then((res) => {
                 if(res.status == 200){
+                    updateMenuItemsState(res.data.message.menuItems)
                     Cookies.set("token", res.data.message.token);
                     Cookies.set("username", res.data.message.username);
                     Cookies.set("userId", res.data.message.userId);
+                    Cookies.set("authorityId", res.data.message.authorityId);
+                    Cookies.set("menuItems", JSON.stringify(res.data.message.menuItems));
+                    Cookies.set("isAuthenticated", true);
                     setLoginRequestError("")
-                    navigate(`/biteandsip/home/${res.data.message.userId}`)
+                    navigate(`/biteandsip/home`)
                 }
             })
             .catch((err) => {
-                console.log(err.response.data.message)
                 setLoginRequestError(err.response.data.message)
             })
         }

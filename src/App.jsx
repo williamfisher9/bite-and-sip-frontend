@@ -6,6 +6,7 @@ import Menu from './components/Menu/Menu'
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import ForgotPassword from './components/ForgotPassword/ForgotPassword'
+import UserHome from './components/UserHome/UserHome'
 
 const App = () => {
   return <Router>

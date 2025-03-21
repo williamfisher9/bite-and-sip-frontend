@@ -15,7 +15,7 @@
     align-items: center;
 }
 
-.navbar-menu > li {
+.navbar-menu > li, .navbar-menu > .admin-div > li {
     list-style-type: none;
     cursor: pointer;
     color: #7963c0;
@@ -156,4 +156,26 @@
     font-size: xx-large;
     cursor: pointer;
     color: #7963c0;
+}
+
+.admin-menu-container {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 300px;
+    z-index: 9999;
+    background-color: rgb(189, 185, 185);
+    color: black;
+    padding: 10px 0;
+}
+
+.admin-menu-container li {
+    list-style-type: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.admin-menu-container li:hover {
+    background-color: rgb(192, 177, 177)
 }

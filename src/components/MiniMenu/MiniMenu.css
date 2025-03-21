@@ -17,10 +17,7 @@
 }
 
 .mini-menu-items {  
-    position: absolute; 
-    top: 30%;
-    transform: translateY(-50%);
-    left: 0;
+    padding-top: 80px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -29,15 +26,12 @@
     list-style-type: none;
     color: #fff;
     font-size: larger;
-    gap: 10px;
 }
 
 .mini-menu-items > li {
     width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 5px 0;
+    text-align: center;
     cursor: pointer;
 }
 

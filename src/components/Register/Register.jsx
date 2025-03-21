@@ -92,15 +92,12 @@ const Register = () => {
                                                                     "lastName": formFields.lastName, 
                                                                     "password": formFields.password})
             .then((res) => {
-                console.log(res)
                 if(res.status == 201){
-                    console.log(res)
                     setRegisterRequestError("")
                     navigate('/biteandsip/login', { state: { message: 'VERIFY YOUR EMAIL ADDRESS TO LOGIN' } })
                 }
             })
             .catch((err) => {
-                console.log(err.response.data.message)
                 setRegisterRequestError(err.response.data.message)
             })
         }

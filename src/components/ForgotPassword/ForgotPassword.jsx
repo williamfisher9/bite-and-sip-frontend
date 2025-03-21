@@ -32,13 +32,11 @@ const ForgotPassword = () => {
             axios.post(`${BACKEND_URL}/api/v1/users/forgot-password`, {"email_address": formFields.emailAddress})
             .then((res) => {
                 if(res.status == 200){
-                    console.log(res)
                     setForgotPasswordRequestError("")
                     navigate('/biteandsip/login', { state: { message: res.data.contents } })
                 }
             })
             .catch((err) => {
-                console.log(err.response.data.contents)
                 setForgotPasswordRequestError(err.response.data.contents)
             })
         }
