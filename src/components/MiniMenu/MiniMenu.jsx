@@ -26,7 +26,7 @@ const MiniMenu = ({ showMiniMenu, windowSize, closeMiniMenu }) => {
             {
 
               menuItemsState.length > 0 ? menuItemsState.map((item) => {
-                return <li key={item.id} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}/${Cookies.get("userId")}`);  closeMiniMenu();}}>{item.menuItem}</li>
+                return <li key={item.id} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}`);  closeMiniMenu();}}>{item.menuItem}</li>
               })
               
               :

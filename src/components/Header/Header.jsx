@@ -80,7 +80,7 @@ const Header = () => {
                     <ul>
                     {
                         administrationMenu.length != 0 && administrationMenu.map((item, index) => {
-                            return <li key={index} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}/${Cookies.get("userId")}`); setActiveNavbarItem("HOME")}}>{item.menuItem}</li>
+                            return <li key={index} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}`); setActiveNavbarItem("HOME")}}>{item.menuItem}</li>
                         })
                     }
                     </ul>
