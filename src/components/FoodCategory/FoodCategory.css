@@ -37,9 +37,19 @@
 
 .categories-grid {
     width: 100%;
-    display: grid;
+    display: flex;
+    /*display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    row-gap: 30px;
+    row-gap: 30px;*/
+    padding: 0 10px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
+}
+
+.categories-grid::-webkit-scrollbar {
+    display: none;
 }
 
 .item-container:hover {

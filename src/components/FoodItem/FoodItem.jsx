@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
-import './MenuItem.css'
+import './FoodItem.css'
 import { useParams } from 'react-router-dom';
 import { MdAdd } from 'react-icons/md';
 import { CartContext } from '../../context/Cart';
 
-const MenuItem = ({showMessage}) => {
+const FoodItem = ({showMessage, foodItems}) => {
     const [filteredMenuItems, setFilteredMenuItems] = useState([])
     const params = useParams();
 
@@ -12,11 +12,13 @@ const MenuItem = ({showMessage}) => {
 
     useEffect(() => {
         if(params.category == null || params.category == "all"){
-            setFilteredMenuItems(menuItems)
+            setFilteredMenuItems(foodItems)
         } else {
-            setFilteredMenuItems(menuItems.filter((item) => item.category.toLowerCase() == params.category.toLowerCase()))
+            setFilteredMenuItems(foodItems.filter((item) => item.category.toLowerCase() == params.category.toLowerCase()))
         }
     }, [params.category])
+
+    
 
     const menuItems = [
         {id: 1, name: "Buffalo Cauliflower Wings", price: "10.55", 
@@ -81,7 +83,7 @@ const MenuItem = ({showMessage}) => {
                 return <div className='menu-item' key={item.id}>
                     <div className='image-container'>
                         <span className="menu-item-type">{item.category}</span>
-                        <img src={item.img} alt={item.name} />
+                        <img src={item.imageSource} alt={item.name} />
                         {
                             isMenuItemInCart(item)
                         }
@@ -103,4 +105,4 @@ const MenuItem = ({showMessage}) => {
     </div>
 }
 
-export default MenuItem;
+export default FoodItem;

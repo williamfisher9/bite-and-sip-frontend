@@ -3,11 +3,13 @@ import './FoodCategory.css'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { GlobalStateContext } from '../../context/GlobalState';
 
-const FoodCategory = ({showMessage}) => {
+const FoodCategory = ({showMessage, foodCategories}) => {
     const navigate = useNavigate()
     const {globalState, setActiveCategory} = useContext(GlobalStateContext)
 
     const location = useLocation()
+
+    
 
     const categories = [
         {id: 0, name: "All Foods", url: `/biteandsip/${location.pathname.startsWith("/biteandsip/menu") ? 'menu' : 'home'}/categories/all`, img: "https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg"},
@@ -27,9 +29,9 @@ const FoodCategory = ({showMessage}) => {
     : null}
         <div className='categories-grid'>
         {
-            categories.map(item => {
-                return <div key={item.id} className='item-container' onClick={() => {navigate(`${item.url}`); setActiveCategory(item.name) }}>
-                    <img src={item.img} alt={item.name} style={{width: "100px", height: "100px"}} className={globalState.activeCategory == item.name ? 'active-category' : ''}/>
+            foodCategories.map(item => {
+                return <div key={item.id} className='item-container' onClick={() => { setActiveCategory(item.name) }}>
+                    <img src={item.imageSource} alt={item.name} style={{width: "100px", height: "100px"}} className={globalState.activeCategory == item.name ? 'active-category' : ''}/>
                     <p>{item.name}</p>
                 </div>
             })

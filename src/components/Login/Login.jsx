@@ -41,7 +41,7 @@ const Login = () => {
 
 
         if(!hasErrors){
-            axios.post(`${BACKEND_URL}/api/v1/public/auth/login`, {"username": formFields.emailAddress, "password": formFields.password})
+            axios.post(`${BACKEND_URL}/api/v1/app/public/auth/login`, {"username": formFields.emailAddress, "password": formFields.password})
             .then((res) => {
                 if(res.status == 200){
                     updateMenuItemsState(res.data.message.menuItems)

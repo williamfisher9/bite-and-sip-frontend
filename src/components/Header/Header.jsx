@@ -72,7 +72,7 @@ const Header = () => {
                             administrationMenu.length != 0 && <div className='admin-div' style={{position: "relative"}} onMouseOver={() => setShowAdminMenu(true)} onMouseLeave={() => setShowAdminMenu(false)}>
 
                                 <li key="ADMINISTRATION" className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} style={{display: "flex", justifyContent: "center", alignItems: "center"}} 
-                                    >ADMINISTRATION <span class="material-symbols-rounded">stat_minus_1</span></li>
+                                    >ADMINISTRATION <span className="material-symbols-rounded">stat_minus_1</span></li>
 
 
                 {

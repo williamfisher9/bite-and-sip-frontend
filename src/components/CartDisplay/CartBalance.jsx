@@ -42,7 +42,7 @@ const CartBalance = () => {
 
     <div className="promo-code-container">
       <input type="text" placeholder="Promo Code" className="promo-code-input"/>
-      <span class="material-symbols-rounded promo-code-icon">local_activity</span>
+      <span className="material-symbols-rounded promo-code-icon">local_activity</span>
       <button className="promo-code-btn">APPLY</button>
     </div>
 </>

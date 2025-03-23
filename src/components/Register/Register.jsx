@@ -87,7 +87,7 @@ const Register = () => {
 
 
         if(!hasErrors){
-            axios.post(`${BACKEND_URL}/api/v1/public/auth/register`, {"username": formFields.emailAddress, 
+            axios.post(`${BACKEND_URL}/api/v1/app/public/auth/register`, {"username": formFields.emailAddress, 
                                                                     "firstName": formFields.firstName, 
                                                                     "lastName": formFields.lastName, 
                                                                     "password": formFields.password})
