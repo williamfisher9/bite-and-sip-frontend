@@ -63,7 +63,7 @@ const Header = () => {
                 windowSize > 1200 && <div className="navbar-container">
                     <ul className='navbar-menu'>
                         {
-                            generalMenu.length != 0 && generalMenu.map((item, index) => {
+                            generalMenu.length != 0 && generalMenu.sort((a, b) => a.id - b.id).map((item, index) => {
                                 return <li key={index} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}/${Cookies.get("userId")}`); setActiveNavbarItem("HOME")}}>{item.menuItem}</li>
                             })
                         }
@@ -79,7 +79,7 @@ const Header = () => {
                     showAdminMenu && <div className="admin-menu-container">
                     <ul>
                     {
-                        administrationMenu.length != 0 && administrationMenu.map((item, index) => {
+                        administrationMenu.length != 0 && administrationMenu.sort((a, b) => a.id - b.id).map((item, index) => {
                             return <li key={index} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}`); setActiveNavbarItem("HOME")}}>{item.menuItem}</li>
                         })
                     }

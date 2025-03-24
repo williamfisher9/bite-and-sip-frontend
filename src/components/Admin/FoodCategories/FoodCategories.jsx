@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
-import FoodCategoriesCardDisplay from "./FoodCategoriesCardDisplay";
-import FoodCategoriesTableDisplay from "./FoodCategoriesTableDisplay";
+import CardDisplay from "./CardDisplay";
+import TableDisplay from "./TableDisplay";
 
 const FoodCategories = () => {
     const navigate = useNavigate();
@@ -51,33 +51,31 @@ const FoodCategories = () => {
         navigate(`/biteandsip/admin/food-categories/new`);
     }
 
-    return <div className="admin-food-categories-container">
+    return <div className="main-container">
 
-        <div className="main-bar-container">
-        <div style={{position: "relative", height: "60px", width: "80%", border: "2px solid #7963c0", borderRadius: "10px"}}>
-          <input
-            type="text"
-            placeholder="Search Categories"
-            id="searchBarVal"
-            name="searchBarVal"
-            style={{position: "absolute", height: "100%", width: "100%", top: "0", left: "0", paddingLeft: "10px", fontSize: "18px", border: "none", outline: "none", backgroundColor: "transparent"}}
-            className="absolute top-0 left-0 w-full
-             h-full pl-2 bg-transparent border-none outline-none rounded-md"
-            onChange={handleSearchBarChange}
-          />
-        </div>
+        <div className="main-actions-container">
+            <div className="search-field-container">
+            <input
+                type="text"
+                placeholder="Search Categories"
+                id="searchBarVal"
+                name="searchBarVal"
+                className="search-input"
+                onChange={handleSearchBarChange}
+            />
+            </div>
 
-        <button onClick={addNewFoodCategory} style={{width: "60px", height: "60px", borderRadius: "10px", border: "2px solid #7963c0", cursor: "pointer"}}>
-            <span className="material-symbols-rounded" >add</span>
-        </button>
+            <button onClick={addNewFoodCategory} className="add-action-container">
+                <span className="material-symbols-rounded" >add</span>
+            </button>
 
         </div>
         
         {
             windowSize < 800 ?
-            <FoodCategoriesCardDisplay foodCategories={foodCategories} />
+            <CardDisplay foodCategories={foodCategories} />
             :
-            <FoodCategoriesTableDisplay foodCategories={foodCategories} />
+            <TableDisplay foodCategories={foodCategories} />
         }       
     
 </div>

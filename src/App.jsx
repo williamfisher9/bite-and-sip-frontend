@@ -7,7 +7,7 @@ import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 import FoodCategories from './components/Admin/FoodCategories/FoodCategories'
-import FoodCategoriesEditor from './components/Admin/FoodCategories/FoodCategoriesEditor'
+import Editor from './components/Admin/FoodCategories/Editor'
 
 const App = () => {
   return <Router>
@@ -25,7 +25,7 @@ const App = () => {
               <Route path='/biteandsip/forgot-password' element={<ForgotPassword />}></Route>
               
               <Route path='/biteandsip/admin/food-categories' element={<FoodCategories />}></Route>
-              <Route path='/biteandsip/admin/food-categories/:itemId' element={<FoodCategoriesEditor />}></Route>
+              <Route path='/biteandsip/admin/food-categories/:itemId' element={<Editor />}></Route>
             </Route>
           </Routes>
         </Router>

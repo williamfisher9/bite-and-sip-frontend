@@ -5,8 +5,8 @@ import { GlobalStateContext } from "../../context/GlobalState";
 import { MenuContext } from "../../context/Menu";
 import Cookies from 'js-cookie';
 
-const MiniMenu = ({ showMiniMenu, windowSize, closeMiniMenu }) => {
-    const { globalState, setActiveNavbarItem } = useContext(GlobalStateContext)
+const MiniMenu = ({ showMiniMenu, closeMiniMenu }) => {
+    const { globalState } = useContext(GlobalStateContext)
     const {menuItemsState, clearMenuItemsState} = useContext(MenuContext)
 
     const navigate = useNavigate()
@@ -25,7 +25,7 @@ const MiniMenu = ({ showMiniMenu, windowSize, closeMiniMenu }) => {
 
             {
 
-              menuItemsState.length > 0 ? menuItemsState.map((item) => {
+              menuItemsState.length > 0 ? menuItemsState.sort((a, b) => a.id - b.id).map((item) => {
                 return <li key={item.id} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}`);  closeMiniMenu();}}>{item.menuItem}</li>
               })
               
