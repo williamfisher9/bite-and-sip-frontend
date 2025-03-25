@@ -15,7 +15,7 @@ const Header = () => {
     const [windowSize, setWindowSize] = useState(window.innerWidth)
     const [showMiniMenu, setShowMiniMenu] = useState(false)
     const [showAdminMenu, setShowAdminMenu] = useState(false);
-    const {menuItemsState, clearMenuItemsState, updateMenuItemsState} = useContext(MenuContext);
+    const {menuItemsState, clearMenuItemsState} = useContext(MenuContext);
     const [administrationMenu, setAdministrationMenu] = useState([])
     const [generalMenu, setGeneralMenu] = useState([])
 
@@ -64,14 +64,17 @@ const Header = () => {
                     <ul className='navbar-menu'>
                         {
                             generalMenu.length != 0 && generalMenu.sort((a, b) => a.id - b.id).map((item, index) => {
-                                return <li key={index} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}/${Cookies.get("userId")}`); setActiveNavbarItem("HOME")}}>{item.menuItem}</li>
+                                return <li key={index} className={globalState.activeNavbarItem == item.menuItem ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}`); setActiveNavbarItem(item.menuItem);}}>{item.menuItem}</li>
                             })
                         }
 
-{
-                            administrationMenu.length != 0 && <div className='admin-div' style={{position: "relative"}} onMouseOver={() => setShowAdminMenu(true)} onMouseLeave={() => setShowAdminMenu(false)}>
+                {
+                            administrationMenu.length != 0 && <div className='admin-div' 
+                            style={{position: "relative"}} 
+                            onMouseOver={() => setShowAdminMenu(true)} 
+                            onMouseLeave={() => setShowAdminMenu(false)}>
 
-                                <li key="ADMINISTRATION" className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} style={{display: "flex", justifyContent: "center", alignItems: "center"}} 
+                                <li key="ADMINISTRATION" style={{display: "flex", justifyContent: "center", alignItems: "center"}} 
                                     >ADMINISTRATION <span className="material-symbols-rounded">stat_minus_1</span></li>
 
 
@@ -80,7 +83,7 @@ const Header = () => {
                     <ul>
                     {
                         administrationMenu.length != 0 && administrationMenu.sort((a, b) => a.id - b.id).map((item, index) => {
-                            return <li key={index} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}`); setActiveNavbarItem("HOME")}}>{item.menuItem}</li>
+                            return <li key={index} onClick={() => {navigate(`${item.menuItemLink}`); setActiveNavbarItem(item.menuItem);}}>{item.menuItem}</li>
                         })
                     }
                     </ul>
@@ -90,7 +93,7 @@ const Header = () => {
 
                             </div>
 
-                        }
+                }
                         
                         {
                             generalMenu == 0 && <>

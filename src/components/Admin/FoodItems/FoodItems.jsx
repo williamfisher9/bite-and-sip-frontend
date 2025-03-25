@@ -4,24 +4,24 @@ import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
 import CardDisplay from "./CardDisplay";
 import TableDisplay from "./TableDisplay";
-import "./FoodCategories.css";
+
+import './FoodItems.css'
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
-const FoodCategories = () => {
+const FoodItems = () => {
     const navigate = useNavigate();
-    const [foodCategories, setFoodCategories] = useState([]);
-
-    const [windowSize, setWindowSize] = useState(window.innerWidth)
+    const [menu, setMenu] = useState({foodItems: [], categories: []});
+    const [windowSize, setWindowSize] = useState(window.innerWidth);
 
     useEffect(() => {
         window.addEventListener("resize", () => {
             setWindowSize(window.innerWidth)
         })
 
-        axios.get("http://localhost:8080/api/v1/app/admin/food-categories", {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
+        axios.get("http://localhost:8080/api/v1/app/admin/food-items", {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
         .then(res => {
             if(res.status==200){
-                setFoodCategories(res.data.message);
+                setMenu({foodItems: res.data.message.foodItems, foodCategories: res.data.message.categories});
             }
         })
         .catch(err => {
@@ -36,12 +36,13 @@ const FoodCategories = () => {
     }, [])
 
     const handleSearchBarChange = () => {
-        axios.post(`http://localhost:8080/api/v1/app/admin/food-categories/search`, {val: event.target.value}, 
+        axios.post(`http://localhost:8080/api/v1/app/admin/food-items/search`, {val: event.target.value}, 
             {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}}
         )
         .then((res) => {
-            if(res.status==200){
-                setFoodCategories(res.data.message);
+            if(res.status == 200){
+                console.log(res.data.message)
+                setMenu({...menu, foodItems: res.data.message});
             }
         })
         .catch((err) => {
@@ -49,8 +50,8 @@ const FoodCategories = () => {
         })
     }
 
-    const addNewFoodCategory = () => {
-        navigate(`/biteandsip/admin/food-categories/new`);
+    const addNewFoodItem = () => {
+        navigate(`/biteandsip/admin/food-items/new`);
     }
 
     return <div className="main-container">
@@ -61,7 +62,7 @@ const FoodCategories = () => {
             <div className="search-field-container">
             <input
                 type="text"
-                placeholder="Search Categories"
+                placeholder="Search Food Items"
                 id="searchBarVal"
                 name="searchBarVal"
                 className="search-input"
@@ -69,7 +70,7 @@ const FoodCategories = () => {
             />
             </div>
 
-            <button onClick={addNewFoodCategory} className="add-action-container">
+            <button onClick={addNewFoodItem} className="add-action-container">
                 <span className="material-symbols-rounded" >add</span>
             </button>
 
@@ -77,12 +78,12 @@ const FoodCategories = () => {
         
         {
             windowSize < 800 ?
-            <CardDisplay foodCategories={foodCategories} />
+            <CardDisplay foodItems={menu.foodItems} foodCategories={menu.categories} />
             :
-            <TableDisplay foodCategories={foodCategories} />
+            <TableDisplay foodItems={menu.foodItems} foodCategories={menu.categories}/>
         }       
     
 </div>
 }
 
-export default FoodCategories;
+export default FoodItems;

@@ -52,6 +52,39 @@
 
 /* TableDisplay CSS -> START */
 
+.item-description-ellipses {
+    width: 150px;
+    height: 100%;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    
+}
+
+.item-description-td {
+    position: relative;
+    width: 175px;
+}
+
+.item-description-tooltip {
+    position: absolute;
+    width: 350px;
+    padding: 10px 20px;
+    background-color: #7963c0;
+    text-align: left;
+    top: 0;
+    right: -250px;
+    z-index: 9999;
+    display: none;
+    text-wrap: wrap;
+    color: #fff;
+}
+
+.item-description-ellipses:hover > .item-description-tooltip {
+    display: block;
+}
+
 .item-img {
     width: 75px;
     height: 75px;
@@ -107,9 +140,10 @@
 .card-item {
     background-color: #fff;
     border-radius: 2px;
-    height: 300px;
+    height: 350px;
     overflow: hidden;
-    box-shadow: 1px 1px 2px #7963c0, -1px -1px 2px #7963c0, 1px -1px 2px #7963c0, -1px 1px 2px #7963c0;
+    box-shadow: 2px 2px 2px #7963c0, -2px -2px 2px #7963c0, 2px -2px 2px #7963c0, -2px 2px 2px #7963c0;
+    position: relative;
 }
 
 .card-item-image-container {
@@ -122,11 +156,6 @@
 .card-item-image-container>img {
     width: 100%;
     height: 100%;
-}
-
-.card-item-text-container {
-    margin-top: 10px;
-    font-size: 1.5rem;
 }
 
 .card-actions {
@@ -155,6 +184,12 @@
 
 .card-action-icon:hover {
     background-color: #8775bf;
+}
+
+.item-price {
+    position: absolute;
+    bottom: 7px;
+    left: 7px;
 }
 
 /* CardDisplay CSS -> END */
@@ -198,7 +233,7 @@
     top: 0;
     left: 0;
     background-color: transparent;
-    padding-left: 55px;
+    padding-left: 110px;
     border: none;
     outline: none;
     color: black;
@@ -209,14 +244,15 @@
     top: 0;
     left: 0;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    font-size: 25px;
+    font-size: 14px;
     background-color: #7963c0;
-    width: 44px;
+    width: 100px;
     height: 44px;
     user-select: none;
     color: white;
+    padding-left: 10px;
 }
 
 .form-fld-error {
@@ -283,11 +319,11 @@
 
 .item-status-wrapper {
     width: 100%;
-    height: 50px;
+    height: 40px;
 }
 
 .item-status-toggler {
-    width: 100px;
+    width: 80px;
     height: 100%;
     border: 2px solid #7963c0;
     border-radius: 5px;
@@ -343,6 +379,22 @@
     gap: 10px;
     background-color: #7963c0;
     color: white;
+}
+
+.category-type-select {
+    width: 100%;
+    height: 50px;
+    position: relative;
+}
+
+#selectedCategory {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: #7963c0;
+    color: white;
+    padding-left: 10px;
 }
 
 

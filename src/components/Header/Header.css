@@ -103,9 +103,9 @@
 }
 
 .btn > .third-q{
-    width: 25%;
+    width: 26%;
     height: 0;
-    left: 50%;
+    left: 49%;
     top: 0;
     position: absolute;
     background-color: #7963c0;
@@ -114,9 +114,9 @@
 }
 
 .btn > .second-q{
-    width: 25%;
+    width: 26%;
     height: 0;
-    left: 25%;
+    left: 24%;
     bottom: 0;
     position: absolute;
     background-color: #7963c0;
@@ -125,9 +125,9 @@
 }
 
 .btn > .fourth-q{
-    width: 25%;
+    width: 27%;
     height: 0;
-    left: 75%;
+    left: 73%;
     bottom: 0;
     position: absolute;
     background-color: #7963c0;

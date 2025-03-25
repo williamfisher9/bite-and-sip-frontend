@@ -4,7 +4,9 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { IoCloudUploadOutline } from "react-icons/io5";
 
-const FoodCategoryEditor = () => {
+import './FoodItems.css'
+
+const FoodItemEditor = () => {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -12,37 +14,70 @@ const FoodCategoryEditor = () => {
     name: "",
     imageFile: null,
     imageUrl: "",
-    active: false
+    active: false, 
+    price: "",
+    description: "",
+    categoryId: 0,
+    categories: []
   });
 
   const [formFieldsErrors, setFormFieldsErrors] = useState({
     nameError: "",
     imageError: "",
+    priceError: "",
+    descriptionError: "",
+    categoryIdError: ""
   });
 
   const mainImageRef = useRef();
 
   useEffect(() => {
     if (params.itemId != "new") {
-      console.log("not new")
       axios
         .get(
-          `http://localhost:8080/api/v1/app/admin/food-categories/${params.itemId}`,
+          `http://localhost:8080/api/v1/app/admin/food-items/${params.itemId}`,
           { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
         )
         .then((res) => {
+          console.log(res.data.message);
           if (res.status == 200) {
             console.log(res.data.message);
             //setItem(res.data.message)
             setFormFields({
               ...formFields,
-              name: res.data.message.name,
-              imageUrl: res.data.message.imageSource,
-              active: res.data.message.active
+              name: res.data.message.foodItem.name,
+              imageUrl: res.data.message.foodItem.imageSource,
+              active: res.data.message.foodItem.active,
+              description: res.data.message.foodItem.description,
+              price: res.data.message.foodItem.price,
+              categoryId: res.data.message.foodItem.category.id,
+              categories: res.data.message.categories
             });
           }
         })
         .catch((err) => {
+          console.log(err)
+          if (err.status == 401 || err.status == 403) {
+            navigate("/biteandsip/login");
+          }
+        });
+    } else {
+      axios
+        .get(
+          `http://localhost:8080/api/v1/app/admin/food-categories`,
+          { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
+        )
+        .then((res) => {
+          console.log(res)
+          if (res.status == 200) {
+            setFormFields({
+              ...formFields,
+              categories: res.data.message
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err)
           if (err.status == 401 || err.status == 403) {
             navigate("/biteandsip/login");
           }
@@ -62,13 +97,28 @@ const FoodCategoryEditor = () => {
     }
   };
 
-  const saveCategory = () => {
+  const saveFoodItem = () => {
     let hasErrors = false;
-    let formErrors = { nameError: "" };
+    let formErrors = { nameError: "", descriptionError: "", priceError: "", categoryError: "", imageFile: ""  };
 
     if (formFields.name.trim() == "") {
       hasErrors = true;
       formErrors = { ...formErrors, nameError: "Name should not be null" };
+    }
+
+    if (formFields.description.trim() == "") {
+      hasErrors = true;
+      formErrors = { ...formErrors, descriptionError: "Description should not be null" };
+    }
+
+    if (formFields.pirce <= 0) {
+      hasErrors = true;
+      formErrors = { ...formErrors, priceError: "invalid price" };
+    }
+
+    if (formFields.categoryId == 0) {
+      hasErrors = true;
+      formErrors = { ...formErrors, categoryIdError: "Category should not be null" };
     }
 
     if (formFields.imageFile == null && formFields.imageUrl == "") {
@@ -85,13 +135,16 @@ const FoodCategoryEditor = () => {
 
       if (params.itemId == "new") {
         let formData = new FormData();
-          formData.append("name", formFields.name);
-          formData.append("file", formFields.imageFile);
-          formData.append("active", formFields.active);
+        formData.append("name", formFields.name);
+        formData.append("price", formFields.price);
+        formData.append("description", formFields.description);
+        formData.append("active", formFields.active);
+        formData.append("file", formFields.imageFile);
+        formData.append("categoryId", formFields.categoryId);
 
         axios
           .post(
-            `http://localhost:8080/api/v1/app/admin/food-categories/new`,
+            `http://localhost:8080/api/v1/app/admin/food-items/new`,
             formData,
             {
               headers: { Authorization: `Bearer ${Cookies.get("token")}` },
@@ -99,7 +152,7 @@ const FoodCategoryEditor = () => {
           )
           .then((res) => {
             if (res.status == 201) {
-              navigate("/biteandsip/admin/food-categories");
+              navigate("/biteandsip/admin/food-items");
             }
           })
           .catch((err) => {
@@ -110,16 +163,19 @@ const FoodCategoryEditor = () => {
       } else {
         let formData = new FormData();
         formData.append("name", formFields.name);
-        formData.append("file", formFields.imageFile);
+        formData.append("price", formFields.price);
+        formData.append("description", formFields.description);
         formData.append("active", formFields.active);
+        formData.append("file", formFields.imageFile);
+        formData.append("categoryId", formFields.categoryId);
 
         axios
           .put(
-            `http://localhost:8080/api/v1/app/admin/food-categories/update/${params.itemId}`, formData, { headers: { "Authorization": `Bearer ${Cookies.get("token")}` } }
+            `http://localhost:8080/api/v1/app/admin/food-items/update/${params.itemId}`, formData, { headers: { "Authorization": `Bearer ${Cookies.get("token")}` } }
           )
           .then((res) => {
             if (res.status == 200) {
-              navigate("/biteandsip/admin/food-categories");
+              navigate("/biteandsip/admin/food-items");
             }
           })
           .catch((err) => {
@@ -131,13 +187,18 @@ const FoodCategoryEditor = () => {
     }
   };
 
+  const handleSelectChange = () => {
+    setFormFields({...formFields, categoryId: event.target.value})
+  }
+
+
   return (
     <div className="editor-container">
       <div className="inner-editor-container">
         <div className="form-fld-grp">
           <input
             type="text"
-            placeholder="Category Name"
+            placeholder="Food Item Name"
             className="form-fld-input"
             name="name"
             defaultValue={formFields.name}
@@ -146,8 +207,53 @@ const FoodCategoryEditor = () => {
           <span className="form-fld-icon">
             Name
           </span>
+
           <p className="form-fld-error">{formFieldsErrors.nameError}</p>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div className="form-fld-grp">
+          <input
+            type="text"
+            placeholder="Food Item Description"
+            className="form-fld-input"
+            name="description"
+            defaultValue={formFields.description}
+            onChange={handleFieldChange}
+            multi="true"
+          />
+          <span className="form-fld-icon">
+            Description
+          </span>
+          <p className="form-fld-error">{formFieldsErrors.descriptionError}</p>
+        </div>
+
+
+        <div className="form-fld-grp">
+          <input
+            type="text"
+            placeholder="Price"
+            className="form-fld-input"
+            name="price"
+            defaultValue={formFields.price}
+            onChange={handleFieldChange}
+          />
+          <span className="form-fld-icon">
+            Price
+          </span>
+          <p className="form-fld-error">{formFieldsErrors.priceError}</p>
+        </div>
+
+        
 
         <div className="editor-item-image-container">
           <div
@@ -174,7 +280,7 @@ const FoodCategoryEditor = () => {
                   }}
                 >
                   <span style={{ fontWeight: "bold" }}>
-                    Food Category Image
+                    Menu Item Image
                   </span>
                 </p>
               </div>
@@ -193,6 +299,39 @@ const FoodCategoryEditor = () => {
           </p>
         </div>
 
+
+
+
+
+
+
+
+        <div className="category-type-select">
+       
+        <select onChange={handleSelectChange} id="selectedCategory" name="selectedCategory">
+          <option key="None" value="0">Choose a Category</option>
+          {
+            formFields.categories.map((item) => {
+              return <option key={item.id} value={item.id} selected={formFields.categoryId == item.id}>{item.name}</option>
+            })
+          }
+
+        </select>
+
+        <p className="form-fld-error">{formFieldsErrors.categoryIdError}</p>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
         <div className="item-status-wrapper">
           <div className="item-status-toggler">
             {formFields.active ? (
@@ -206,14 +345,14 @@ const FoodCategoryEditor = () => {
         </div>
 
         <div className="editor-actions-container">
-          <button className="editor-action" onClick={saveCategory}>
+          <button className="editor-action" onClick={saveFoodItem}>
             SAVE <span className="material-symbols-rounded">publish</span>
           </button>
 
           <button
             className="editor-action"
             onClick={() => {
-              navigate("/biteandsip/admin/food-categories");
+              navigate("/biteandsip/admin/food-items");
             }}
           >
             CANCEL <span className="material-symbols-rounded">close</span>
@@ -224,4 +363,4 @@ const FoodCategoryEditor = () => {
   );
 };
 
-export default FoodCategoryEditor;
+export default FoodItemEditor;
