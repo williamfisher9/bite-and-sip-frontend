@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { CartContext } from "../../context/Cart"
 
 const CartCardDisplay = () => {
-    const {cartItems, getCartTotal, getCartItemsCount, removeItemFromCart, updateItemQuantity} = useContext(CartContext)
+    const {cartItems, removeItemFromCart, updateItemQuantity} = useContext(CartContext)
     const [newQuantity, setNewQuantity] = useState(null)
 
     const changeItemQuantity = () => {
@@ -23,7 +23,7 @@ const CartCardDisplay = () => {
         {
             cartItems.map((item) => {
                 return <tr key={item.id}>
-                    <th><img src={item.img} alt={item.img} className="item-img"/></th>
+                    <th><img src={item.imageSource} alt={item.name} className="item-img"/></th>
                     <td className="card-details-container">
                         <div style={{fontWeight: "600"}}>
                         {item.name}

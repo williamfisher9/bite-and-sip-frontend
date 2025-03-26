@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import './FoodItem.css'
 import { useParams } from 'react-router-dom';
-import { CartContext } from '../../context/Cart';
+import { CartContext } from '../../../context/Cart';
 
 const FoodItem = ({foodItems, foodCategories}) => {
     const [filteredMenuItems, setFilteredMenuItems] = useState([])

@@ -1,22 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import "./MiniMenu.css";
+import "./SideNavbar.css";
 import { useContext } from "react";
 import { GlobalStateContext } from "../../context/GlobalState";
 import { MenuContext } from "../../context/Menu";
 import Cookies from 'js-cookie';
 
-const MiniMenu = ({ showMiniMenu, closeMiniMenu }) => {
+const SideNavbar = ({ showSideMenu, closeSideMenu }) => {
     const { globalState } = useContext(GlobalStateContext)
     const {menuItemsState, clearMenuItemsState} = useContext(MenuContext)
 
     const navigate = useNavigate()
 
-  if (!showMiniMenu) return;
+  if (!showSideMenu) return;
 
   return (
     <div className="mini-menu-wrapper">
         
-        <span className="material-symbols-rounded" id="closeIcon" onClick={closeMiniMenu}>
+        <span className="material-symbols-rounded" id="closeIcon" onClick={closeSideMenu}>
           close
         </span>
 
@@ -26,16 +26,16 @@ const MiniMenu = ({ showMiniMenu, closeMiniMenu }) => {
             {
 
               menuItemsState.length > 0 ? menuItemsState.sort((a, b) => a.id - b.id).map((item) => {
-                return <li key={item.id} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}`);  closeMiniMenu();}}>{item.menuItem}</li>
+                return <li key={item.id} className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}`);  closeSideMenu();}}>{item.menuItem}</li>
               })
               
               :
               
               <>
-                  <li onClick={() => {navigate("/biteandsip/home");  closeMiniMenu();}}>HOME</li>
-                  <li onClick={() => {navigate("/biteandsip/menu");  closeMiniMenu();}}>MENU</li>
-                  <li onClick={() => {navigate("/biteandsip/about");  closeMiniMenu();}}>ABOUT</li>
-                  <li onClick={() => {navigate("/biteandsip/contact");  closeMiniMenu();}}>CONTACT</li>
+                  <li onClick={() => {navigate("/biteandsip/home");  closeSideMenu();}}>HOME</li>
+                  <li onClick={() => {navigate("/biteandsip/menu");  closeSideMenu();}}>MENU</li>
+                  <li onClick={() => {navigate("/biteandsip/about");  closeSideMenu();}}>ABOUT</li>
+                  <li onClick={() => {navigate("/biteandsip/contact");  closeSideMenu();}}>CONTACT</li>
               </>
 
 
@@ -43,11 +43,11 @@ const MiniMenu = ({ showMiniMenu, closeMiniMenu }) => {
 
             {
               !Cookies.get("isAuthenticated") ? <>
-              <li onClick={() => {navigate("/biteandsip/login"); closeMiniMenu();}}>SIGN IN</li>
-              <li onClick={() => {navigate("/biteandsip/register"); closeMiniMenu();}}>SIGN UP</li>
+              <li onClick={() => {navigate("/biteandsip/login"); closeSideMenu();}}>SIGN IN</li>
+              <li onClick={() => {navigate("/biteandsip/register"); closeSideMenu();}}>SIGN UP</li>
             </>
             :
-            <li onClick={() => {navigate("/biteandsip/home"); closeMiniMenu(); Cookies.remove('isAuthenticated'); 
+            <li onClick={() => {navigate("/biteandsip/home"); closeSideMenu(); Cookies.remove('isAuthenticated'); 
               Cookies.remove('userId');
               Cookies.remove('token');
               Cookies.remove('menuItems');
@@ -63,4 +63,4 @@ const MiniMenu = ({ showMiniMenu, closeMiniMenu }) => {
   );
 };
 
-export default MiniMenu;
+export default SideNavbar;

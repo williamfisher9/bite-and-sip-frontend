@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import FoodCategory from '../FoodCategory/FoodCategory';
-import FoodItem from '../FoodItem/FoodItem';
+import FoodCategory from './FoodCategory/FoodCategory'
+import FoodItem from './FoodItem/FoodItem'
 import './Menu.css'
 import { GlobalStateContext } from '../../context/GlobalState';
-import heroImg from '../../assets/dish.png'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 

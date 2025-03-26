@@ -1,28 +1,52 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../../context/Cart";
 import './Cart.css'
-import { CartContext } from '../../context/Cart';
-import { CiShoppingBasket } from 'react-icons/ci';
-import { useNavigate } from 'react-router-dom';
-import { GlobalStateContext } from '../../context/GlobalState';
-import CartSummary from '../CartSummary/CartSummary';
+import emptyBasket from '../../assets/empty-basket.png'
+import CartBalance from "./CartBalance";
+import CartCardDisplay from "./CartCardDisplay";
+import CartTableDisplay from "./CartTableDisplay";
 
-const Cart = ({windowSize}) => {
-    const { cartItems, getCartItemsCount, clearCart } = useContext(CartContext)
-    const {setActiveNavbarItem} = useContext(GlobalStateContext)
-    const navigate = useNavigate()
-    const [showCartSummary, setShowCartSummary] = useState(false);
+const Cart = () => {
+    const {cartItems} = useContext(CartContext)
 
-    return <>
-    
-    <div className='cart-container' onClick={() => {navigate("/biteandsip/cart"); setActiveNavbarItem("CART")}} 
-    onMouseOver={() => setShowCartSummary(true)} onMouseLeave={() => setShowCartSummary(false)}>
+    const [windowSize, setWindowSize] = useState(window.innerWidth)
+
+    useEffect(() => {
+        window.addEventListener("resize", () => {
+            setWindowSize(window.innerWidth)
+        })
+
+        return window.removeEventListener("resize", () => {
+            setWindowSize(window.innerWidth)
+        })
+    }, [])
+
+    if(cartItems.length == 0)
+        return <div className="empty-cart-items-container">
+            <h2>YOUR BASKET IS EMPTY!</h2>
+            <img id="emptyBasketImg" src={emptyBasket} alt="emptyBasket" />
+        </div>
+
+    return <div className="cart-items-container">
+        
+        <div className="cart-display-container">
             {
-                windowSize > 800 && <CartSummary showCartSummary={showCartSummary} />
+                windowSize < 800 ?
+                <CartCardDisplay />
+                :
+                <CartTableDisplay />
             }
-                    <CiShoppingBasket className='icon'/>
-                    <span id='cart-count'>{getCartItemsCount()}</span>
-                </div>
-    </>
+        </div>
+
+        <div className="card-balance-container">
+            <CartBalance />
+            <button id="proceedBtn">
+                <span id="proceedBtnTitle">PROCEED TO CHECKOUT<span className="material-symbols-rounded">arrow_forward_ios</span></span>
+            </button>
+        </div>
+            
+        
+    </div>
 }
 
 export default Cart;

@@ -1,10 +1,10 @@
 import { useContext } from "react"
 import { CartContext } from "../../context/Cart"
-import './CartSummary.css'
+import './CartHoverableBalanceSummary.css'
 import { useNavigate } from "react-router-dom"
 
-const CartSummary = ({showCartSummary}) => {
-    const { cartItems, getCartItemsCount, getCartTotal, clearCart } = useContext(CartContext)
+const CartHoverableBalanceSummary = ({showCartSummary}) => {
+    const { getCartItemsCount, getCartTotal, clearCart } = useContext(CartContext)
     const navigate = useNavigate()
 
     if(!showCartSummary)
@@ -44,4 +44,4 @@ const CartSummary = ({showCartSummary}) => {
 
 }
 
-export default CartSummary
+export default CartHoverableBalanceSummary

@@ -1,15 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { CartContext } from "../../context/Cart";
 
 const CartBalance = () => {
   const {
-    cartItems,
+    
     getCartTotal,
     getCartItemsCount,
-    removeItemFromCart,
-    updateItemQuantity,
   } = useContext(CartContext);
-  const [newQuantity, setNewQuantity] = useState(0);
 
   return (
     <>
@@ -40,10 +37,10 @@ const CartBalance = () => {
       </tbody>
     </table>
 
-    <div className="promo-code-container">
-      <input type="text" placeholder="Promo Code" className="promo-code-input"/>
-      <span className="material-symbols-rounded promo-code-icon">local_activity</span>
-      <button className="promo-code-btn">APPLY</button>
+    <div className="coupon-container">
+      <input type="text" placeholder="Coupons" className="coupon-input"/>
+      <span className="material-symbols-rounded coupon-icon">local_activity</span>
+      <button className="coupon-btn">APPLY</button>
     </div>
 </>
   );

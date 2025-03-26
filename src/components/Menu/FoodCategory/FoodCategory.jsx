@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import './FoodCategory.css'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { GlobalStateContext } from '../../context/GlobalState';
 
-import allFoodsImg from '../../assets/allfoods.jpg'
+import allFoodsImg from '../../../assets/allfoods.jpg'
+import { GlobalStateContext } from '../../../context/GlobalState';
 
 const FoodCategory = ({foodCategories}) => {
     const navigate = useNavigate()

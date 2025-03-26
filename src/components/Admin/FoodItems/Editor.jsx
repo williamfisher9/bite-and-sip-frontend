@@ -111,7 +111,7 @@ const FoodItemEditor = () => {
       formErrors = { ...formErrors, descriptionError: "Description should not be null" };
     }
 
-    if (formFields.pirce <= 0) {
+    if (parseFloat(formFields.pirce) <= 0 || formFields.price == null || formFields.price == "") {
       hasErrors = true;
       formErrors = { ...formErrors, priceError: "invalid price" };
     }

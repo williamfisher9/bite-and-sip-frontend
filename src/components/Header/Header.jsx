@@ -3,18 +3,18 @@ import logoImg from '../../assets/logo.png'
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import Cart from '../Cart/Cart.jsx';
+import CartIcon from '../Cart/CartIcon.jsx';
 import { GlobalStateContext } from '../../context/GlobalState.jsx';
-import MiniMenu from '../MiniMenu/MiniMenu.jsx';
 import Cookies from 'js-cookie';
 import { MenuContext } from '../../context/Menu.jsx';
+import TopNavbar from './TopNavbar.jsx';
+import SideNavbar from './SideNavbar.jsx';
 
 const Header = () => {
-    const { globalState, setActiveNavbarItem } = useContext(GlobalStateContext)
+    const { setActiveNavbarItem } = useContext(GlobalStateContext)
     const navigate = useNavigate()
     const [windowSize, setWindowSize] = useState(window.innerWidth)
-    const [showMiniMenu, setShowMiniMenu] = useState(false)
-    const [showAdminMenu, setShowAdminMenu] = useState(false);
+    const [showSideMenu, setShowSideMenu] = useState(false)
     const {menuItemsState, clearMenuItemsState} = useContext(MenuContext);
     const [administrationMenu, setAdministrationMenu] = useState([])
     const [generalMenu, setGeneralMenu] = useState([])
@@ -60,60 +60,14 @@ const Header = () => {
         
 
             {
-                windowSize > 1200 && <div className="navbar-container">
-                    <ul className='navbar-menu'>
-                        {
-                            generalMenu.length != 0 && generalMenu.sort((a, b) => a.id - b.id).map((item, index) => {
-                                return <li key={index} className={globalState.activeNavbarItem == item.menuItem ? 'active-navbar' : ''} onClick={() => {navigate(`${item.menuItemLink}`); setActiveNavbarItem(item.menuItem);}}>{item.menuItem}</li>
-                            })
-                        }
-
-                {
-                            administrationMenu.length != 0 && <div className='admin-div' 
-                            style={{position: "relative"}} 
-                            onMouseOver={() => setShowAdminMenu(true)} 
-                            onMouseLeave={() => setShowAdminMenu(false)}>
-
-                                <li key="ADMINISTRATION" style={{display: "flex", justifyContent: "center", alignItems: "center"}} 
-                                    >ADMINISTRATION <span className="material-symbols-rounded">stat_minus_1</span></li>
-
-
-                {
-                    showAdminMenu && <div className="admin-menu-container">
-                    <ul>
-                    {
-                        administrationMenu.length != 0 && administrationMenu.sort((a, b) => a.id - b.id).map((item, index) => {
-                            return <li key={index} onClick={() => {navigate(`${item.menuItemLink}`); setActiveNavbarItem(item.menuItem);}}>{item.menuItem}</li>
-                        })
-                    }
-                    </ul>
-                </div>
-                }
-
-
-                            </div>
-
-                }
-                        
-                        {
-                            generalMenu == 0 && <>
-                            <li className={globalState.activeNavbarItem == "HOME" ? 'active-navbar' : ''} onClick={() => {navigate("/biteandsip/home"); setActiveNavbarItem("HOME")}}>HOME</li>
-                        <li className={globalState.activeNavbarItem == "MENU" ? 'active-navbar' : ''} onClick={() => {navigate("/biteandsip/menu"); setActiveNavbarItem("MENU")}}>MENU</li>
-                        <li className={globalState.activeNavbarItem == "ABOUT" ? 'active-navbar' : ''} onClick={() => setActiveNavbarItem("ABOUT")}>ABOUT</li>
-                        <li className={globalState.activeNavbarItem == "CONTACT" ? 'active-navbar' : ''} onClick={() => setActiveNavbarItem("CONTACT")}>CONTACT</li>
-                    
-                            </>
-                        }
-                        
-                        </ul>
-                </div>
+                windowSize > 1200 && <TopNavbar generalMenu={generalMenu} administrationMenu={administrationMenu} />
             }
 
         <div className="actions-container">
             
             <CiSearch className='icon'/>
 
-            <Cart windowSize={windowSize} />
+            <CartIcon windowSize={windowSize} />
 
             {
                 windowSize >= 1200 ? 
@@ -136,7 +90,8 @@ const Header = () => {
                     </div>
                 </>
                 :
-                    <div className='btn' onClick={() => {navigate("/biteandsip/home"); Cookies.remove('isAuthenticated'); 
+                    <div className='btn' onClick={() => {navigate("/biteandsip/home"); 
+                        Cookies.remove('isAuthenticated'); 
                                 Cookies.remove('userId');
                                 Cookies.remove('token');
                                 Cookies.remove('menuItems');
@@ -157,11 +112,11 @@ const Header = () => {
             }
 
             {
-                windowSize <= 1200 && <span className="material-symbols-rounded" onClick={() => setShowMiniMenu(prev => !prev)}
+                windowSize <= 1200 && <span className="material-symbols-rounded" onClick={() => setShowSideMenu(prev => !prev)}
                 style={{color: "#7963c0", cursor: "pointer", fontSize: "30px"}}>menu</span>
             }
 
-            <MiniMenu showMiniMenu={showMiniMenu} windowSize={windowSize} closeMiniMenu={() => setShowMiniMenu(false)}/>
+            <SideNavbar showSideMenu={showSideMenu} windowSize={windowSize} closeSideMenu={() => setShowSideMenu(false)}/>
         
             </div>
         </div>
