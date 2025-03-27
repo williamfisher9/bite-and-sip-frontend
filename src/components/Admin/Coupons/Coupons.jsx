@@ -5,27 +5,23 @@ import { useNavigate } from "react-router-dom";
 import CardDisplay from "./CardDisplay";
 import TableDisplay from "./TableDisplay";
 
-import "./FoodItems.css";
+import './Coupons.css'
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
-const FoodItems = () => {
+const Coupons = () => {
+  const [coupons, setCoupons] = useState([]);
   const navigate = useNavigate();
-  const [menu, setMenu] = useState({ foodItems: [], categories: [] });
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   useEffect(() => {
-    
-
     axios
-      .get("http://localhost:8080/api/v1/app/admin/food-items", {
+      .get("http://localhost:8080/api/v1/app/admin/coupons", {
         headers: { Authorization: `Bearer ${Cookies.get("token")}` },
       })
       .then((res) => {
         if (res.status == 200) {
-          setMenu({
-            foodItems: res.data.message.foodItems,
-            foodCategories: res.data.message.categories,
-          });
+          console.log(res.data.message)
+          setCoupons(res.data.message);
         }
       })
       .catch((err) => {
@@ -33,6 +29,7 @@ const FoodItems = () => {
           navigate("/biteandsip/login");
         }
       });
+
 
 
       window.addEventListener("resize", () => {
@@ -44,25 +41,24 @@ const FoodItems = () => {
     });
   }, []);
 
+  const addNewFoodItem = () => {
+    navigate(`/biteandsip/admin/coupons/new`);
+  };
+
   const handleSearchBarChange = () => {
-    axios
-      .post(
-        `http://localhost:8080/api/v1/app/admin/food-items/search`,
+    axios.post(
+        `http://localhost:8080/api/v1/app/admin/coupons/search`,
         { val: event.target.value },
         { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
       )
       .then((res) => {
         if (res.status == 200) {
-          setMenu({ ...menu, foodItems: res.data.message });
+          setCoupons(res.data.message);
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const addNewFoodItem = () => {
-    navigate(`/biteandsip/admin/food-items/new`);
   };
 
   return (
@@ -73,7 +69,7 @@ const FoodItems = () => {
         <div className="search-field-container">
           <input
             type="text"
-            placeholder="Search Food Items"
+            placeholder="Search Coupons"
             id="searchBarVal"
             name="searchBarVal"
             className="search-input"
@@ -87,18 +83,12 @@ const FoodItems = () => {
       </div>
 
       {windowSize < 800 ? (
-        <CardDisplay
-          foodItems={menu.foodItems}
-          foodCategories={menu.categories}
-        />
+        <CardDisplay coupons={coupons} />
       ) : (
-        <TableDisplay
-          foodItems={menu.foodItems}
-          foodCategories={menu.categories}
-        />
+        <TableDisplay coupons={coupons} />
       )}
     </div>
   );
 };
 
-export default FoodItems;
+export default Coupons;

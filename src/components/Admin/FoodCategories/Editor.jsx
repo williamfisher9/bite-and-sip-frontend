@@ -24,7 +24,6 @@ const FoodCategoryEditor = () => {
 
   useEffect(() => {
     if (params.itemId != "new") {
-      console.log("not new")
       axios
         .get(
           `http://localhost:8080/api/v1/app/admin/food-categories/${params.itemId}`,
@@ -32,7 +31,6 @@ const FoodCategoryEditor = () => {
         )
         .then((res) => {
           if (res.status == 200) {
-            console.log(res.data.message);
             //setItem(res.data.message)
             setFormFields({
               ...formFields,
@@ -197,10 +195,10 @@ const FoodCategoryEditor = () => {
           <div className="item-status-toggler">
             {formFields.active ? (
               <div className="active-item-status" 
-              onClick={() => {console.log("clicked"); setFormFields({...formFields, active: !formFields.active})}}>ON</div>
+              onClick={() => {setFormFields({...formFields, active: !formFields.active})}}>ON</div>
             ) : (
               <div className="inactive-item-status" 
-              onClick={() => {console.log("clicked"); setFormFields({...formFields, active:  !formFields.active})}}>OFF</div>
+              onClick={() => {setFormFields({...formFields, active:  !formFields.active})}}>OFF</div>
             )}
           </div>
         </div>

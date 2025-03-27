@@ -39,10 +39,7 @@ const FoodItemEditor = () => {
           { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
         )
         .then((res) => {
-          console.log(res.data.message);
           if (res.status == 200) {
-            console.log(res.data.message);
-            //setItem(res.data.message)
             setFormFields({
               ...formFields,
               name: res.data.message.foodItem.name,
@@ -336,10 +333,10 @@ const FoodItemEditor = () => {
           <div className="item-status-toggler">
             {formFields.active ? (
               <div className="active-item-status" 
-              onClick={() => {console.log("clicked"); setFormFields({...formFields, active: !formFields.active})}}>ON</div>
+              onClick={() => {setFormFields({...formFields, active: !formFields.active})}}>ON</div>
             ) : (
               <div className="inactive-item-status" 
-              onClick={() => {console.log("clicked"); setFormFields({...formFields, active:  !formFields.active})}}>OFF</div>
+              onClick={() => {setFormFields({...formFields, active:  !formFields.active})}}>OFF</div>
             )}
           </div>
         </div>

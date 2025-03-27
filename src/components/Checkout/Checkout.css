@@ -1,0 +1,92 @@
+
+
+.checkout-outer-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.checkout-inner-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.checkout-section {
+    width: 70%;
+}
+
+.checkout-div-header {
+    width: 100%; 
+    height: 50px; 
+    background-color: #7963c0; 
+    margin-bottom: 20px; 
+    color: #fff; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    font-size: 1.3rem;
+}
+
+
+
+
+.checkout-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.checkout-btn {
+        width: 300px;
+        height: 50px;
+        background-color: transparent;
+        color: #7963c0;
+        cursor: pointer;
+        position: relative;
+        border: 2px solid #7963c0;
+        outline: none;
+        font-size: 1rem;
+}
+
+.checkout-btn:hover {
+    background-color: #7963c0;
+    color: #fff;
+}
+
+
+
+
+
+
+@media (min-width: 1200px) {
+    .checkout-section {
+        width: 50%;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1200px) {
+    .checkout-section {
+        width: 60%;
+    }
+}
+
+@media  (min-width: 600px) and (max-width: 800px) {
+    .checkout-section {
+        width: 80%;
+    }
+}
+
+@media (max-width: 600px) {
+    .checkout-section {
+        width: 100%;
+    }
+}

@@ -15,7 +15,6 @@ const Menu = () => {
         axios.get("http://localhost:8080/api/v1/app/public/food-items")
         .then((res) => {
           if (res.status == 200) {
-            console.log(res.data.message.foodItems)
             setMenu({foodItems: res.data.message.foodItems, foodCategories: res.data.message.categories});
           }
         })

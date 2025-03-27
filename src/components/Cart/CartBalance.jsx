@@ -1,12 +1,33 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../context/Cart";
+import axios from "axios";
 
 const CartBalance = () => {
-  const {
+  const {getCartTotal, getCartItemsCount} = useContext(CartContext);
+
+  const [coupon, setCoupon] = useState({valid: true, details: null, value: "", fieldError: false});
+
+  const handleCouponChange = () => {
+    setCoupon({...coupon, value: event.target.value})
+  }
+
+  const verifyCoupon = (code) => {
+    if(coupon.value == ""){
+      setCoupon({...coupon, fieldError: true})
+    } else {
+      axios.get(`http://localhost:8080/api/v1/app/public/coupons/code/${code}`)
+      .then((res) => {
+        console.log(res.data.message)
+        setCoupon({valid: true, details: res.data.message, value: "", fieldError: false})
+      })
+      .catch((err) => {
+        if(err.status == 404){
+          setCoupon({...coupon, valid: false, details: null, fieldError: false})
+        }
+      })
+    }
     
-    getCartTotal,
-    getCartItemsCount,
-  } = useContext(CartContext);
+  }
 
   return (
     <>
@@ -28,19 +49,32 @@ const CartBalance = () => {
           <th>Tax</th>
           <td>${((getCartTotal() * 5) / 100).toFixed(2)}</td>
         </tr>
+
+      {
+        coupon.details && <tr>
+        <th>Coupon</th>
+        <td>
+          -${coupon.details?.amount.toFixed(2)}
+        </td>
+      </tr>
+      }
+
         <tr>
           <th>Total</th>
           <td>
-            ${((getCartTotal() * 5) / 100 + getCartTotal() + 5).toFixed(2)}
+            ${((getCartTotal() * 5) / 100 + getCartTotal() + 5 - coupon.details?.amount).toFixed(2)}
           </td>
         </tr>
+
+
       </tbody>
     </table>
 
-    <div className="coupon-container">
-      <input type="text" placeholder="Coupons" className="coupon-input"/>
+    <div className="coupon-container" style={{border: coupon.fieldError ? "2px solid red" : null}}>
+      <input type="text" placeholder="Coupons" className="coupon-input" onChange={handleCouponChange}  value={coupon.value}/>
       <span className="material-symbols-rounded coupon-icon">local_activity</span>
-      <button className="coupon-btn">APPLY</button>
+      {!coupon.valid != "" && <span className="invalid-coupon">invalid</span> }
+      <button className="coupon-btn" onClick={() => verifyCoupon(coupon.value)}>APPLY</button>
     </div>
 </>
   );

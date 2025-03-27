@@ -9,6 +9,10 @@ import Cookies from 'js-cookie';
 import { MenuContext } from '../../context/Menu.jsx';
 import TopNavbar from './TopNavbar.jsx';
 import SideNavbar from './SideNavbar.jsx';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+
 
 const Header = () => {
     const { setActiveNavbarItem } = useContext(GlobalStateContext)
@@ -48,7 +52,6 @@ const Header = () => {
         setAdministrationMenu(admin)
     }, [menuItemsState])
 
-
     return <div className='header-wrapper'>
             <div className="header-container">
                 <div className="logo-wrapper">
@@ -67,8 +70,9 @@ const Header = () => {
             
             <CiSearch className='icon'/>
 
-            <CartIcon windowSize={windowSize} />
-
+            
+                <CartIcon windowSize={windowSize} />
+            
             {
                 windowSize >= 1200 ? 
                 (

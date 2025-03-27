@@ -1,13 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import './FoodItems.css'
-import { useEffect } from "react";
 
 const TableDisplay = ({ foodItems }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(foodItems);
-  })
 
   const editFoodItem = (item) => {
     navigate(`/biteandsip/admin/food-items/${item.id}`);
