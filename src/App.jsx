@@ -10,11 +10,15 @@ import FoodItems from './components/Admin/FoodItems/FoodItems'
 import FoodItemEditor from './components/Admin/FoodItems/Editor'
 import FoodCategoryEditor from './components/Admin/FoodCategories/Editor'
 import Cart from './components/Cart/Cart'
-import Checkout from './components/Checkout/Checkout'
 import StripeCheckout from './components/Checkout/StripeCheckout'
 import Coupons from './components/Admin/Coupons/Coupons'
 import CouponsEditor from './components/Admin/Coupons/Editor'
 import PaymentStatus from './components/Checkout/PaymentStatus'
+import Customers from './components/Admin/Customers/Customers'
+import Employees from './components/Admin/Employees/Employees'
+import EmployeeEditor from './components/Admin/Employees/Editor'
+import Orders from './components/Orders/Orders'
+import Settings from './components/Admin/Settings/Settings'
 
 const App = () => {
   return <Router>
@@ -41,6 +45,13 @@ const App = () => {
               <Route path='/biteandsip/admin/coupons' element={<Coupons />}></Route>
               <Route path='/biteandsip/cart/payment-status' element={<PaymentStatus />}></Route>
               <Route path='/biteandsip/admin/coupons/:itemId' element={<CouponsEditor />}></Route>
+              <Route path='/biteandsip/admin/customers' element={<Customers />}></Route>
+              <Route path='/biteandsip/admin/employees' element={<Employees />}></Route>
+              <Route path='/biteandsip/admin/employees/:itemId' element={<EmployeeEditor />}></Route>
+
+              <Route path='/biteandsip/admin/settings' element={<Settings />}></Route>
+
+              <Route path='/biteandsip/:source/orders' element={<Orders />}></Route>
             </Route>
           </Routes>
         </Router>

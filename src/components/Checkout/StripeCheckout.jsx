@@ -6,31 +6,40 @@ import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { Elements } from "@stripe/react-stripe-js";
 import { CartContext } from "../../context/Cart";
+import { BACKEND_URL } from "../../constants/Constants";
 
-const stripePromise = loadStripe("");
+const stripePromise = loadStripe("pk_test_vQ0CV2X17zmN8JrxbFe2tFA700r1RB4mIm");
 
 const StripeCheckout = () => {
     const navigate = useNavigate()
-    const [clientSecret, setClientSecret] = useState("");
+    const [paymentIntentDetails, setPaymentIntentDetails] = useState({clientSecret: "", paymentId: ""})
     const {getCartTotal, getCartItemsCount} = useContext(CartContext);
 
+    const appearance = {
+      theme: 'flat',
+    };
+
     const options = {
-        clientSecret
+      mode: 'payment',
+      amount: 1099,
+      currency: 'usd',
+      paymentMethodCreation: 'manual',
+        appearance
       };
 
       const calculateOrderAmount = () => {
         return ((getCartTotal() * 5 / 100 + getCartTotal() + 5).toFixed(2)) * 100
       }
 
-    useEffect(() => {
+    /*useEffect(() => {
         axios
           .post(
-            "http://localhost:8080/api/v1/app/checkout/create-payment-intent",
+            `${BACKEND_URL}/api/v1/app/checkout/create-payment-intent`,
             JSON.stringify({amount: calculateOrderAmount()}),
             { headers: { "Content-Type": "application/json", "Authorization": `Bearer ${Cookies.get("token")}`}}
           )
           .then((res) => {
-            setClientSecret(res.data.message);
+            setPaymentIntentDetails({clientSecret: res.data.message.clientSecret, paymentId: res.data.message.paymentId})
           })
           .catch((err) => {
             if(err.status == 401 || err.status == 403){
@@ -39,10 +48,10 @@ const StripeCheckout = () => {
               console.log(err)
             }
           });
-      }, []);
+      }, []);*/
 
-      return clientSecret && <Elements options={options} stripe={stripePromise}>
-            <Checkout />
+      return <Elements options={options} stripe={stripePromise}>
+            <Checkout paymentId={"paymentIntentDetails.paymentId"} />
         </Elements>
     
 

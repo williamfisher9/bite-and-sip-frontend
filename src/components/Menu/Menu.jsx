@@ -5,6 +5,7 @@ import './Menu.css'
 import { GlobalStateContext } from '../../context/GlobalState';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../../constants/Constants';
 
 const Menu = () => {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Menu = () => {
     const [menu, setMenu] = useState({foodItems: [], foodCategories: []});
     
     useEffect(() => {
-        axios.get("http://localhost:8080/api/v1/app/public/food-items")
+        axios.get(`${BACKEND_URL}/api/v1/app/public/food-items`)
         .then((res) => {
           if (res.status == 200) {
             setMenu({foodItems: res.data.message.foodItems, foodCategories: res.data.message.categories});

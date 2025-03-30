@@ -4,6 +4,8 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { IoCloudUploadOutline } from "react-icons/io5";
 
+import { BACKEND_URL } from "../../../constants/Constants";
+
 const FoodCategoryEditor = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ const FoodCategoryEditor = () => {
     if (params.itemId != "new") {
       axios
         .get(
-          `http://localhost:8080/api/v1/app/admin/food-categories/${params.itemId}`,
+          `${BACKEND_URL}/api/v1/app/admin/food-categories/${params.itemId}`,
           { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
         )
         .then((res) => {
@@ -89,7 +91,7 @@ const FoodCategoryEditor = () => {
 
         axios
           .post(
-            `http://localhost:8080/api/v1/app/admin/food-categories/new`,
+            `${BACKEND_URL}/api/v1/app/admin/food-categories/new`,
             formData,
             {
               headers: { Authorization: `Bearer ${Cookies.get("token")}` },
@@ -113,7 +115,7 @@ const FoodCategoryEditor = () => {
 
         axios
           .put(
-            `http://localhost:8080/api/v1/app/admin/food-categories/update/${params.itemId}`, formData, { headers: { "Authorization": `Bearer ${Cookies.get("token")}` } }
+            `${BACKEND_URL}/api/v1/app/admin/food-categories/update/${params.itemId}`, formData, { headers: { "Authorization": `Bearer ${Cookies.get("token")}` } }
           )
           .then((res) => {
             if (res.status == 200) {

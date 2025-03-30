@@ -7,6 +7,7 @@ import TableDisplay from "./TableDisplay";
 
 import './Coupons.css'
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
+import { BACKEND_URL } from "../../../constants/Constants";
 
 const Coupons = () => {
   const [coupons, setCoupons] = useState([]);
@@ -15,7 +16,7 @@ const Coupons = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/v1/app/admin/coupons", {
+      .get(`${BACKEND_URL}/api/v1/app/admin/coupons`, {
         headers: { Authorization: `Bearer ${Cookies.get("token")}` },
       })
       .then((res) => {
@@ -47,7 +48,7 @@ const Coupons = () => {
 
   const handleSearchBarChange = () => {
     axios.post(
-        `http://localhost:8080/api/v1/app/admin/coupons/search`,
+        `${BACKEND_URL}/api/v1/app/admin/coupons/search`,
         { val: event.target.value },
         { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
       )

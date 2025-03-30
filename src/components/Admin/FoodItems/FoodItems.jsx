@@ -7,6 +7,7 @@ import TableDisplay from "./TableDisplay";
 
 import "./FoodItems.css";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
+import { BACKEND_URL } from "../../../constants/Constants";
 
 const FoodItems = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const FoodItems = () => {
     
 
     axios
-      .get("http://localhost:8080/api/v1/app/admin/food-items", {
+      .get(`${BACKEND_URL}/api/v1/app/admin/food-items`, {
         headers: { Authorization: `Bearer ${Cookies.get("token")}` },
       })
       .then((res) => {
@@ -47,7 +48,7 @@ const FoodItems = () => {
   const handleSearchBarChange = () => {
     axios
       .post(
-        `http://localhost:8080/api/v1/app/admin/food-items/search`,
+        `${BACKEND_URL}/api/v1/app/admin/food-items/search`,
         { val: event.target.value },
         { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
       )

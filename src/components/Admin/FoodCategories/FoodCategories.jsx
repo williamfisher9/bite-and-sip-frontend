@@ -6,6 +6,7 @@ import CardDisplay from "./CardDisplay";
 import TableDisplay from "./TableDisplay";
 import "./FoodCategories.css";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
+import { BACKEND_URL } from "../../../constants/Constants";
 
 const FoodCategories = () => {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ const FoodCategories = () => {
             setWindowSize(window.innerWidth)
         })
 
-        axios.get("http://localhost:8080/api/v1/app/admin/food-categories", {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
+        axios.get(`${BACKEND_URL}/api/v1/app/admin/food-categories`, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
         .then(res => {
             if(res.status==200){
                 setFoodCategories(res.data.message);
@@ -36,7 +37,7 @@ const FoodCategories = () => {
     }, [])
 
     const handleSearchBarChange = () => {
-        axios.post(`http://localhost:8080/api/v1/app/admin/food-categories/search`, {val: event.target.value}, 
+        axios.post(`${BACKEND_URL}/api/v1/app/admin/food-categories/search`, {val: event.target.value}, 
             {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}}
         )
         .then((res) => {

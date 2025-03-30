@@ -4,6 +4,9 @@ import Cookies from "js-cookie";
 import axios from "axios";
 
 import './Coupons.css'
+import { BACKEND_URL } from "../../../constants/Constants";
+
+
 
 const CouponsEditor = () => {
   const params = useParams();
@@ -30,7 +33,7 @@ const CouponsEditor = () => {
     if (params.itemId != "new") {
       axios
         .get(
-          `http://localhost:8080/api/v1/app/admin/coupons/${params.itemId}`,
+          `${BACKEND_URL}/api/v1/app/admin/coupons/${params.itemId}`,
           { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
         )
         .then((res) => {
@@ -93,7 +96,7 @@ const CouponsEditor = () => {
       if (params.itemId == "new") {
         axios
           .post(
-            `http://localhost:8080/api/v1/app/admin/coupons/new`,
+            `${BACKEND_URL}/api/v1/app/admin/coupons/new`,
             {
               code: formFields.code, 
               amount: formFields.amount, 
@@ -129,7 +132,7 @@ const CouponsEditor = () => {
         }
 
         axios
-          .put(`http://localhost:8080/api/v1/app/admin/coupons/update/${params.itemId}`, 
+          .put(`${BACKEND_URL}/api/v1/app/admin/coupons/update/${params.itemId}`, 
             obj, 
             {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
           .then((res) => {

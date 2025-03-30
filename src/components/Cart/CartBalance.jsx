@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../../context/Cart";
 import axios from "axios";
+import { BACKEND_URL } from "../../constants/Constants";
 
 const CartBalance = () => {
   const {getCartTotal, getCartItemsCount} = useContext(CartContext);
@@ -15,7 +16,7 @@ const CartBalance = () => {
     if(coupon.value == ""){
       setCoupon({...coupon, fieldError: true})
     } else {
-      axios.get(`http://localhost:8080/api/v1/app/public/coupons/code/${code}`)
+      axios.get(`${BACKEND_URL}/api/v1/app/public/coupons/code/${code}`)
       .then((res) => {
         console.log(res.data.message)
         setCoupon({valid: true, details: res.data.message, value: "", fieldError: false})
