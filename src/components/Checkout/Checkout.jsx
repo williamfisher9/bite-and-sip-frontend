@@ -137,7 +137,9 @@ const Checkout = ({paymentId}) => {
   
       if(res.status == 200){
         window.localStorage.removeItem("cartItems");
+        setLoading(false);
         navigate("/biteandsip/customer/orders");
+
       }
     } catch(err) {
       if(err.status == 401 || err.status == 403){
@@ -167,8 +169,8 @@ const Checkout = ({paymentId}) => {
       </div>
 
       <div className="checkout-btn-container">
-        <button className="checkout-btn" onClick={handleSubmit} disabled={!stripe}>
-          SUBMIT
+        <button style={{cursor: loading ? 'not-allowed' : null}} className="checkout-btn" onClick={handleSubmit} disabled={!stripe || loading}>
+          SUBMIT {loading && <i className="fa-solid fa-spinner fa-spin"></i>}
         </button>
         <button className="checkout-btn" onClick={() => navigate("/biteandsip/cart")} disabled={!stripe}>
           BACK TO CART

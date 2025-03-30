@@ -110,7 +110,7 @@ const Register = () => {
                 <Link to="/biteandsip/register" className='tab' style={{backgroundColor: "#7963c0", color: "white"}}>Sign Up</Link>
             </div>
 
-            <img src={logoImg} alt='logo' style={{height: "50px", margin: "20px 0"}} />
+            <img src={logoImg} alt='logo' style={{height: "50px", margin: "5px 0"}} />
 
             {
             state?.message && 
@@ -133,6 +133,12 @@ const Register = () => {
                 <input type='text' placeholder='Last Name' className='text-field' name='lastName' onChange={handleFieldChange}/>
                 <span className="material-symbols-rounded form-field-icon">id_card</span>
                 <p className='form-field-error'>{formFieldsErrors.lastName}</p>
+            </div>
+
+            <div className='form-field-group'>
+                <input type='text' placeholder='Phone Number' className='text-field' name='phoneNumber' onChange={handleFieldChange}/>
+                <span className="material-symbols-rounded form-field-icon">phone</span>
+                <p className='form-field-error'>{formFieldsErrors.phoneNumber}</p>
             </div>
 
             <div className='form-field-group'>

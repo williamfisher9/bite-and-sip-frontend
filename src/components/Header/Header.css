@@ -164,7 +164,8 @@
     left: 0;
     width: 300px;
     z-index: 9999;
-    background-color: rgb(189, 185, 185);
+    background-color: oldlace;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
     color: black;
     padding: 10px 0;
 }
@@ -177,5 +178,5 @@
 }
 
 .admin-menu-container li:hover {
-    background-color: rgb(192, 177, 177)
+    background-color: rgba(121, 99, 192, 0.1)
 }

@@ -68,7 +68,7 @@ const Login = () => {
                 <Link to="/biteandsip/register" className='tab'  style={{color: "black"}}>Sign Up</Link>
             </div>
 
-            <img src={logoImg} alt='logo' style={{height: "50px", margin: "20px 0"}} />
+            <img src={logoImg} alt='logo' style={{height: "50px", margin: "5px 0"}} />
 
             {
             state?.message && 

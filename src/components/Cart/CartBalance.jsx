@@ -63,7 +63,7 @@ const CartBalance = () => {
         <tr>
           <th>Total</th>
           <td>
-            ${((getCartTotal() * 5) / 100 + getCartTotal() + 5 - coupon.details?.amount).toFixed(2)}
+            ${((getCartTotal() * 5) / 100 + getCartTotal() + 5).toFixed(2)}
           </td>
         </tr>
 
