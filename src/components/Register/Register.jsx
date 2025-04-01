@@ -9,8 +9,8 @@ import { BACKEND_URL } from '../../constants/Constants';
 
 const Register = () => {
     const navigate = useNavigate();
-    const [formFields, setFormFields] = useState({emailAddress: "", firstName: "", lastName: "", password: ""})
-    const [formFieldsErrors, setFormFieldsErrors] = useState({emailAddress: "", firstName: "", lastName: "", password: ""})
+    const [formFields, setFormFields] = useState({emailAddress: "", firstName: "", lastName: "", password: "", phoneNumber: ""})
+    const [formFieldsErrors, setFormFieldsErrors] = useState({emailAddress: "", firstName: "", lastName: "", password: "", phoneNumber: ""})
     const [registerRequestError, setRegisterRequestError] = useState("");
     const [passwordHasErrors, setPasswordHasErrors] = useState({rule1: true, rule2: true, rule3: true, rule4: true})
 
@@ -82,6 +82,11 @@ const Register = () => {
             hasErrors=true;
         }
 
+        if(formFields.phoneNumber.trim() == ""){
+            newErrors["phoneNumber"] = "Phone number field is required"
+            hasErrors=true;
+        }
+
         if(formFields.password.trim() == ""){
             newErrors["password"] = "Password field is required"
             hasErrors=true;
@@ -103,7 +108,8 @@ const Register = () => {
             axios.post(`${BACKEND_URL}/api/v1/app/public/auth/register`, {"username": formFields.emailAddress, 
                                                                     "firstName": formFields.firstName, 
                                                                     "lastName": formFields.lastName, 
-                                                                    "password": formFields.password})
+                                                                    "password": formFields.password,
+                                                                "phoneNumber": formFields.phoneNumber})
             .then((res) => {
                 if(res.status == 201){
                     setRegisterRequestError("")

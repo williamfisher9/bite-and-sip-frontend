@@ -11,12 +11,12 @@ import { MenuContext } from '../../context/Menu';
 
 const Profile = () => {
     const navigate = useNavigate()
-    const [formFields, setFormFields] = useState({username: "", firstName: "", lastName: "", password: "", imageSource: ""})
-    const [formFieldsErrors, setFormFieldsErrors] = useState({username: "", firstName: "", lastName: "", password: ""})
+    const [formFields, setFormFields] = useState({username: "", firstName: "", lastName: "", password: "", imageSource: "", phoneNumber: ""})
+    const [formFieldsErrors, setFormFieldsErrors] = useState({username: "", firstName: "", lastName: "", password: "", phoneNumber: ""})
     const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
     const {clearMenuItemsState} = useContext(MenuContext)
 
-    const [file, setFile] = useState({imgFile: null, fileUrl: ""})
+    const [file, setFile] = useState({removed: false, imgFile: null, fileUrl: ""})
 
     const [passwordHasErrors, setPasswordHasErrors] = useState({rule1: true, rule2: true, rule3: true, rule4: true})
     
@@ -29,7 +29,8 @@ const Profile = () => {
                 username: res.data.message.username, 
                 firstName: res.data.message.firstName, 
                 lastName: res.data.message.lastName, 
-                imageSource: res.data.message.imageSource})
+                imageSource: res.data.message.imageSource,
+                phoneNumber: res.data.message.phoneNumber})
             setActiveNavbarItem("LOGIN");
         })
         .catch((err) => {
@@ -42,7 +43,7 @@ const Profile = () => {
     }, [])
 
     const changeFile = (event) => {
-        setFile({imgFile: event.target.files[0], fileUrl: window.URL.createObjectURL(event.target.files[0])})
+        setFile({removed: false, imgFile: event.target.files[0], fileUrl: window.URL.createObjectURL(event.target.files[0])})
     }
 
     const updateUserDetails = () => {
@@ -66,6 +67,11 @@ const Profile = () => {
             hasErrors=true;
         }
 
+        if(formFields.phoneNumber.trim() == ""){
+            newErrors["phoneNumber"] = "phone number field is required"
+            hasErrors=true;
+        }
+
         if(formFields.password != "" && (passwordHasErrors["rule1"] || passwordHasErrors["rule2"] || passwordHasErrors["rule3"] || passwordHasErrors["rule4"])){
             newErrors["password"] = "Password is invalid"
             hasErrors=true;
@@ -79,10 +85,12 @@ const Profile = () => {
             let formData = new FormData();
 
         formData.append("file", file.imgFile);
+        formData.append("fileRemoved", file.removed);
         formData.append("username", formFields.username)
         formData.append("firstName", formFields.firstName)
         formData.append("lastName", formFields.lastName)
         formData.append("password", formFields.password)
+        formData.append("phoneNumber", formFields.phoneNumber)
         formData.append("userId", Cookies.get("userId"))
 
         axios.put(`${BACKEND_URL}/api/v1/app/users/profile/update`, formData, 
@@ -157,6 +165,11 @@ const Profile = () => {
         imgFileRef.current.click()
     }
 
+    const deleteProfileImg = () => {
+        setFormFields({...formFields,  imageSource: ""})
+        setFile({imgFile: null, fileUrl: "", removed: true})
+    }
+
     return <div className="profile-outer-container">
        <div className='profile-inner-container'>
        <div className='profile-img-container' onClick={showImageSelector} style={{cursor: "pointer"}}>
@@ -165,7 +178,10 @@ const Profile = () => {
                 
             }
             <input type='file' id='imgFile' ref={imgFileRef} style={{display: "none"}} onChange={changeFile}/>
+            
         </div>
+
+        <button className='delete-profile-img' onClick={deleteProfileImg}>DELETE PROFILE IMAGE</button>
 
         <div className='form-field-group'>
                 <input type='text' placeholder='Email Address' className='text-field' name='username' value={formFields.username} 
@@ -177,15 +193,22 @@ const Profile = () => {
             <div className='form-field-group'>
                 <input type='text' placeholder='First Name' className='text-field' name='firstName' value={formFields.firstName} 
                 onChange={handleFieldChange}/>
-                <span className="material-symbols-rounded form-field-icon">person</span>
+                <span className="material-symbols-rounded form-field-icon">id_card</span>
                 <p className='form-field-error'>{formFieldsErrors.firstName}</p>
             </div>
 
             <div className='form-field-group'>
                 <input type='text' placeholder='Last Name' className='text-field' name='lastName' value={formFields.lastName} 
                 onChange={handleFieldChange}/>
-                <span className="material-symbols-rounded form-field-icon">person</span>
+                <span className="material-symbols-rounded form-field-icon">id_card</span>
                 <p className='form-field-error'>{formFieldsErrors.lastName}</p>
+            </div>
+
+            <div className='form-field-group'>
+                <input type='text' placeholder='Phone Number' className='text-field' name='phoneNumber' value={formFields.phoneNumber} 
+                onChange={handleFieldChange}/>
+                <span className="material-symbols-rounded form-field-icon">phone</span>
+                <p className='form-field-error'>{formFieldsErrors.phoneNumber}</p>
             </div>
 
             <div className='form-field-group'>
