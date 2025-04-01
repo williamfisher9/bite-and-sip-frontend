@@ -43,7 +43,9 @@ const StripeCheckout = () => {
           })
           .catch((err) => {
             if(err.status == 401 || err.status == 403){
-              navigate("/biteandsip/login")
+              clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
             } else {
               console.log(err)
             }

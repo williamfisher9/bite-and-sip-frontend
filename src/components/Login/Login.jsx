@@ -61,6 +61,19 @@ const Login = () => {
         }
     }
 
+    const [passwordFieldType, setPasswordFieldType] = useState("password")
+    const [passwordFieldVisibilityIcon, setPasswordFieldVisibilityIcon] = useState("visibility");
+
+    const handleShowPassword = () => {
+        if(passwordFieldType == "password"){
+            setPasswordFieldType("text")
+            setPasswordFieldVisibilityIcon("visibility_off")
+        } else {
+            setPasswordFieldType("password")
+            setPasswordFieldVisibilityIcon("visibility")
+        }
+    }
+
     return <div className='outer-form-container'>
         <form className='inner-form-container'>
             <div className='tabs-toggle'>
@@ -82,8 +95,9 @@ const Login = () => {
             </div>
 
             <div className='form-field-group'>
-                <input type='password' placeholder='Password' className='text-field' name='password' onChange={handleFieldChange} autoComplete='off'/>
+                <input type={passwordFieldType} placeholder='Password' className='text-field' name='password' onChange={handleFieldChange} autoComplete='off'/>
                 <span className="material-symbols-rounded form-field-icon">password</span>
+                <span className="material-symbols-rounded show-password-icon" onClick={handleShowPassword}>{passwordFieldVisibilityIcon}</span>
                 <p className='form-field-error'>{formFieldsErrors.password}</p>
             </div>
 

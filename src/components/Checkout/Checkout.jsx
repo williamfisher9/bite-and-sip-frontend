@@ -7,15 +7,20 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import "./Checkout.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'js-cookie';
+import { GlobalStateContext } from "../../context/GlobalState";
+import { MenuContext } from "../../context/Menu";
 
 const Checkout = ({paymentId}) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMsg, setErrorMsg] = useState("");
+
+  const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
+      const {clearMenuItemsState} = useContext(MenuContext)
 
   const navigate = useNavigate()
 
@@ -68,7 +73,9 @@ const Checkout = ({paymentId}) => {
     )
     .catch(err => {
       if(err.status == 401 || err.status == 403){
-        //navigate("/biteandsip/login")
+        clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
       }
     })
   }
@@ -143,7 +150,9 @@ const Checkout = ({paymentId}) => {
       }
     } catch(err) {
       if(err.status == 401 || err.status == 403){
-        navigate("/biteandsip/login");
+        clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
       }
     }
 

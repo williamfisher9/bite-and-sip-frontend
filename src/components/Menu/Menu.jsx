@@ -6,11 +6,14 @@ import { GlobalStateContext } from '../../context/GlobalState';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { BACKEND_URL } from '../../constants/Constants';
+import { MenuContext } from '../../context/Menu';
 
 const Menu = () => {
     const navigate = useNavigate();
-    const {setActiveCategory} = useContext(GlobalStateContext);
     const [menu, setMenu] = useState({foodItems: [], foodCategories: []});
+
+    const {clearUserCookie, setActiveCategory} = useContext(GlobalStateContext);
+        const {clearMenuItemsState} = useContext(MenuContext)
     
     useEffect(() => {
         axios.get(`${BACKEND_URL}/api/v1/app/public/food-items`)
@@ -21,7 +24,9 @@ const Menu = () => {
         })
           .catch((err) => {
             if (err.status == 401 || err.status == 403) {
-              navigate("/biteandsip/login");
+              clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
             }
           });
     

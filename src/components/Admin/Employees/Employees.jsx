@@ -1,15 +1,20 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BACKEND_URL } from "../../../constants/Constants";
 import Cookies from 'js-cookie'
 import TableDisplay from "./TableDisplay";
 import { useNavigate } from "react-router-dom";
 import CardDisplay from "./CardDisplay";
+import { GlobalStateContext } from "../../../context/GlobalState";
+import { MenuContext } from "../../../context/Menu";
 
 const Employees = () => {
     const [employees, setEmployees] = useState([]);
     const navigate = useNavigate()
     const [windowSize, setWindowSize] = useState(window.innerWidth);
+
+    const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
+        const {clearMenuItemsState} = useContext(MenuContext)
 
     useEffect(() => {
         axios.get(`${BACKEND_URL}/api/v1/app/admin/users/employees`, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
@@ -47,7 +52,9 @@ const Employees = () => {
           })
           .catch((err) => {
             if (err.status == 401 || err.status == 403) {
-                navigate("/biteandsip/login")
+              clearUserCookie();
+              clearMenuItemsState();
+              navigate("/biteandsip/login");
               }
           });
       };

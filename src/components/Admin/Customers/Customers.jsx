@@ -1,15 +1,20 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BACKEND_URL } from "../../../constants/Constants";
 import Cookies from 'js-cookie'
 import './Customers.css'
 import TableDisplay from "./TableDisplay";
 import { useNavigate } from "react-router-dom";
 import CardDisplay from "./CardDisplay";
+import { GlobalStateContext } from "../../../context/GlobalState";
+import { MenuContext } from "../../../context/Menu";
 
 const Customers = () => {
     const [customers, setCustomers] = useState([]);
     const navigate = useNavigate()
+
+    const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
+        const {clearMenuItemsState} = useContext(MenuContext)
 
     const [windowSize, setWindowSize] = useState(window.innerWidth);
 
@@ -45,7 +50,9 @@ const Customers = () => {
           })
           .catch((err) => {
             if (err.status == 401 || err.status == 403) {
-                navigate("/biteandsip/login")
+              clearUserCookie();
+              clearMenuItemsState();
+              navigate("/biteandsip/login");
               }
           });
 

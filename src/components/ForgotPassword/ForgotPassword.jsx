@@ -29,7 +29,7 @@ const ForgotPassword = () => {
         setFormFieldsErrors(newErrors);
 
         if(!hasErrors){
-            axios.post(`${BACKEND_URL}/api/v1/users/forgot-password`, {"email_address": formFields.emailAddress})
+            axios.post(`${BACKEND_URL}/api/v1/app/public/forgot-password`, {"username": formFields.emailAddress})
             .then((res) => {
                 if(res.status == 200){
                     setForgotPasswordRequestError("")

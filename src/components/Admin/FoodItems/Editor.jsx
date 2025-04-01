@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -7,10 +7,15 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { BACKEND_URL } from "../../../constants/Constants";
 
 import './FoodItems.css'
+import { MenuContext } from "../../../context/Menu";
+import { GlobalStateContext } from "../../../context/GlobalState";
 
 const FoodItemEditor = () => {
   const params = useParams();
   const navigate = useNavigate();
+
+  const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
+      const {clearMenuItemsState} = useContext(MenuContext)
 
   const [formFields, setFormFields] = useState({
     name: "",
@@ -57,7 +62,9 @@ const FoodItemEditor = () => {
         .catch((err) => {
           console.log(err)
           if (err.status == 401 || err.status == 403) {
-            navigate("/biteandsip/login");
+            clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
           }
         });
     } else {
@@ -78,7 +85,9 @@ const FoodItemEditor = () => {
         .catch((err) => {
           console.log(err)
           if (err.status == 401 || err.status == 403) {
-            navigate("/biteandsip/login");
+            clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
           }
         });
     }
@@ -128,7 +137,9 @@ const FoodItemEditor = () => {
     if (hasErrors) {
       setFormFieldsErrors(formErrors);
     } else if (Cookies.get("token") == null) {
-      navigate("/biteandsip/login");
+      clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
     } else {
       
 
@@ -156,7 +167,9 @@ const FoodItemEditor = () => {
           })
           .catch((err) => {
             if (err.status == 401 || err.status == 403) {
-              navigate("/biteandsip/login");
+              clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
             }
           });
       } else {

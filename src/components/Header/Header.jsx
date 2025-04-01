@@ -15,7 +15,7 @@ import { Elements } from '@stripe/react-stripe-js';
 
 
 const Header = () => {
-    const { setActiveNavbarItem } = useContext(GlobalStateContext)
+    const { setActiveNavbarItem, clearUserCookie } = useContext(GlobalStateContext)
     const navigate = useNavigate()
     const [windowSize, setWindowSize] = useState(window.innerWidth)
     const [showSideMenu, setShowSideMenu] = useState(false)
@@ -78,7 +78,11 @@ const Header = () => {
                 (
                     !Cookies.get("isAuthenticated") ? 
                     <>
-                        <div className='btn' onClick={() => {navigate("/biteandsip/login"); setActiveNavbarItem("LOGIN");}}>
+                        <div className='btn' onClick={() => {
+                            clearUserCookie();
+                            clearMenuItemsState();
+                            navigate("/biteandsip/login");
+                            setActiveNavbarItem("LOGIN");}}>
                         <span>SIGN IN</span>
                         <div className='first-q'></div>
                         <div className='second-q'></div>

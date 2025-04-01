@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import CardDisplay from "./CardDisplay";
@@ -8,11 +8,16 @@ import TableDisplay from "./TableDisplay";
 import "./FoodItems.css";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { BACKEND_URL } from "../../../constants/Constants";
+import { GlobalStateContext } from "../../../context/GlobalState";
+import { MenuContext } from "../../../context/Menu";
 
 const FoodItems = () => {
   const navigate = useNavigate();
   const [menu, setMenu] = useState({ foodItems: [], categories: [] });
   const [windowSize, setWindowSize] = useState(window.innerWidth);
+
+  const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
+      const {clearMenuItemsState} = useContext(MenuContext)
 
   useEffect(() => {
     
@@ -31,6 +36,8 @@ const FoodItems = () => {
       })
       .catch((err) => {
         if (err.status == 401 || err.status == 403) {
+          clearUserCookie();
+          clearMenuItemsState();
           navigate("/biteandsip/login");
         }
       });

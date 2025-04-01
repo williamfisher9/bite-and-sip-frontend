@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./Employees.css";
 import axios from "axios";
 import { BACKEND_URL } from "../../../constants/Constants";
 import Cookies from "js-cookie";
 import { v4 as uuidv4 } from "uuid";
+import { GlobalStateContext } from "../../../context/GlobalState";
+import { MenuContext } from "../../../context/Menu";
 
 const EmployeeEditor = () => {
   const navigate = useNavigate();
+
+  const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
+      const {clearMenuItemsState} = useContext(MenuContext)
   const [formFields, setFormFields] = useState({
     username: "",
     firstName: "",
@@ -107,7 +112,9 @@ const EmployeeEditor = () => {
         })
         .catch((err) => {
             if(err.status == 401 || err.status == 403){
-                navigate("/biteandsip/login")
+              clearUserCookie();
+              clearMenuItemsState();
+              navigate("/biteandsip/login");
             }
           setRegisterRequestError(err.response.data.message);
         });
@@ -129,7 +136,9 @@ const EmployeeEditor = () => {
         })
         .catch((err) => {
             if(err.status == 401 || err.status == 403){
-                navigate("/biteandsip/login")
+              clearUserCookie();
+              clearMenuItemsState();
+              navigate("/biteandsip/login");
             }
           setRegisterRequestError(err.response.data.message);
         });

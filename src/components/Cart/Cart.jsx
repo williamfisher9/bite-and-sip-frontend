@@ -8,12 +8,17 @@ import CartTableDisplay from "./CartTableDisplay";
 import { useNavigate } from "react-router-dom";
 
 import Cookies from 'js-cookie';
+import { GlobalStateContext } from "../../context/GlobalState";
+import { MenuContext } from "../../context/Menu";
 
 const Cart = () => {
     const {cartItems} = useContext(CartContext)
     const navigate = useNavigate()
 
     const [windowSize, setWindowSize] = useState(window.innerWidth)
+
+    const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
+        const {clearMenuItemsState} = useContext(MenuContext)
 
     useEffect(() => {
         window.addEventListener("resize", () => {
@@ -29,7 +34,9 @@ const Cart = () => {
         if(Cookies.get("isAuthenticated")){
             navigate("/biteandsip/cart/checkout");
         } else {
-            navigate("/biteandsip/login");
+            clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
         }
     }
 

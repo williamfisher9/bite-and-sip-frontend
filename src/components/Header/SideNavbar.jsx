@@ -6,7 +6,7 @@ import { MenuContext } from "../../context/Menu";
 import Cookies from 'js-cookie';
 
 const SideNavbar = ({ showSideMenu, closeSideMenu }) => {
-    const { globalState } = useContext(GlobalStateContext)
+    const { globalState, clearUserCookie } = useContext(GlobalStateContext)
     const {menuItemsState, clearMenuItemsState} = useContext(MenuContext)
 
     const navigate = useNavigate()
@@ -43,16 +43,16 @@ const SideNavbar = ({ showSideMenu, closeSideMenu }) => {
 
             {
               !Cookies.get("isAuthenticated") ? <>
-              <li onClick={() => {navigate("/biteandsip/login"); closeSideMenu();}}>SIGN IN</li>
+              <li onClick={() => {clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login"); closeSideMenu();}}>SIGN IN</li>
               <li onClick={() => {navigate("/biteandsip/register"); closeSideMenu();}}>SIGN UP</li>
             </>
             :
-            <li onClick={() => {navigate("/biteandsip/home"); closeSideMenu(); Cookies.remove('isAuthenticated'); 
-              Cookies.remove('userId');
-              Cookies.remove('token');
-              Cookies.remove('menuItems');
-              Cookies.remove('authorityId');
-              Cookies.remove('username'); clearMenuItemsState();
+            <li onClick={() => { navigate("/biteandsip/home"); 
+              closeSideMenu(); 
+              clearUserCookie(); 
+              clearMenuItemsState();
             }}>SIGN OUT</li>
             }
             

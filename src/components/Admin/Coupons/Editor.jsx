@@ -1,16 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 
 import './Coupons.css'
 import { BACKEND_URL } from "../../../constants/Constants";
+import { GlobalStateContext } from "../../../context/GlobalState";
+import { MenuContext } from "../../../context/Menu";
 
 
 
 const CouponsEditor = () => {
   const params = useParams();
   const navigate = useNavigate();
+
+  const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
+      const {clearMenuItemsState} = useContext(MenuContext)
 
   const [formFields, setFormFields] = useState({
     code: "",
@@ -50,7 +55,9 @@ const CouponsEditor = () => {
         })
         .catch((err) => {
           if (err.status == 401 || err.status == 403) {
-            navigate("/biteandsip/login");
+            clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
           }
         });
     }
@@ -89,7 +96,9 @@ const CouponsEditor = () => {
     if (hasErrors) {
       setFormFieldsErrors(formErrors);
     } else if (Cookies.get("token") == null) {
-      navigate("/biteandsip/login");
+          clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
     } else {
       
 
@@ -115,6 +124,8 @@ const CouponsEditor = () => {
           })
           .catch((err) => {
             if (err.status == 401 || err.status == 403) {
+              clearUserCookie();
+              clearMenuItemsState();
               navigate("/biteandsip/login");
             }
 

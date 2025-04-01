@@ -19,6 +19,8 @@ import Employees from './components/Admin/Employees/Employees'
 import EmployeeEditor from './components/Admin/Employees/Editor'
 import Orders from './components/Orders/Orders'
 import Settings from './components/Admin/Settings/Settings'
+import ResetForgottenPassword from './components/ForgotPassword/ResetForgottenPassword/ResetForgottenPassword'
+import Profile from './components/Profile/Profile'
 
 const App = () => {
   return <Router>
@@ -34,6 +36,7 @@ const App = () => {
               <Route path='/biteandsip/login' element={<Login />}></Route>
               <Route path='/biteandsip/register' element={<Register />}></Route>
               <Route path='/biteandsip/forgot-password' element={<ForgotPassword />}></Route>
+              <Route path='/biteandsip/reset-forgotten-password' element={<ResetForgottenPassword />}></Route>
 
               <Route path='/biteandsip/cart/checkout' element={<StripeCheckout />}></Route>
               
@@ -52,6 +55,8 @@ const App = () => {
               <Route path='/biteandsip/admin/settings' element={<Settings />}></Route>
 
               <Route path='/biteandsip/:source/orders' element={<Orders />}></Route>
+
+              <Route path='/biteandsip/profile' element={<Profile />}></Route>
             </Route>
           </Routes>
         </Router>
