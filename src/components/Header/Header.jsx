@@ -1,4 +1,4 @@
-import { CiSearch } from 'react-icons/ci';
+import { CiSearch, CiUser } from 'react-icons/ci';
 import logoImg from '../../assets/logo.png'
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,10 +9,6 @@ import Cookies from 'js-cookie';
 import { MenuContext } from '../../context/Menu.jsx';
 import TopNavbar from './TopNavbar.jsx';
 import SideNavbar from './SideNavbar.jsx';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-
-
 
 const Header = () => {
     const { setActiveNavbarItem, clearUserCookie } = useContext(GlobalStateContext)
@@ -72,6 +68,7 @@ const Header = () => {
 
             
                 <CartIcon windowSize={windowSize} />
+
             
             {
                 windowSize >= 1200 ? 

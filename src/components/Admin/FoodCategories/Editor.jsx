@@ -7,6 +7,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { BACKEND_URL } from "../../../constants/Constants";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
+import ItemStatus from "../../ItemStatus/ItemStatus";
 
 const FoodCategoryEditor = () => {
   const params = useParams();
@@ -30,6 +31,7 @@ const FoodCategoryEditor = () => {
   const mainImageRef = useRef();
 
   useEffect(() => {
+    setActiveNavbarItem("FOOD CATEGORIES")
     if (params.itemId != "new") {
       axios
         .get(
@@ -142,6 +144,10 @@ const FoodCategoryEditor = () => {
     }
   };
 
+  const toggleStatus = () => {
+    setFormFields({...formFields, active: !formFields.active})
+  }
+
   return (
     <div className="editor-container">
       <div className="inner-editor-container">
@@ -204,17 +210,7 @@ const FoodCategoryEditor = () => {
           </p>
         </div>
 
-        <div className="item-status-wrapper">
-          <div className="item-status-toggler">
-            {formFields.active ? (
-              <div className="active-item-status" 
-              onClick={() => {setFormFields({...formFields, active: !formFields.active})}}>ON</div>
-            ) : (
-              <div className="inactive-item-status" 
-              onClick={() => {setFormFields({...formFields, active:  !formFields.active})}}>OFF</div>
-            )}
-          </div>
-        </div>
+        <ItemStatus active={formFields.active} toggleStatus={toggleStatus} />
 
         <div className="editor-actions-container">
           <button className="editor-action" onClick={saveCategory}>

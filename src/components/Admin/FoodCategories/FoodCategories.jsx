@@ -12,14 +12,17 @@ import { MenuContext } from "../../../context/Menu";
 
 const FoodCategories = () => {
     const navigate = useNavigate();
+    const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
+    const {clearMenuItemsState} = useContext(MenuContext)
+
     const [foodCategories, setFoodCategories] = useState([]);
 
     const [windowSize, setWindowSize] = useState(window.innerWidth)
 
-    const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
-        const {clearMenuItemsState} = useContext(MenuContext)
+    
 
     useEffect(() => {
+        setActiveNavbarItem("FOOD CATEGORIES")
         window.addEventListener("resize", () => {
             setWindowSize(window.innerWidth)
         })

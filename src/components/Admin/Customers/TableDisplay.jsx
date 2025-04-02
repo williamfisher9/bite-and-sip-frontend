@@ -1,4 +1,17 @@
+import { createSearchParams, useNavigate } from "react-router-dom"
+
 const TableDisplay = ({data}) => {
+    const navigate = useNavigate()
+
+    const showCustomerDetails = (id) => {
+        navigate({
+            pathname: "/biteandsip/admin/customers/view",
+            search: createSearchParams({
+                customer_id: `${id}`
+            }).toString()
+        });
+    }
+
     return <table>
     <thead>
         <tr>
@@ -17,7 +30,9 @@ const TableDisplay = ({data}) => {
                     <td>{element.firstName}</td>
                     <td>{element.lastName}</td>
                     <td>{element.enabled ? <span style={{backgroundColor: "green", color: "white", padding: "3px 6px", borderRadius: "5px"}}>ACTIVE</span> : <span style={{backgroundColor: "red", color: "white", padding: "3px 6px", borderRadius: "5px"}}>INACTIVE</span>}</td>
-                    <td><span className="material-symbols-rounded" style={{border: "2px solid black", borderRadius: "5px", padding: "5px", cursor: "pointer"}}>more_horiz</span></td>
+                    <td><span className="material-symbols-rounded" 
+                    style={{border: "2px solid black", borderRadius: "5px", padding: "5px", cursor: "pointer"}}
+                    onClick={() => showCustomerDetails(element.id)}>more_horiz</span></td>
                 </tr>
             })
         }

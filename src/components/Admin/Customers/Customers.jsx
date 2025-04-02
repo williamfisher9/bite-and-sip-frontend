@@ -19,14 +19,19 @@ const Customers = () => {
     const [windowSize, setWindowSize] = useState(window.innerWidth);
 
     useEffect(() => {
+      setActiveNavbarItem("CUSTOMERS")
         axios.get(`${BACKEND_URL}/api/v1/app/admin/users/customers`, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
         .then((res) => {
             console.log(res.data.message)
             setCustomers(res.data.message)
         })
-        .catch((err) => {
-            console.log(err)
-        })
+        .catch(err => {
+          if(err.status == 401 || err.status == 403){
+              clearUserCookie();
+        clearMenuItemsState();
+        navigate("/biteandsip/login");
+          }
+      });
 
         window.addEventListener("resize", () => {
             setWindowSize(window.innerWidth);

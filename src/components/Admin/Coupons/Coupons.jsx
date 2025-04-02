@@ -19,6 +19,7 @@ const Coupons = () => {
       const {clearMenuItemsState} = useContext(MenuContext)
 
   useEffect(() => {
+    setActiveNavbarItem("COUPONS")
     axios
       .get(`${BACKEND_URL}/api/v1/app/admin/coupons`, {
         headers: { Authorization: `Bearer ${Cookies.get("token")}` },

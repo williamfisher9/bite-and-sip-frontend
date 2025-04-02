@@ -11,12 +11,12 @@ import { MenuContext } from '../../context/Menu';
 
 const Profile = () => {
     const navigate = useNavigate()
-    const [formFields, setFormFields] = useState({username: "", firstName: "", lastName: "", password: "", imageSource: "", phoneNumber: ""})
+    const [formFields, setFormFields] = useState({username: "", firstName: "", lastName: "", password: "", phoneNumber: "", imageSource: "", imgFile: null, fileUrl: ""})
     const [formFieldsErrors, setFormFieldsErrors] = useState({username: "", firstName: "", lastName: "", password: "", phoneNumber: ""})
     const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
     const {clearMenuItemsState} = useContext(MenuContext)
 
-    const [file, setFile] = useState({removed: false, imgFile: null, fileUrl: ""})
+    //const [file, setFile] = useState({removed: false, imgFile: null, fileUrl: ""})
 
     const [passwordHasErrors, setPasswordHasErrors] = useState({rule1: true, rule2: true, rule3: true, rule4: true})
     
@@ -31,7 +31,7 @@ const Profile = () => {
                 lastName: res.data.message.lastName, 
                 imageSource: res.data.message.imageSource,
                 phoneNumber: res.data.message.phoneNumber})
-            setActiveNavbarItem("LOGIN");
+            setActiveNavbarItem("PROFILE");
         })
         .catch((err) => {
             if(err.status == 401 || err.status == 403){
@@ -43,7 +43,8 @@ const Profile = () => {
     }, [])
 
     const changeFile = (event) => {
-        setFile({removed: false, imgFile: event.target.files[0], fileUrl: window.URL.createObjectURL(event.target.files[0])})
+        setFormFields({...formFields, imgFile: event.target.files[0], fileUrl: window.URL.createObjectURL(event.target.files[0])})
+        //setFile({removed: false, imgFile: event.target.files[0], fileUrl: window.URL.createObjectURL(event.target.files[0])})
     }
 
     const updateUserDetails = () => {
@@ -84,12 +85,13 @@ const Profile = () => {
         if(!hasErrors && formFields){
             let formData = new FormData();
 
-        formData.append("file", file.imgFile);
-        formData.append("fileRemoved", file.removed);
+        formData.append("file", formFields.imgFile);
+        //formData.append("fileRemoved", file.removed);
         formData.append("username", formFields.username)
         formData.append("firstName", formFields.firstName)
         formData.append("lastName", formFields.lastName)
         formData.append("password", formFields.password)
+        formData.append("imageSource", formFields.imageSource)
         formData.append("phoneNumber", formFields.phoneNumber)
         formData.append("userId", Cookies.get("userId"))
 
@@ -166,15 +168,15 @@ const Profile = () => {
     }
 
     const deleteProfileImg = () => {
-        setFormFields({...formFields,  imageSource: ""})
-        setFile({imgFile: null, fileUrl: "", removed: true})
+        setFormFields({...formFields,  imageSource: "", imgFile: null, fileUrl: ""})
+        //setFile({imgFile: null, fileUrl: "", removed: true})
     }
 
     return <div className="profile-outer-container">
        <div className='profile-inner-container'>
        <div className='profile-img-container' onClick={showImageSelector} style={{cursor: "pointer"}}>
             {
-                <img src={file.fileUrl != "" ? file.fileUrl : formFields.imageSource || logoImg} alt='profile img' />
+                <img src={formFields.fileUrl != "" ? formFields.fileUrl : formFields.imageSource || logoImg} alt='profile img' />
                 
             }
             <input type='file' id='imgFile' ref={imgFileRef} style={{display: "none"}} onChange={changeFile}/>

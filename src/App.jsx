@@ -21,6 +21,8 @@ import Orders from './components/Orders/Orders'
 import Settings from './components/Admin/Settings/Settings'
 import ResetForgottenPassword from './components/ForgotPassword/ResetForgottenPassword/ResetForgottenPassword'
 import Profile from './components/Profile/Profile'
+import CustomerDetails from './components/Admin/Customers/CustomerDetails/CustomerDetails'
+import Dashboard from './components/Admin/Dahsboard/Dashboard'
 
 const App = () => {
   return <Router>
@@ -57,6 +59,8 @@ const App = () => {
               <Route path='/biteandsip/:source/orders' element={<Orders />}></Route>
 
               <Route path='/biteandsip/profile' element={<Profile />}></Route>
+              <Route path='/biteandsip/admin/customers/view' element={<CustomerDetails />}></Route>
+              <Route path='/biteandsip/admin/dashboard' element={<Dashboard />}></Route>
             </Route>
           </Routes>
         </Router>

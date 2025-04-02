@@ -9,6 +9,7 @@ import { BACKEND_URL } from "../../../constants/Constants";
 import './FoodItems.css'
 import { MenuContext } from "../../../context/Menu";
 import { GlobalStateContext } from "../../../context/GlobalState";
+import ItemStatus from "../../ItemStatus/ItemStatus";
 
 const FoodItemEditor = () => {
   const params = useParams();
@@ -39,6 +40,7 @@ const FoodItemEditor = () => {
   const mainImageRef = useRef();
 
   useEffect(() => {
+    setActiveNavbarItem("FOOD ITEM")
     if (params.itemId != "new") {
       axios
         .get(
@@ -203,6 +205,10 @@ const FoodItemEditor = () => {
     setFormFields({...formFields, categoryId: event.target.value})
   }
 
+  const toggleStatus = () => {
+    setFormFields({...formFields, active: !formFields.active})
+  }
+
 
   return (
     <div className="editor-container">
@@ -320,11 +326,11 @@ const FoodItemEditor = () => {
 
         <div className="category-type-select">
        
-        <select onChange={handleSelectChange} id="selectedCategory" name="selectedCategory">
+        <select onChange={handleSelectChange} id="selectedCategory" name="selectedCategory" value={formFields.categoryId}>
           <option key="None" value="0">Choose a Category</option>
           {
             formFields.categories.map((item) => {
-              return <option key={item.id} value={item.id} selected={formFields.categoryId == item.id}>{item.name}</option>
+              return <option key={item.id} value={item.id}>{item.name}</option>
             })
           }
 
@@ -344,17 +350,7 @@ const FoodItemEditor = () => {
 
 
 
-        <div className="item-status-wrapper">
-          <div className="item-status-toggler">
-            {formFields.active ? (
-              <div className="active-item-status" 
-              onClick={() => {setFormFields({...formFields, active: !formFields.active})}}>ON</div>
-            ) : (
-              <div className="inactive-item-status" 
-              onClick={() => {setFormFields({...formFields, active:  !formFields.active})}}>OFF</div>
-            )}
-          </div>
-        </div>
+      <ItemStatus active={formFields.active} toggleStatus={toggleStatus} />
 
         <div className="editor-actions-container">
           <button className="editor-action" onClick={saveFoodItem}>

@@ -1,4 +1,11 @@
+import { useNavigate } from "react-router-dom"
+
 const CardDisplay = ({data}) => {
+    const navigate = useNavigate()
+
+    const showCustomerDetails = (id) => {
+        navigate(`/biteandsip/admin/customers/view?${id}`)
+    }
     return <div className='cards-grid'>
     {
         data.map((item) => {
@@ -17,7 +24,9 @@ const CardDisplay = ({data}) => {
                 </div> 
 
                 <div>
-                <span className="material-symbols-rounded" style={{border: "2px solid black", borderRadius: "5px", padding: "5px", cursor: "pointer"}}>more_horiz</span>
+                <span className="material-symbols-rounded" 
+                style={{border: "2px solid black", borderRadius: "5px", padding: "5px", cursor: "pointer"}}
+                onClick={() => showCustomerDetails(item.id)}>more_horiz</span>
                 </div>
   
             </div>

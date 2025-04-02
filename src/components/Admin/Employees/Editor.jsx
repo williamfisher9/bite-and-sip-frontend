@@ -7,17 +7,21 @@ import Cookies from "js-cookie";
 import { v4 as uuidv4 } from "uuid";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
+import ItemStatus from "../../ItemStatus/ItemStatus";
 
 const EmployeeEditor = () => {
   const navigate = useNavigate();
 
   const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
       const {clearMenuItemsState} = useContext(MenuContext)
+  
   const [formFields, setFormFields] = useState({
     username: "",
     firstName: "",
     lastName: "",
+    phoneNumber: "",
     roleId: 0,
+    active: false,
     roles: [],
   });
 
@@ -25,6 +29,7 @@ const EmployeeEditor = () => {
     username: "",
     firstName: "",
     lastName: "",
+    phoneNumber: "",
     roleId: "",
   });
 
@@ -39,13 +44,14 @@ const EmployeeEditor = () => {
   const params = useParams();
 
   useEffect(() => {
+    setActiveNavbarItem("EMPLOYEES")
     if (params.itemId == "new") {
       axios
         .get(`${BACKEND_URL}/api/v1/app/admin/roles`, {
           headers: { Authorization: `Bearer ${Cookies.get("token")}` },
         })
         .then((res) => {
-          
+          setFormFields({...formFields, roles: res.data.message})
         });
     } else {
       axios
@@ -83,6 +89,11 @@ const EmployeeEditor = () => {
       hasErrors = true;
     }
 
+    if (formFields.phoneNumber.trim() == "") {
+      newErrors["phoneNumber"] = "Phone number field is required";
+      hasErrors = true;
+    }
+
     if (formFields.roleId == 0) {
       newErrors["roleId"] = "Select the new employee role";
       hasErrors = true;
@@ -99,8 +110,10 @@ const EmployeeEditor = () => {
             username: formFields.username,
             firstName: formFields.firstName,
             lastName: formFields.lastName,
+            phoneNumber: formFields.phoneNumber,
             password: uuidv4(),
             userType: formFields.roleId,
+            active: formFields.active
           },
           { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
         )
@@ -124,7 +137,9 @@ const EmployeeEditor = () => {
             username: formFields.username,
             firstName: formFields.firstName,
             lastName: formFields.lastName,
+            phoneNumber: formFields.phoneNumber,
             roleId: formFields.roleId,
+            active: formFields.active
           },
           { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
         )
@@ -145,6 +160,10 @@ const EmployeeEditor = () => {
       }
     }
   };
+
+  const toggleStatus = () => {
+    setFormFields({...formFields, active: !formFields.active})
+  }
 
   return (
     <div className="outer-employee-editor-container">
@@ -204,18 +223,38 @@ const EmployeeEditor = () => {
           </p>
         </div>
 
+        <div className="form-field-group-employee-editor">
+          <input
+            type="text"
+            placeholder="Phone Number"
+            className="text-field"
+            name="phoneNumber"
+            onChange={handleFieldChange}
+            defaultValue={formFields.phoneNumber}
+          />
+          <span className="material-symbols-rounded form-field-icon-employee-editor">
+            phone
+          </span>
+          <p className="form-field-error-employee-editor">
+            {formFieldsErrors.phoneNumber}
+          </p>
+        </div>
+
+        <ItemStatus active={formFields.active} toggleStatus={toggleStatus} />
+
         <div className="category-type-select-employee-editor">
           <select
             onChange={handleSelectChange}
             id="selectedCategory"
             name="selectedCategory"
+            value={formFields.roleId}
           >
             <option key="None" value="0">
               Choose Employee ROLE
             </option>
             {formFields.roles.map((item) => {
               return (
-                <option key={item.id} value={item.id} selected={formFields.roleId == item.id}>
+                <option key={item.id} value={item.id}>
                   {item.authority}
                 </option>
               );
