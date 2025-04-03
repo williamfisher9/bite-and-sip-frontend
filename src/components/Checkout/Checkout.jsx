@@ -1,86 +1,31 @@
 import {
   AddressElement,
-  Elements,
   PaymentElement,
-  useCheckout,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
 import "./Checkout.css";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Cookies from 'js-cookie';
 import { GlobalStateContext } from "../../context/GlobalState";
 import { MenuContext } from "../../context/Menu";
+import {BACKEND_URL} from '../../constants/Constants'
+import { CartContext } from "../../context/Cart";
 
 const Checkout = ({paymentId}) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [errorMsg, setErrorMsg] = useState("");
 
-  const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
-      const {clearMenuItemsState} = useContext(MenuContext)
+  const {clearUserCookie} = useContext(GlobalStateContext);
+      const {clearMenuItemsState} = useContext(MenuContext);
+      const {clearCart} = useContext(CartContext)
 
   const navigate = useNavigate()
 
   useEffect(() => {
     console.log(paymentId)
   }, [])
-
-  const handleSubmit2 = async (event) => {
-    // We don't want to let default form submission happen here,
-    // which would refresh the page.
-    event.preventDefault();
-
-    if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
-      return;
-    }
-
-    const result = await stripe.confirmPayment({
-      //`Elements` instance that was used to create the Payment Element
-      elements,
-      confirmParams: {
-        return_url: "http://localhost:5173/biteandsip/cart/payment-status",
-      },
-    });
-
-    if (result.error) {
-      // Show error to your customer (for example, payment details incomplete)
-      console.log(result.error.message);
-    } else {
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
-    }
-  };
-
-  const handleSubmit3 = () => {
-    let cartItems = []
-    JSON.parse(localStorage.getItem("cartItems")).forEach((element) => {
-      console.log(element)
-      cartItems.push({"foodItemId": element.id, "quantity": element.quantity})
-    })
-    console.log("--------------------")
-    console.log(paymentId)
-    console.log("--------------------")
-
-    axios.post("http://localhost:8080/api/v1/app/checkout/confirm-order", 
-      {"cartItems": cartItems, "customerId": Cookies.get("userId"), "coupon": localStorage.getItem("coupon"), "paymentId": paymentId},
-      {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}}
-    )
-    .catch(err => {
-      if(err.status == 401 || err.status == 403){
-        clearUserCookie();
-          clearMenuItemsState();
-          navigate("/biteandsip/login");
-      }
-    })
-  }
-
-
 
   const [errorMessage, setErrorMessage] = useState();
   const [loading, setLoading] = useState(false);
@@ -129,7 +74,7 @@ const Checkout = ({paymentId}) => {
 
     // Create the PaymentIntent
     try {
-      const res = await fetch("http://localhost:8080/api/v1/app/checkout/create-confirm-intent", {
+      const res = await fetch(`${BACKEND_URL}/api/v1/app/checkout/create-confirm-intent`, {
         method: "POST",
         headers: {"Content-Type": "application/json", "Authorization": `Bearer ${Cookies.get("token")}`},
         body: JSON.stringify({
@@ -144,6 +89,7 @@ const Checkout = ({paymentId}) => {
   
       if(res.status == 200){
         window.localStorage.removeItem("cartItems");
+        clearCart();
         setLoading(false);
         navigate("/biteandsip/customer/orders");
 

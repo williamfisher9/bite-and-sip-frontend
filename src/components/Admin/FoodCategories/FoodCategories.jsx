@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
 import CardDisplay from "./CardDisplay";
 import TableDisplay from "./TableDisplay";
-import "./FoodCategories.css";
+import './FoodCategories.css'
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { BACKEND_URL } from "../../../constants/Constants";
 import { GlobalStateContext } from "../../../context/GlobalState";

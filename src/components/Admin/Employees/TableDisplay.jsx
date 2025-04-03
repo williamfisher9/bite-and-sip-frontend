@@ -26,7 +26,8 @@ const TableDisplay = ({data}) => {
                         <td>{element.lastName}</td>
                         <td>{element.userType}</td>
                         <td>{element.enabled ? <span style={{backgroundColor: "green", color: "white", padding: "3px 6px", borderRadius: "5px"}}>ACTIVE</span> : <span style={{backgroundColor: "red", color: "white", padding: "3px 6px", borderRadius: "5px"}}>INACTIVE</span>}</td>
-                        <td><span className="material-symbols-rounded" style={{border: "2px solid black", borderRadius: "5px", padding: "5px", cursor: "pointer"}} onClick={() => editEmployee(element)}>edit</span></td>
+                        <td style={{textAlign: "end"}}><span className="material-symbols-rounded" style={{border: "2px solid black", borderRadius: "5px", padding: "5px", 
+                            cursor: "pointer"}} onClick={() => editEmployee(element)}>edit</span></td>
                     </tr>
                 })
             }

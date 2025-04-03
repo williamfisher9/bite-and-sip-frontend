@@ -12,7 +12,7 @@ const CardDisplay = ({foodItems, foodCategories}) => {
     return <div className='cards-grid'>
     {
         foodItems.map((item) => {
-            return <div className='card-item' key={item.id}>
+            return <div className='food-item-card' key={item.id}>
                 <div className='card-item-image-container'>
                     <img src={item.imageSource} alt={item.name} />
                     <div className='card-actions'>
@@ -25,8 +25,8 @@ const CardDisplay = ({foodItems, foodCategories}) => {
                     <p style={{textAlign: "center", margin: "10px 0", fontWeight: "500", fontSize: "18px"}}>{item.name}</p>
                 </div>      
 
-                <div>
-                    <p style={{textAlign: "center", margin: "10px 0", fontWeight: "400", fontSize: "14px"}}>{item.description}</p>
+                <div className='item-description'>
+                    <p >{item.description}</p>
                 </div>
 
                 <div className='item-price'>

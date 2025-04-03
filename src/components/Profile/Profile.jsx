@@ -173,7 +173,9 @@ const Profile = () => {
     }
 
     return <div className="profile-outer-container">
+        
        <div className='profile-inner-container'>
+       <h3 style={{fontWeight: "600", backgroundColor: "#7963c0", width: "100%", color: "#fff", height: "50px", display: "flex", justifyContent: "center", alignItems: "center"}}>PROFILE</h3> 
        <div className='profile-img-container' onClick={showImageSelector} style={{cursor: "pointer"}}>
             {
                 <img src={formFields.fileUrl != "" ? formFields.fileUrl : formFields.imageSource || logoImg} alt='profile img' />

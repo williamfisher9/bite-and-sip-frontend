@@ -16,31 +16,32 @@ const TopNavbar = ({generalMenu, administrationMenu}) => {
                             }
     
                     {
-                                administrationMenu.length != 0 && <div className='admin-div' 
-                                style={{position: "relative"}} 
-                                onMouseOver={() => setShowAdminMenu(true)} 
+                                administrationMenu.length != 0 && <li key="ADMINISTRATION" className="admin-menu"
+                                onMouseOver={() => setShowAdminMenu(true)}
                                 onMouseLeave={() => setShowAdminMenu(false)}>
-    
-                                    <li key="ADMINISTRATION" style={{display: "flex", justifyContent: "center", alignItems: "center"}} 
-                                        >ADMINISTRATION <span className="material-symbols-rounded">stat_minus_1</span></li>
-    
-    
+                                        <span>ADMINISTRATION</span>
+                                        <span className="material-symbols-rounded">stat_minus_1</span>
+                                    
+
+                    
+
+
                     {
                         showAdminMenu && <div className="admin-menu-container">
-                        <ul>
-                        {
-                            administrationMenu.length != 0 && administrationMenu.sort((a, b) => a.id - b.id).map((item, index) => {
-                                return <li key={index} onClick={() => {navigate(`${item.menuItemLink}`); setActiveNavbarItem(item.menuItem);}}>{item.menuItem}</li>
-                            })
-                        }
-                        </ul>
-                    </div>
+                            <ul>
+                            {
+                                administrationMenu.length != 0 && administrationMenu.sort((a, b) => a.id - b.id).map((item, index) => {
+                                    return <li key={index} onClick={() => {navigate(`${item.menuItemLink}`); setActiveNavbarItem(item.menuItem);}}>{item.menuItem}</li>
+                                })
+                            }
+                            </ul>
+                        </div>
                     }
-    
-    
-                                </div>
-    
-                    }
+
+
+</li>
+
+                }
                             
                             {
                                 generalMenu == 0 && <>

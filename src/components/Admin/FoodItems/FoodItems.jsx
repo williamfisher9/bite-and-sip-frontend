@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import CardDisplay from "./CardDisplay";
 import TableDisplay from "./TableDisplay";
 
-import "./FoodItems.css";
+import './FoodItems.css'
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { BACKEND_URL } from "../../../constants/Constants";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
+
 
 const FoodItems = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const FoodItems = () => {
       const {clearMenuItemsState} = useContext(MenuContext)
 
   useEffect(() => {
-    
+    setActiveNavbarItem("FOOD ITEMS")
 
     axios
       .get(`${BACKEND_URL}/api/v1/app/admin/food-items`, {

@@ -17,7 +17,7 @@ const TableDisplay = ({ coupons }) => {
           <th>FROM DATE</th>
           <th>TO DATE</th>
           <th>ACTIVE</th>
-          <th style={{ textAlign: "center" }}>ACTIONS</th>
+          <th style={{ textAlign: "center" }}></th>
         </tr>
       </thead>
       <tbody>
@@ -48,7 +48,7 @@ const TableDisplay = ({ coupons }) => {
                   </span>
                 )}
               </td>
-              <td style={{ textAlign: "center" }}>
+              <td style={{ textAlign: "end" }}>
                 <span
                   className="material-symbols-rounded table-row-action-icon"
                   onClick={() => editCoupon(item)}

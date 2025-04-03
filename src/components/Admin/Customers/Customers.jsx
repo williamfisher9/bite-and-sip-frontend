@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import CardDisplay from "./CardDisplay";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
 const Customers = () => {
     const [customers, setCustomers] = useState([]);
@@ -69,6 +70,7 @@ const Customers = () => {
         
 
         <div className="inner-customers-container">
+        <Breadcrumbs />
                 <div className="main-actions-container">
                     <div className="search-field-container">
                     <input

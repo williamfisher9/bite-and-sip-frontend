@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CardDisplay from "./CardDisplay";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
 const Employees = () => {
     const [employees, setEmployees] = useState([]);
@@ -17,6 +18,7 @@ const Employees = () => {
         const {clearMenuItemsState} = useContext(MenuContext)
 
     useEffect(() => {
+      setActiveNavbarItem("EMPLOYEES")
         axios.get(`${BACKEND_URL}/api/v1/app/admin/users/employees`, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
         .then((res) => {
             console.log(res.data.message)
@@ -61,7 +63,10 @@ const Employees = () => {
 
 
     return <div className="employees-container">
-        <div className="inner-employees-container">
+      
+      <div className="inner-employees-container">
+
+        <Breadcrumbs />
         
         <div className="main-actions-container">
             <div className="search-field-container">

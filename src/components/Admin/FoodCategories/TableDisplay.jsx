@@ -15,7 +15,7 @@ const TableDisplay = ({ foodCategories }) => {
           <th>ITEM</th>
           <th>NAME</th>
           <th>ACTIVE</th>
-          <th style={{ textAlign: "center" }}>ACTIONS</th>
+          <th style={{ textAlign: "center" }}></th>
         </tr>
       </thead>
       <tbody>
@@ -41,7 +41,7 @@ const TableDisplay = ({ foodCategories }) => {
                   </span>
                 )}
               </td>
-              <td style={{ textAlign: "center" }}>
+              <td style={{ textAlign: "end" }}>
                 <span
                   className="material-symbols-rounded table-row-action-icon"
                   onClick={() => editFoodCategory(item)}

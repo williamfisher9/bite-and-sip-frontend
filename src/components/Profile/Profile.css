@@ -3,7 +3,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px 0;
 }
 
 .profile-inner-container {
@@ -13,7 +12,6 @@
     align-items: center;
     gap: 30px;
     flex-direction: column;
-    padding: 30px 0;
 }
 
 .profile-img-container {

@@ -15,7 +15,17 @@
     align-items: center;
 }
 
-.navbar-menu > li, .navbar-menu > .admin-div > li {
+.admin-menu {
+    position: relative;
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 5px;
+}
+
+.navbar-menu > li, 
+.navbar-menu > .admin-menu > li {
     list-style-type: none;
     cursor: pointer;
     color: #7963c0;
@@ -162,13 +172,13 @@
     position: absolute;
     top: 30px;
     left: 0;
-    width: 300px;
+    min-width: 300px;
     z-index: 9999;
-    background-color: oldlace;
+    background-color: #ada8bd;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
     color: black;
-    padding: 10px 0;
 }
+
 
 .admin-menu-container li {
     list-style-type: none;
@@ -178,5 +188,5 @@
 }
 
 .admin-menu-container li:hover {
-    background-color: rgba(121, 99, 192, 0.1)
+    background-color: rgba(121, 99, 192, 0.3)
 }

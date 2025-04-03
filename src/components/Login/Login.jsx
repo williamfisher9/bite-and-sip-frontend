@@ -52,7 +52,7 @@ const Login = () => {
                     Cookies.set("menuItems", JSON.stringify(res.data.message.menuItems));
                     Cookies.set("isAuthenticated", true);
                     setLoginRequestError("")
-                    navigate(`/biteandsip/home`)
+                    navigate(`${res.data.message.homePageUrl}`)
                 }
             })
             .catch((err) => {

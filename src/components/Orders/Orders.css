@@ -5,11 +5,10 @@
     justify-content: center;
     flex-direction: column;
     gap: 20px;
-    padding: 30px 0;
 }
 
 .order-item {
-    width: 90%;
+    width: 100%;
     border-radius: 5px;
     background-color: #7963c0;
     color: #fff;
@@ -30,8 +29,10 @@
 .order-item-details {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 5px;
+    padding-left: 40%;
 }
 
 .order-item-status {

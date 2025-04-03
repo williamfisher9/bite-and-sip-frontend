@@ -9,3 +9,12 @@
     color: #7963c0;
     user-select: none;
 }
+
+.breadcrumbs-container > a {
+    text-decoration: none;
+    color: #7963c0;
+}
+
+.breadcrumbs-container > a:hover {
+    text-decoration: underline;
+}

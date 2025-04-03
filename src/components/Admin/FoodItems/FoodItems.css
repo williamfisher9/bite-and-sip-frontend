@@ -1,7 +1,6 @@
 /* FoodCategories CSS -> START */
 .main-container {
     width: 100%;
-    margin: 50px 0;
 }
 
 .main-actions-container {
@@ -131,34 +130,35 @@
 .cards-grid {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 250px));
     row-gap: 20px;
     column-gap: 20px;
     justify-content: space-evenly;
 }
 
-.card-item {
+.food-item-card {
+    position: relative;
     background-color: #fff;
     border-radius: 2px;
     height: 350px;
     overflow: hidden;
     box-shadow: 2px 2px 2px #7963c0, -2px -2px 2px #7963c0, 2px -2px 2px #7963c0, -2px 2px 2px #7963c0;
-    position: relative;
+    
 }
 
-.card-item-image-container {
+.food-item-card > .card-item-image-container {
     position: relative;
     width: 100%;
     height: 200px;
-    object-fit: contain;
 }
 
-.card-item-image-container>img {
+.food-item-card > .card-item-image-container > img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
-.card-actions {
+.food-item-card > .card-item-image-container > .card-actions {
     position: absolute;
     top: 5px;
     left: 5px;
@@ -169,7 +169,7 @@
     gap: 5px;
 }
 
-.card-action-icon {
+.food-item-card > .card-item-image-container > .card-actions > .card-action-icon {
     border-radius: 5px;
     padding: 3px;
     width: 35px;
@@ -182,14 +182,29 @@
     cursor: pointer;
 }
 
-.card-action-icon:hover {
+.food-item-card > .card-item-image-container > .card-actions > .card-action-icon:hover {
     background-color: #8775bf;
 }
 
-.item-price {
+.food-item-card > .item-price {
     position: absolute;
     bottom: 7px;
     left: 7px;
+}
+
+.food-item-card > .item-description > p {
+    text-align: left;
+    margin: 10px 0;
+    font-weight: 400;
+    font-size: 14px;
+    padding: 0 10px;
+
+
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* CardDisplay CSS -> END */
