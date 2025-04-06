@@ -20,6 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     gap: 15px;
 }
 
@@ -100,4 +101,10 @@
     align-items: center;
     gap: 15px;
     font-size: 1.3rem;
+}
+
+@media only screen and (min-width: 700px) {
+    .full-details-container {
+        flex-direction: row;
+    }
 }

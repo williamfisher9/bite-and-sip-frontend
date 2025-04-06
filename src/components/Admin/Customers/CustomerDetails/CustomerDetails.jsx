@@ -89,7 +89,6 @@ const CustomerDetails = () => {
                         <div className='order-major-details'>
                             <div className='order-field'>{getFormmattedDate(order.creationDate)}</div>
                             <div className='order-field'>{getFormmattedDate(order.lastUpdateDate)}</div>
-                            <div className='order-field'>{order.paymentId}</div>
                             <div className='order-field'>{order.status}</div>
                             <div className='order-field'>
                                 <span className="material-symbols-rounded" style={{border: "2px solid black", borderRadius: "5px", 
@@ -99,6 +98,8 @@ const CustomerDetails = () => {
 
                         {
                             order.showDetails && <div className='order-minor-details'>
+                            <div className='item-detail'><span className="material-symbols-rounded">fingerprint</span><span>{order.uuid}</span></div>
+                            <div className='item-detail'><span className="material-symbols-rounded">paid</span><span>{order.paymentId}</span></div>
                             <div className='item-detail'><span className="material-symbols-rounded">local_shipping</span><span>{order.deliveryFee}</span></div>
                             <div className='item-detail'><span className="material-symbols-rounded">price_check</span><span>{order.tax}</span></div>
                             <div className='item-detail'><span className="material-symbols-rounded">attach_money</span><span>{order.totalPrice}</span></div>
