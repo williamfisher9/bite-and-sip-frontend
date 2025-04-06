@@ -2,9 +2,18 @@ import { useContext, useState } from "react";
 import { CartContext } from "../../context/Cart";
 import axios from "axios";
 import { BACKEND_URL } from "../../constants/Constants";
+import Cookies from 'js-cookie'
+
+import './CartBalance.css'
+import { useNavigate } from "react-router-dom";
+import { GlobalStateContext } from "../../context/GlobalState";
+import { MenuContext } from "../../context/Menu";
 
 const CartBalance = () => {
   const {getCartTotal, getCartItemsCount} = useContext(CartContext);
+  const navigate = useNavigate()
+    const {clearUserCookie} = useContext(GlobalStateContext);
+    const {clearMenuItemsState} = useContext(MenuContext)
 
   const [coupon, setCoupon] = useState({valid: true, details: null, value: "", fieldError: false});
 
@@ -30,8 +39,17 @@ const CartBalance = () => {
     
   }
 
-  return (
-    <>
+  const handleProceedToCheckout = () => {
+          if(Cookies.get("isAuthenticated")){
+              navigate("/biteandsip/cart/checkout");
+          } else {
+              clearUserCookie();
+            clearMenuItemsState();
+            navigate("/biteandsip/login");
+          }
+      }
+
+  return <div className="cart-balance-table">
     <table>
       <tbody>
         <tr>
@@ -72,13 +90,19 @@ const CartBalance = () => {
     </table>
 
     <div className="coupon-container" style={{border: coupon.fieldError ? "2px solid red" : null}}>
-      <input type="text" placeholder="Coupons" className="coupon-input" onChange={handleCouponChange}  value={coupon.value}/>
+      <input type="text" placeholder="Coupon" className="coupon-input" onChange={handleCouponChange}  value={coupon.value}/>
       <span className="material-symbols-rounded coupon-icon">local_activity</span>
       {!coupon.valid != "" && <span className="invalid-coupon">invalid</span> }
       <button className="coupon-btn" onClick={() => verifyCoupon(coupon.value)}>APPLY</button>
     </div>
-</>
-  );
+
+    <button id="proceedBtn">
+                <span id="proceedBtnTitle" 
+                    onClick={handleProceedToCheckout}>PROCEED TO CHECKOUT
+                    <span className="material-symbols-rounded">arrow_forward_ios</span>
+                </span>
+            </button>
+</div>
 };
 
 export default CartBalance;
