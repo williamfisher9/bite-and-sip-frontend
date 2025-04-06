@@ -1,10 +1,15 @@
-import { useNavigate } from "react-router-dom"
+import { createSearchParams, useNavigate } from "react-router-dom"
 
 const CardDisplay = ({data}) => {
     const navigate = useNavigate()
 
     const showCustomerDetails = (id) => {
-        navigate(`/biteandsip/admin/customers/view?${id}`)
+        navigate({
+            pathname: "/biteandsip/admin/customers/view",
+            search: createSearchParams({
+                customer_id: `${id}`
+            }).toString()
+        });
     }
     return <div className='cards-grid'>
     {
