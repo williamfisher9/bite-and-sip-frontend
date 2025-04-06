@@ -48,6 +48,8 @@
     display: flex;
     gap: 15px;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .orders-container {
@@ -103,8 +105,12 @@
     font-size: 1.3rem;
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 750px) {
     .full-details-container {
         flex-direction: row;
+    }
+
+    .details-container {
+        justify-content: start;
     }
 }
