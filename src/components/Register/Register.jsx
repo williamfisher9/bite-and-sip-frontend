@@ -117,6 +117,7 @@ const Register = () => {
                 }
             })
             .catch((err) => {
+                console.log(err)
                 setRegisterRequestError(err.response.data.message)
             })
         }
