@@ -52,7 +52,13 @@ const Orders = () => {
             item.showDetails = false;
           })
           setOrders(res.data.message);
-        });
+        }).catch(err => {
+          if(err.status == 401 || err.status == 403){
+              clearUserCookie();
+              clearMenuItemsState();
+              navigate("/biteandsip/login");
+          }
+      });
     }
   }, []);
 

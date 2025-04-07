@@ -13,6 +13,7 @@ import { MenuContext } from "../../context/Menu";
 import {BACKEND_URL} from '../../constants/Constants'
 import { CartContext } from "../../context/Cart";
 import FormButton from "../FormButton/FormButton";
+import axios from "axios";
 
 const Checkout = ({paymentId}) => {
   const stripe = useStripe();
@@ -25,7 +26,17 @@ const Checkout = ({paymentId}) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(paymentId)
+    axios.post(`${BACKEND_URL}/api/v1/app/checkout/initial-authentication/${window.localStorage.getItem("userId")}`, null,
+    {headers: { "Authorization": `Bearer ${Cookies.get("token")}`}}
+  )
+  .catch(err => {
+    if(err.status == 401 || err.status == 403){
+        clearUserCookie();
+        clearMenuItemsState();
+        navigate("/biteandsip/login");
+    }
+});
+
   }, [])
 
   const [errorMessage, setErrorMessage] = useState();
