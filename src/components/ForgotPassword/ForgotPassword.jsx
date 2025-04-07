@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import logoImg from '../../assets/logo.png'
 import { BACKEND_URL } from '../../constants/Constants';
+import FormButton from '../FormButton/FormButton';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
