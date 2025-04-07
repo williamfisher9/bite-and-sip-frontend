@@ -24,7 +24,7 @@ const ForgotPassword = () => {
         let hasErrors = false;
         let newErrors = {};
 
-        if(formFields.emailAddress.trim() == ""){
+        if(formFields.username.trim() == ""){
             newErrors["username"] = "Email address is required"
             hasErrors=true;
         }
@@ -33,7 +33,7 @@ const ForgotPassword = () => {
 
         if(!hasErrors){
             setLoading(true)
-            axios.post(`${BACKEND_URL}/api/v1/app/public/forgot-password`, {"username": formFields.emailAddress})
+            axios.post(`${BACKEND_URL}/api/v1/app/public/forgot-password`, {"username": formFields.username})
             .then((res) => {
                 setLoading(false)
                 if(res.status == 200){
@@ -58,7 +58,7 @@ return <div className='outer-container'>
             <div className='form-field-group'>
                 <input type='text' placeholder='Email Address' className='text-field' name='username' onChange={handleFieldChange}/>
                 <span className="material-symbols-rounded form-field-icon">person</span>
-                <p className='form-field-error'>{formFieldsErrors.emailAddress}</p>
+                <p className='form-field-error'>{formFieldsErrors.username}</p>
             </div>
 
             
