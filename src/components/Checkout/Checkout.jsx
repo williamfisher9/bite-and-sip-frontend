@@ -26,7 +26,7 @@ const Checkout = ({paymentId}) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.post(`${BACKEND_URL}/api/v1/app/checkout/initial-authentication/${window.localStorage.getItem("userId")}`, null,
+    axios.post(`${BACKEND_URL}/api/v1/app/checkout/initial-authentication/${Cookies.get("userId")}`, null,
     {headers: { "Authorization": `Bearer ${Cookies.get("token")}`}}
   )
   .catch(err => {
