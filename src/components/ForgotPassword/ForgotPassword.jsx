@@ -55,7 +55,13 @@ return <div className='outer-container'>
                 <p className='form-field-error'>{formFieldsErrors.emailAddress}</p>
             </div>
 
-            <button className='form-btn' onClick={handleForgotPasswordRequest}>Reset Password</button>
+            
+
+            <FormButton handleRequest={handleForgotPasswordRequest}>
+            <div className="editor-action">
+              <span>Reset Password</span>
+            </div>
+          </FormButton> 
             
             {
                 forgotPasswordRequestError != "" ?
