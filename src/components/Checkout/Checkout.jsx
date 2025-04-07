@@ -95,10 +95,17 @@ const Checkout = ({paymentId}) => {
         setLoading(false);
         navigate("/biteandsip/customer/orders");
       }
+
+      if(res.status == 401 || res.status == 404){
+        setLoading(false);
+        clearUserCookie();
+          clearMenuItemsState();
+          navigate("/biteandsip/login");
+      }
     } catch(err) {
       setLoading(false)
       if(err.status == 401 || err.status == 403){
-        clearUserCookie();
+          clearUserCookie();
           clearMenuItemsState();
           navigate("/biteandsip/login");
       }
