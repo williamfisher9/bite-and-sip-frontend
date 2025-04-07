@@ -8,12 +8,15 @@ import { v4 as uuidv4 } from "uuid";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
 import ItemStatus from "../../ItemStatus/ItemStatus";
+import FormButton from "../../FormButton/FormButton";
 
 const EmployeeEditor = () => {
   const navigate = useNavigate();
 
   const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
       const {clearMenuItemsState} = useContext(MenuContext)
+
+      const [loading, setLoading] = useState(false)
   
   const [formFields, setFormFields] = useState({
     username: "",
@@ -102,6 +105,7 @@ const EmployeeEditor = () => {
     setFormFieldsErrors(newErrors);
 
     if (!hasErrors) {
+      setLoading(true)
       if(params.itemId == "new"){
         axios
         .post(
@@ -118,12 +122,14 @@ const EmployeeEditor = () => {
           { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
         )
         .then((res) => {
+          setLoading(false)
           if (res.status == 201) {
             setRegisterRequestError("");
             navigate("/biteandsip/admin/employees");
           }
         })
         .catch((err) => {
+          setLoading(false)
             if(err.status == 401 || err.status == 403){
               clearUserCookie();
               clearMenuItemsState();
@@ -144,12 +150,14 @@ const EmployeeEditor = () => {
           { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
         )
         .then((res) => {
+          setLoading(false)
           if (res.status == 200) {
             setRegisterRequestError("");
             navigate("/biteandsip/admin/employees");
           }
         })
         .catch((err) => {
+          setLoading(false)
             if(err.status == 401 || err.status == 403){
               clearUserCookie();
               clearMenuItemsState();
@@ -166,8 +174,8 @@ const EmployeeEditor = () => {
   }
 
   return (
-    <div className="outer-employee-editor-container">
-      <div className="inner-employee-editor-container">
+    <div className="editor-container">
+      <div className="inner-editor-container">
         {state?.message && (
           <p className="form-message-employee-editor">{state?.message}</p>
         )}
@@ -266,19 +274,20 @@ const EmployeeEditor = () => {
           </p>
         </div>
 
-        <button
-          className="form-btn-employee-editor"
-          onClick={saveEmployeeAccount}
-        >
-          Save Account
-        </button>
+        <div className="editor-actions-container">
+          <FormButton handleRequest={saveEmployeeAccount} isLoading={loading}>
+            <div className="editor-action">
+              <span>SAVE</span><span className="material-symbols-rounded">publish</span>
+            </div>
+          </FormButton>
 
-        <button
-          className="form-btn-employee-editor"
-          onClick={() => navigate("/biteandsip/admin/employees")}
-        >
-          Cancel
-        </button>
+          <FormButton handleRequest={() => navigate("/biteandsip/admin/employees")}>
+            <div className="editor-action">
+              <span>CANCEL</span><span className="material-symbols-rounded">close</span>
+            </div>
+          </FormButton>
+
+        </div>
 
         {registerRequestError != "" ? (
           <p style={{ color: "red" }}>{registerRequestError}</p>

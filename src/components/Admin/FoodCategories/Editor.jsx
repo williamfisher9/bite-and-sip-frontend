@@ -8,10 +8,12 @@ import { BACKEND_URL } from "../../../constants/Constants";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
 import ItemStatus from "../../ItemStatus/ItemStatus";
+import FormButton from "../../FormButton/FormButton";
 
 const FoodCategoryEditor = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
 
   const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
       const {clearMenuItemsState} = useContext(MenuContext)
@@ -92,7 +94,7 @@ const FoodCategoryEditor = () => {
           clearMenuItemsState();
           navigate("/biteandsip/login");
     } else {
-      
+      setLoading(true)
 
       if (params.itemId == "new") {
         let formData = new FormData();
@@ -131,11 +133,13 @@ const FoodCategoryEditor = () => {
             `${BACKEND_URL}/api/v1/app/admin/food-categories/update/${params.itemId}`, formData, { headers: { "Authorization": `Bearer ${Cookies.get("token")}` } }
           )
           .then((res) => {
+            setLoading(false)
             if (res.status == 200) {
               navigate("/biteandsip/admin/food-categories");
             }
           })
           .catch((err) => {
+            setLoading(false)
             if (err.status == 401 || err.status == 403) {
               console.log(err);
             }
@@ -213,18 +217,18 @@ const FoodCategoryEditor = () => {
         <ItemStatus active={formFields.active} toggleStatus={toggleStatus} />
 
         <div className="editor-actions-container">
-          <button className="editor-action" onClick={saveCategory}>
-            SAVE <span className="material-symbols-rounded">publish</span>
-          </button>
+          <FormButton handleRequest={saveCategory} isLoading={loading}>
+            <div className="editor-action">
+              <span>SAVE</span><span className="material-symbols-rounded">publish</span>
+            </div>
+          </FormButton>
 
-          <button
-            className="editor-action"
-            onClick={() => {
-              navigate("/biteandsip/admin/food-categories");
-            }}
-          >
-            CANCEL <span className="material-symbols-rounded">close</span>
-          </button>
+          <FormButton handleRequest={() => navigate("/biteandsip/admin/food-categories")}>
+            <div className="editor-action">
+              <span>CANCEL</span><span className="material-symbols-rounded">close</span>
+            </div>
+          </FormButton>
+
         </div>
       </div>
     </div>

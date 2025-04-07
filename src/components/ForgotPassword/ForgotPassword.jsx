@@ -44,11 +44,11 @@ const ForgotPassword = () => {
 
 
 
-return <div className='outer-form-container'>
-        <form className='inner-form-container'>
+return <div className='outer-container'>
+        <form className='form-container'>
             <img src={logoImg} alt='logo' style={{height: "50px", margin: "20px 0"}} />
 
-
+            <div className='inner-form-container'>
             <div className='form-field-group'>
                 <input type='text' placeholder='Email Address' className='text-field' name='emailAddress' onChange={handleFieldChange}/>
                 <span className="material-symbols-rounded form-field-icon">person</span>
@@ -68,6 +68,8 @@ return <div className='outer-form-container'>
                 <Link to={"/biteandsip/login"}>
                     <span>Sign In</span>
                 </Link>
+            </div>
+
             </div>
             </form>
     </div>

@@ -8,12 +8,15 @@ import './CartBalance.css'
 import { useNavigate } from "react-router-dom";
 import { GlobalStateContext } from "../../context/GlobalState";
 import { MenuContext } from "../../context/Menu";
+import FormButton from "../FormButton/FormButton";
 
 const CartBalance = () => {
   const {getCartTotal, getCartItemsCount} = useContext(CartContext);
   const navigate = useNavigate()
     const {clearUserCookie} = useContext(GlobalStateContext);
     const {clearMenuItemsState} = useContext(MenuContext)
+
+    const [loading, setLoading] = useState(false)
 
   const [coupon, setCoupon] = useState({valid: true, details: null, value: "", fieldError: false});
 
@@ -25,13 +28,18 @@ const CartBalance = () => {
     if(coupon.value == ""){
       setCoupon({...coupon, fieldError: true})
     } else {
+      setLoading(true)
       axios.get(`${BACKEND_URL}/api/v1/app/public/coupons/code/${code}`)
       .then((res) => {
         console.log(res.data.message)
+        setLoading(false)
+        window.localStorage.setItem("coupon", res.data.message.code)
         setCoupon({valid: true, details: res.data.message, value: "", fieldError: false})
       })
       .catch((err) => {
+        setLoading(false)
         if(err.status == 404){
+          window.localStorage.removeItem("coupon")
           setCoupon({...coupon, valid: false, details: null, fieldError: false})
         }
       })
@@ -81,7 +89,7 @@ const CartBalance = () => {
         <tr>
           <th>Total</th>
           <td>
-            ${((getCartTotal() * 5) / 100 + getCartTotal() + 5).toFixed(2)}
+            ${((getCartTotal() * 5) / 100 + getCartTotal() + 5 - (coupon.details != null ? coupon.details?.amount.toFixed(2) : 0 )).toFixed(2)}
           </td>
         </tr>
 
@@ -93,15 +101,24 @@ const CartBalance = () => {
       <input type="text" placeholder="Coupon" className="coupon-input" onChange={handleCouponChange}  value={coupon.value}/>
       <span className="material-symbols-rounded coupon-icon">local_activity</span>
       {!coupon.valid != "" && <span className="invalid-coupon">invalid</span> }
-      <button className="coupon-btn" onClick={() => verifyCoupon(coupon.value)}>APPLY</button>
+
+      
+      
+      <div className="coupon-btn">
+        <FormButton handleRequest={() => verifyCoupon(coupon.value)} isLoading={loading} customStyles={{fontSize: "12px"}}>
+          <span className="material-symbols-rounded">search</span>
+        </FormButton>
+      </div>
+
+
     </div>
 
-    <button id="proceedBtn">
-                <span id="proceedBtnTitle" 
-                    onClick={handleProceedToCheckout}>PROCEED TO CHECKOUT
-                    <span className="material-symbols-rounded">arrow_forward_ios</span>
-                </span>
-            </button>
+    <FormButton handleRequest={handleProceedToCheckout}>
+            <div className="editor-action">
+              <span>PROCEED TO CHECKOUT</span>
+              <span className="material-symbols-rounded">arrow_forward_ios</span>
+            </div>
+          </FormButton>    
 </div>
 };
 

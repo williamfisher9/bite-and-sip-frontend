@@ -6,12 +6,12 @@
 }
 
 .profile-inner-container {
-    width: 400px;
+    width: 550px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
     flex-direction: column;
+    gap: 30px;
 }
 
 .profile-img-container {
@@ -39,4 +39,10 @@
 
 .delete-profile-img:hover {
     background-color: #6f50d8;
+}
+
+@media only screen and (max-width: 600px) {
+    .profile-inner-container {
+        width: 380px;
+    }
 }

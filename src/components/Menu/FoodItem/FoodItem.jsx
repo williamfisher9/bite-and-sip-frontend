@@ -41,11 +41,15 @@ const FoodItem = ({foodItems, foodCategories}) => {
     }
 
     return <div className='menu-items-container'>
-        <div  style={{textAlign: "start", width: "100%"}}>
-        <h3 style={{fontWeight: "600", backgroundColor: "#7963c0", 
-            width: "100%", color: "#fff", height: "50px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-                <span>{params.category != null ? "Menu Items - " + foodCategories.filter((item) => item.id == params.category)[0].name : "Menu Items - All Food"}</span></h3>
+
+<div className='page-title'>
+            <span>{`MENU ITEMS - ${params.category != null ? 
+                foodCategories.filter((item) => item.id == params.category)[0].name : 
+                "ALL FOODS"}`}</span>
         </div>
+
+        
+
         <div className='menu-items-grid'>
         {
             filteredMenuItems.map((item) => {
@@ -70,7 +74,6 @@ const FoodItem = ({foodItems, foodCategories}) => {
             })
         }
         </div>
-        <hr />
     </div>
 }
 

@@ -8,12 +8,15 @@ import { BACKEND_URL } from "../../../constants/Constants";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
 import ItemStatus from "../../ItemStatus/ItemStatus";
+import FormButton from "../../FormButton/FormButton";
 
 
 
 const CouponsEditor = () => {
   const params = useParams();
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false)
 
   const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
       const {clearMenuItemsState} = useContext(MenuContext)
@@ -103,7 +106,7 @@ const CouponsEditor = () => {
           navigate("/biteandsip/login");
     } else {
       
-
+      setLoading(true)
       if (params.itemId == "new") {
         axios
           .post(
@@ -120,11 +123,13 @@ const CouponsEditor = () => {
             }
           )
           .then((res) => {
+            setLoading(false)
             if (res.status == 201) {
               navigate("/biteandsip/admin/coupons");
             }
           })
           .catch((err) => {
+            setLoading(false)
             if (err.status == 401 || err.status == 403) {
               clearUserCookie();
               clearMenuItemsState();
@@ -149,11 +154,13 @@ const CouponsEditor = () => {
             obj, 
             {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
           .then((res) => {
+            setLoading(false)
             if (res.status == 200) {
               navigate("/biteandsip/admin/coupons");
             }
           })
           .catch((err) => {
+            setLoading(false)
             if (err.status == 401 || err.status == 403) {
               console.log(err);
             }
@@ -239,18 +246,18 @@ const CouponsEditor = () => {
         <ItemStatus active={formFields.active} toggleStatus={toggleStatus} />
 
         <div className="editor-actions-container">
-          <button className="editor-action" onClick={saveCoupon}>
-            SAVE <span className="material-symbols-rounded">publish</span>
-          </button>
+          <FormButton handleRequest={saveCoupon} isLoading={loading}>
+            <div className="editor-action">
+              <span>SAVE</span><span className="material-symbols-rounded">publish</span>
+            </div>
+          </FormButton>
 
-          <button
-            className="editor-action"
-            onClick={() => {
-              navigate("/biteandsip/admin/coupons");
-            }}
-          >
-            CANCEL <span className="material-symbols-rounded">close</span>
-          </button>
+          <FormButton handleRequest={() => navigate("/biteandsip/admin/coupons")}>
+            <div className="editor-action">
+              <span>CANCEL</span><span className="material-symbols-rounded">close</span>
+            </div>
+          </FormButton>
+
         </div>
 
         <p style={{color: "red"}}>{requestError}</p>

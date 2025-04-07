@@ -10,6 +10,7 @@ import './FoodItems.css'
 import { MenuContext } from "../../../context/Menu";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import ItemStatus from "../../ItemStatus/ItemStatus";
+import FormButton from "../../FormButton/FormButton";
 
 const FoodItemEditor = () => {
   const params = useParams();
@@ -17,6 +18,8 @@ const FoodItemEditor = () => {
 
   const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
       const {clearMenuItemsState} = useContext(MenuContext)
+
+      const [loading, setLoading] = useState(false)
 
   const [formFields, setFormFields] = useState({
     name: "",
@@ -144,7 +147,7 @@ const FoodItemEditor = () => {
           navigate("/biteandsip/login");
     } else {
       
-
+      setLoading(true)
       if (params.itemId == "new") {
         let formData = new FormData();
         formData.append("name", formFields.name);
@@ -163,11 +166,13 @@ const FoodItemEditor = () => {
             }
           )
           .then((res) => {
+            setLoading(false)
             if (res.status == 201) {
               navigate("/biteandsip/admin/food-items");
             }
           })
           .catch((err) => {
+            setLoading(false)
             if (err.status == 401 || err.status == 403) {
               clearUserCookie();
           clearMenuItemsState();
@@ -188,11 +193,13 @@ const FoodItemEditor = () => {
             `${BACKEND_URL}/api/v1/app/admin/food-items/update/${params.itemId}`, formData, { headers: { "Authorization": `Bearer ${Cookies.get("token")}` } }
           )
           .then((res) => {
+            setLoading(false)
             if (res.status == 200) {
               navigate("/biteandsip/admin/food-items");
             }
           })
           .catch((err) => {
+            setLoading(false)
             if (err.status == 401 || err.status == 403) {
               console.log(err);
             }
@@ -352,20 +359,22 @@ const FoodItemEditor = () => {
 
       <ItemStatus active={formFields.active} toggleStatus={toggleStatus} />
 
-        <div className="editor-actions-container">
-          <button className="editor-action" onClick={saveFoodItem}>
-            SAVE <span className="material-symbols-rounded">publish</span>
-          </button>
 
-          <button
-            className="editor-action"
-            onClick={() => {
-              navigate("/biteandsip/admin/food-items");
-            }}
-          >
-            CANCEL <span className="material-symbols-rounded">close</span>
-          </button>
+      <div className="editor-actions-container">
+          <FormButton handleRequest={saveFoodItem} isLoading={loading}>
+            <div className="editor-action">
+              <span>SAVE</span><span className="material-symbols-rounded">publish</span>
+            </div>
+          </FormButton>
+
+          <FormButton handleRequest={() => navigate("/biteandsip/admin/food-items")}>
+            <div className="editor-action">
+              <span>CANCEL</span><span className="material-symbols-rounded">close</span>
+            </div>
+          </FormButton>
+
         </div>
+
       </div>
     </div>
   );

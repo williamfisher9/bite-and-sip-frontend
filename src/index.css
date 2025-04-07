@@ -12,3 +12,14 @@ body {
   width: 100%;
   min-height: 100vh;
 }
+
+.page-title {
+  font-weight: 600;
+  background-color: #7963c0;
+  width: 100%;
+  color: #fff;
+  height: 50px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}

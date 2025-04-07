@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 
 import logoImg from '../../assets/logo.png'
 import { BACKEND_URL } from '../../constants/Constants';
+import FormButton from '../FormButton/FormButton';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -13,6 +14,8 @@ const Register = () => {
     const [formFieldsErrors, setFormFieldsErrors] = useState({emailAddress: "", firstName: "", lastName: "", password: "", phoneNumber: ""})
     const [registerRequestError, setRegisterRequestError] = useState("");
     const [passwordHasErrors, setPasswordHasErrors] = useState({rule1: true, rule2: true, rule3: true, rule4: true})
+
+    const [loading, setLoading] = useState(false);
 
     const {state} = useLocation();
 
@@ -67,6 +70,8 @@ const Register = () => {
         let hasErrors = false;
         let newErrors = {};
 
+        
+
         if(formFields.emailAddress.trim() == ""){
             newErrors["emailAddress"] = "Email address is required"
             hasErrors=true;
@@ -105,35 +110,42 @@ const Register = () => {
 
 
         if(!hasErrors){
-            axios.post(`${BACKEND_URL}/api/v1/app/public/auth/register`, {"username": formFields.emailAddress, 
-                                                                    "firstName": formFields.firstName, 
-                                                                    "lastName": formFields.lastName, 
-                                                                    "password": formFields.password,
-                                                                "phoneNumber": formFields.phoneNumber})
+            setLoading(true)
+            axios.post(`${BACKEND_URL}/api/v1/app/public/auth/register`, 
+                        {"username": formFields.emailAddress, 
+                        "firstName": formFields.firstName, 
+                        "lastName": formFields.lastName, 
+                        "password": formFields.password,
+                        "phoneNumber": formFields.phoneNumber})
             .then((res) => {
                 if(res.status == 201){
+                    setLoading(false)
                     setRegisterRequestError("")
                     navigate('/biteandsip/login', { state: { message: 'VERIFY YOUR EMAIL ADDRESS TO LOGIN' } })
                 }
             })
             .catch((err) => {
-                console.log(err)
+                setLoading(false)
                 setRegisterRequestError(err.response.data.message)
             })
         }
+
+
+
     }
 
     
 
-    return <div className='outer-form-container'>
-        <form className='inner-form-container'>
+    return <div className='outer-container'>
+        <form className='form-container'>
             <div className='tabs-toggle'>
-                <Link to="/biteandsip/login" className='tab' style={{color: "black"}}>Sign In</Link>
-                <Link to="/biteandsip/register" className='tab' style={{backgroundColor: "#7963c0", color: "white"}}>Sign Up</Link>
+                <Link to="/biteandsip/login" className='tab' style={{color: "#7963c0", fontWeight: "500", fontSize: "larger"}}>Sign In</Link>
+                <Link to="/biteandsip/register" className='tab' style={{backgroundColor: "#7963c0", color: "white", fontWeight: "500", fontSize: "larger"}}>Sign Up</Link>
             </div>
 
             <img src={logoImg} alt='logo' style={{height: "50px", margin: "5px 0"}} />
 
+            <div className='inner-form-container'>
             {
             state?.message && 
             <p className='form-message'>{state?.message}</p>
@@ -177,10 +189,9 @@ const Register = () => {
             </div>
 
 
-
-
-
-            <button style={{marginTop: "100px"}} className='form-btn' onClick={handleSignUpRequest}>Sign Up</button>
+            <FormButton handleRequest={handleSignUpRequest} isLoading={loading} customStyles={{marginTop: "100px"}}>
+                <span>Sign Up</span>
+            </FormButton>
             
             {
                 registerRequestError != "" ?
@@ -194,7 +205,7 @@ const Register = () => {
                     <span>Sign In</span>
                 </Link>
             </div>
-
+</div>
             
         </form>
     </div>

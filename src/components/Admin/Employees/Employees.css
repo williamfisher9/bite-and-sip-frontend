@@ -10,7 +10,7 @@
     width: 100%;
 }
 
-.outer-employee-editor-container {
+.editor-container {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -18,13 +18,12 @@
     flex-direction: column;
 }
 
-.inner-employee-editor-container {
-    width: 400px;
+.inner-editor-container {
+    width: 550px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 30px 0;
     gap: 40px;
 }
 
@@ -113,4 +112,16 @@
 
 .form-fld-error-employee-editor {
     color: red;
+}
+
+@media only screen and (max-width: 600px) {
+    .inner-editor-container {
+        width: 380px;
+    }
+}
+
+@media only screen and (min-width: 600px){
+    .editor-actions-container {
+        flex-direction: row;
+    }
 }

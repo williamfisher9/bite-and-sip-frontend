@@ -176,7 +176,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 30px 0;
     width: 100%;
 }
 
@@ -333,14 +332,16 @@
 
 .editor-actions-container {
     display: flex;
-    gap: 20px;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
 }
 
 .editor-action {
     cursor: pointer;
-    width: 150px;
+    width: 100%;
     height: 50px;
     display: flex;
     justify-content: center;
@@ -360,7 +361,13 @@
 
 @media only screen and (max-width: 600px) {
     .inner-editor-container {
-        width: 400px;
+        width: 380px;
+    }
+}
+
+@media only screen and (min-width: 600px){
+    .editor-actions-container {
+        flex-direction: row;
     }
 }
 

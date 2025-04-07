@@ -1,23 +1,30 @@
-.outer-form-container {
+.outer-container {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 30px 0;
 }
 
-.inner-form-container {
-    width: 400px;
+.form-container {
+    width: 420px;
     border: 2px solid #7963c0;
     border-radius: 10px;
-    padding-bottom: 8px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 30px;
-    backdrop-filter: blur(10px);
     overflow: hidden;
+}
+
+.inner-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 90%;
+    padding-bottom: 8px; 
 }
 
 .tabs-toggle {
@@ -39,13 +46,14 @@
 .form-message {
     color: white;
     background-color: #7963c0;
-    padding: 2px 4px;
+    padding: 4px 6px;
     border-radius: 5px;
+    font-size: 14px;
 }
 
 .form-field-group {
     position: relative;
-    width: 90%;
+    width: 100%;
     height: 45px;
     border: 1px solid #7963c0;
 }
@@ -86,25 +94,10 @@
 }
 
 .form-link {
-    width: 90%;
+    width: 100%;
 }
 
 .form-link > a {
     color: black;
     text-decoration: underline;
-}
-
-.form-btn {
-    width: 90%;
-    height: 45px;
-    background-color: #7963c0;
-    color: white;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.form-btn:hover {
-    background-color: #6f50d8;
 }

@@ -11,7 +11,9 @@ const FoodCategory = ({foodCategories}) => {
     const location = useLocation()
     
     return <div className='categories-container'>
-        <h3 style={{fontWeight: "600", backgroundColor: "#7963c0", width: "100%", color: "#fff", height: "50px", display: "flex", justifyContent: "center", alignItems: "center"}}>Explore by Food Category</h3> 
+
+<div className='page-title'>EXPLORE BY FOOD CATEGORY</div>
+
         <div className='categories-grid'>
         <div key="ALL" className='item-container' 
         onClick={() => { setActiveCategory("ALL"); navigate(`/biteandsip/${location.pathname.startsWith('/biteandsip/home') ? 'home' : 'menu'}`) }}>

@@ -7,12 +7,15 @@ import Cookies from 'js-cookie';
 import logoImg from '../../assets/logo.png'
 import { BACKEND_URL } from '../../constants/Constants';
 import { MenuContext } from '../../context/Menu';
+import FormButton from '../FormButton/FormButton';
 
 const Login = () => {
     const navigate = useNavigate();
     const [formFields, setFormFields] = useState({emailAddress: "", password: ""})
     const [formFieldsErrors, setFormFieldsErrors] = useState({emailAddress: "", password: ""})
     const [loginRequestError, setLoginRequestError] = useState("");
+
+    const [loading, setLoading] = useState(false);
 
     const {updateMenuItemsState} = useContext(MenuContext)
 
@@ -41,8 +44,10 @@ const Login = () => {
 
 
         if(!hasErrors){
+            setLoading(true)
             axios.post(`${BACKEND_URL}/api/v1/app/public/auth/login`, {"username": formFields.emailAddress, "password": formFields.password})
             .then((res) => {
+                setLoading(false)
                 if(res.status == 200){
                     updateMenuItemsState(res.data.message.menuItems)
                     Cookies.set("token", res.data.message.token);
@@ -54,11 +59,14 @@ const Login = () => {
                     setLoginRequestError("")
                     navigate(`${res.data.message.homePageUrl}`)
                 }
+                
             })
             .catch((err) => {
+                setLoading(false)
                 setLoginRequestError(err.response.data.message)
             })
         }
+
     }
 
     const [passwordFieldType, setPasswordFieldType] = useState("password")
@@ -74,15 +82,16 @@ const Login = () => {
         }
     }
 
-    return <div className='outer-form-container'>
-        <form className='inner-form-container'>
+    return <div className='outer-container'>
+        <form className='form-container'>
             <div className='tabs-toggle'>
-                <Link to="/biteandsip/login" className='tab' style={{backgroundColor: "#7963c0", color: "white"}}>Sign In</Link>
-                <Link to="/biteandsip/register" className='tab'  style={{color: "black"}}>Sign Up</Link>
+                <Link to="/biteandsip/login" className='tab' style={{backgroundColor: "#7963c0", color: "white", fontWeight: "500", fontSize: "larger"}}>Sign In</Link>
+                <Link to="/biteandsip/register" className='tab'  style={{color: "#7963c0", fontWeight: "500", fontSize: "larger"}}>Sign Up</Link>
             </div>
 
             <img src={logoImg} alt='logo' style={{height: "50px", margin: "5px 0"}} />
 
+            <div className='inner-form-container'>
             {
             state?.message && 
             <p className='form-message'>{state?.message}</p>
@@ -107,7 +116,10 @@ const Login = () => {
                 </Link>
             </div>
 
-            <button className='form-btn' onClick={handleLoginRequest}>Sign In</button>
+            <FormButton handleRequest={handleLoginRequest} isLoading={loading}>
+                <span>Sign In</span>
+            </FormButton>
+
             
             {
                 loginRequestError != "" ?
@@ -121,6 +133,7 @@ const Login = () => {
                 <Link to={"/biteandsip/register"}>
                     <span>Sign Up</span>
                 </Link>
+            </div>
             </div>
 
 

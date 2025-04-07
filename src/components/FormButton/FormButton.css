@@ -1,0 +1,23 @@
+.active-form-btn {
+    background-color: #7963c0;
+    color: white;
+    cursor: pointer;
+}
+
+.disabled-form-btn {
+    background-color: #cccccc;
+    color: #666666;
+}
+
+.form-btn {
+    width: 100%;
+    height: 45px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    position: relative;
+}
+
+.active-form-btn:hover {
+    background-color: #6f50d8;
+}

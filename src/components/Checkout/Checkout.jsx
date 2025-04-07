@@ -12,6 +12,7 @@ import { GlobalStateContext } from "../../context/GlobalState";
 import { MenuContext } from "../../context/Menu";
 import {BACKEND_URL} from '../../constants/Constants'
 import { CartContext } from "../../context/Cart";
+import FormButton from "../FormButton/FormButton";
 
 const Checkout = ({paymentId}) => {
   const stripe = useStripe();
@@ -74,6 +75,7 @@ const Checkout = ({paymentId}) => {
 
     // Create the PaymentIntent
     try {
+      setLoading(true)
       const res = await fetch(`${BACKEND_URL}/api/v1/app/checkout/create-confirm-intent`, {
         method: "POST",
         headers: {"Content-Type": "application/json", "Authorization": `Bearer ${Cookies.get("token")}`},
@@ -92,9 +94,9 @@ const Checkout = ({paymentId}) => {
         clearCart();
         setLoading(false);
         navigate("/biteandsip/customer/orders");
-
       }
     } catch(err) {
+      setLoading(false)
       if(err.status == 401 || err.status == 403){
         clearUserCookie();
           clearMenuItemsState();
@@ -121,16 +123,27 @@ const Checkout = ({paymentId}) => {
           <div className="checkout-div-header">SHIIPING ADDRESS</div>
           <AddressElement options={{ mode: "shipping" }} />
         </div>
+
+        <div className="editor-actions-container">
+          <FormButton handleRequest={handleSubmit} isLoading={loading}>
+            <div className="editor-action">
+              <span>SUBMIT PAYMENT</span><span className="material-symbols-rounded">attach_money</span>
+            </div>
+          </FormButton>
+
+          <FormButton handleRequest={() => navigate("/biteandsip/cart")}>
+            <div className="editor-action">
+              <span>CANCEL</span><span className="material-symbols-rounded">close</span>
+            </div>
+          </FormButton>
+
+        </div>
       </div>
 
-      <div className="checkout-btn-container">
-        <button style={{cursor: loading ? 'not-allowed' : null}} className="checkout-btn" onClick={handleSubmit} disabled={!stripe || loading}>
-          SUBMIT {loading && <i className="fa-solid fa-spinner fa-spin"></i>}
-        </button>
-        <button className="checkout-btn" onClick={() => navigate("/biteandsip/cart")} disabled={!stripe}>
-          BACK TO CART
-        </button>
-      </div>
+      
+
+
+      
     </div>
   );
 };

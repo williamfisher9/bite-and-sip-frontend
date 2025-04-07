@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import logoImg from '../../assets/avatar.png'
 import { GlobalStateContext } from '../../context/GlobalState';
 import { MenuContext } from '../../context/Menu';
+import FormButton from '../FormButton/FormButton';
 
 
 const Profile = () => {
@@ -15,6 +16,8 @@ const Profile = () => {
     const [formFieldsErrors, setFormFieldsErrors] = useState({username: "", firstName: "", lastName: "", password: "", phoneNumber: ""})
     const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
     const {clearMenuItemsState} = useContext(MenuContext)
+
+    const [loading, setLoading] = useState(false)
 
     //const [file, setFile] = useState({removed: false, imgFile: null, fileUrl: ""})
 
@@ -95,9 +98,11 @@ const Profile = () => {
         formData.append("phoneNumber", formFields.phoneNumber)
         formData.append("userId", Cookies.get("userId"))
 
+        setLoading(true)
         axios.put(`${BACKEND_URL}/api/v1/app/users/profile/update`, formData, 
         {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
         .then((res) => {
+            setLoading(false)
             if(res.status == 200){
                 clearUserCookie();
                 clearMenuItemsState();
@@ -105,6 +110,7 @@ const Profile = () => {
             }
         })
         .catch((err) => {
+            setLoading(false)
             if(err.status == 401 || err.status == 403){
                 clearUserCookie();
                 clearMenuItemsState();
@@ -175,7 +181,9 @@ const Profile = () => {
     return <div className="profile-outer-container">
         
        <div className='profile-inner-container'>
-       <h3 style={{fontWeight: "600", backgroundColor: "#7963c0", width: "100%", color: "#fff", height: "50px", display: "flex", justifyContent: "center", alignItems: "center"}}>PROFILE</h3> 
+
+        <div className='page-title'>PROFILE</div>
+ 
        <div className='profile-img-container' onClick={showImageSelector} style={{cursor: "pointer"}}>
             {
                 <img src={formFields.fileUrl != "" ? formFields.fileUrl : formFields.imageSource || logoImg} alt='profile img' />
@@ -231,9 +239,17 @@ const Profile = () => {
                 </ul>
             </div>
 
-            <button className="form-btn" style={{marginTop: "115px"}} onClick={updateUserDetails}>
-          Save
-        </button>
+            <div className="editor-actions-container">
+                <FormButton handleRequest={updateUserDetails} isLoading={loading} customStyles={{marginTop: "115px"}}>
+                    <div className="editor-action">
+                    <span>SAVE</span><span className="material-symbols-rounded">publish</span>
+                    </div>
+                </FormButton>
+
+            </div>
+
+
+          
        </div>
     </div>
 }
