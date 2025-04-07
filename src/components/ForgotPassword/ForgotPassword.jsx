@@ -8,9 +8,11 @@ import FormButton from '../FormButton/FormButton';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
-    const [formFields, setFormFields] = useState({emailAddress: ""})
-    const [formFieldsErrors, setFormFieldsErrors] = useState({emailAddress: ""})
+    const [formFields, setFormFields] = useState({username: ""})
+    const [formFieldsErrors, setFormFieldsErrors] = useState({username: ""})
     const [forgotPasswordRequestError, setForgotPasswordRequestError] = useState("");
+
+    const [loading, setLoading] = useState(false)
 
     const handleFieldChange = () => {
         setFormFields({...formFields, [event.target.name]: event.target.value})
@@ -23,21 +25,24 @@ const ForgotPassword = () => {
         let newErrors = {};
 
         if(formFields.emailAddress.trim() == ""){
-            newErrors["emailAddress"] = "Email address is required"
+            newErrors["username"] = "Email address is required"
             hasErrors=true;
         }
 
         setFormFieldsErrors(newErrors);
 
         if(!hasErrors){
+            setLoading(true)
             axios.post(`${BACKEND_URL}/api/v1/app/public/forgot-password`, {"username": formFields.emailAddress})
             .then((res) => {
+                setLoading(false)
                 if(res.status == 200){
                     setForgotPasswordRequestError("")
                     navigate('/biteandsip/login', { state: { message: res.data.contents } })
                 }
             })
             .catch((err) => {
+                setLoading(false)
                 setForgotPasswordRequestError(err.response.data.contents)
             })
         }
@@ -51,14 +56,14 @@ return <div className='outer-container'>
 
             <div className='inner-form-container'>
             <div className='form-field-group'>
-                <input type='text' placeholder='Email Address' className='text-field' name='emailAddress' onChange={handleFieldChange}/>
+                <input type='text' placeholder='Email Address' className='text-field' name='username' onChange={handleFieldChange}/>
                 <span className="material-symbols-rounded form-field-icon">person</span>
                 <p className='form-field-error'>{formFieldsErrors.emailAddress}</p>
             </div>
 
             
 
-            <FormButton handleRequest={handleForgotPasswordRequest}>
+            <FormButton handleRequest={handleForgotPasswordRequest} isLoading={loading}>
             <div className="editor-action">
               <span>Reset Password</span>
             </div>
