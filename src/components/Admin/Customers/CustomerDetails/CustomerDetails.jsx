@@ -8,6 +8,7 @@ import avatarImg from '../../../../assets/avatar.png'
 import { GlobalStateContext } from '../../../../context/GlobalState';
 import { BACKEND_URL } from '../../../../constants/Constants';
 import { MenuContext } from '../../../../context/Menu';
+import Orders from '../../../Orders/Orders';
 
 const CustomerDetails = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -84,45 +85,7 @@ const CustomerDetails = () => {
             </div>
 
             <div className='orders-container'>
-                {formFields.orders.map((order) => {
-                    return <div className='order-wrapper' key={order.uuid}>
-                        <div className='order-major-details'>
-                            <div className='order-field'>{getFormmattedDate(order.creationDate)}</div>
-                            <div className='order-field'>{getFormmattedDate(order.lastUpdateDate)}</div>
-                            <div className='order-field'>{order.status}</div>
-                            <div className='order-field'>
-                                <span className="material-symbols-rounded" style={{border: "2px solid black", borderRadius: "5px", 
-                                padding: "5px", cursor: "pointer"}} onClick={() => showOrderDetails(order.uuid)}>more_horiz</span>
-                            </div>
-                        </div>
-
-                        {
-                            order.showDetails && <div className='order-minor-details'>
-                            <div className='item-detail'><span className="material-symbols-rounded">fingerprint</span><span>{order.uuid}</span></div>
-                            <div className='item-detail'><span className="material-symbols-rounded">paid</span><span>{order.paymentId}</span></div>
-                            <div className='item-detail'><span className="material-symbols-rounded">local_shipping</span><span>{order.deliveryFee}</span></div>
-                            <div className='item-detail'><span className="material-symbols-rounded">price_check</span><span>{order.tax}</span></div>
-                            <div className='item-detail'><span className="material-symbols-rounded">attach_money</span><span>{order.totalPrice}</span></div>
-                            {
-                                order.items.map((item) => {
-                                    return <div className='order-item-details' key={item.item.id}>
-                                        <div className='item-container'>
-                                            <img src={item.item.imageSource} width={"100px"} height={"100px"} />
-                                        </div>
-                                        <div>
-                                        <div className='item-detail'>
-                                            <span className="material-symbols-rounded">flatware</span>
-                                            <span>{item.item.name}</span>
-                                        </div>
-                                        <div className='item-detail'><span className="material-symbols-rounded">data_table</span><span>{item.quantity}</span></div>
-                                        </div>
-                                    </div>
-                                })
-                            }
-                        </div>
-                        }
-                    </div>
-                })}
+                <Orders />
             </div>
         </div>
     </div>

@@ -23,6 +23,7 @@ import ResetForgottenPassword from './components/ForgotPassword/ResetForgottenPa
 import Profile from './components/Profile/Profile'
 import CustomerDetails from './components/Admin/Customers/CustomerDetails/CustomerDetails'
 import Dashboard from './components/Admin/Dahsboard/Dashboard'
+import VerifyAccount from './components/VerifyAccount/VerifyAccount'
 
 const App = () => {
   return <Router>
@@ -38,7 +39,7 @@ const App = () => {
               <Route path='/biteandsip/login' element={<Login />}></Route>
               <Route path='/biteandsip/register' element={<Register />}></Route>
               <Route path='/biteandsip/forgot-password' element={<ForgotPassword />}></Route>
-              <Route path='/biteandsip/reset-forgotten-password' element={<ResetForgottenPassword />}></Route>
+              <Route path='/biteandsip/reset-password/:token' element={<ResetForgottenPassword />}></Route>
 
               <Route path='/biteandsip/cart/checkout' element={<StripeCheckout />}></Route>
               <Route path='/biteandsip/:source/orders' element={<Orders />}></Route>
@@ -58,7 +59,8 @@ const App = () => {
               <Route path='/biteandsip/admin/customers/view' element={<CustomerDetails />}></Route>
               <Route path='/biteandsip/admin/dashboard' element={<Dashboard />}></Route>
 
-              
+              <Route path='/biteandsip/verify-account/:token' element={<VerifyAccount />}></Route>
+
             </Route>
           </Routes>
         </Router>

@@ -38,7 +38,7 @@ const ForgotPassword = () => {
                 setLoading(false)
                 if(res.status == 200){
                     setForgotPasswordRequestError("")
-                    navigate('/biteandsip/login', { state: { message: res.data.contents } })
+                    navigate('/biteandsip/login', { state: { message: res.data.message } })
                 }
             })
             .catch((err) => {
@@ -65,7 +65,7 @@ return <div className='outer-container'>
 
             <FormButton handleRequest={handleForgotPasswordRequest} isLoading={loading}>
             <div className="editor-action">
-              <span>Reset Password</span>
+              <span>Forgot Password</span>
             </div>
           </FormButton> 
             

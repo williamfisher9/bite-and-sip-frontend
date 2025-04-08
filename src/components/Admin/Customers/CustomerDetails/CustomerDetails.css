@@ -84,18 +84,11 @@
     display: flex;
     justify-content: center;
     align-items: start;
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
 }
 
-.order-item-details {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    gap: 20px;
-}
+
 
 .item-detail {
     display: flex;
@@ -111,6 +104,6 @@
     }
 
     .details-container {
-        justify-content: start;
+        align-items: start;
     }
 }
