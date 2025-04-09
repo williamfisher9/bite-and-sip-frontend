@@ -1,17 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import './FoodItems.css'
+import {  useState } from "react";
 
-const TableDisplay = ({ foodItems }) => {
+const TableDisplay = ({ foodItems, updateFoodItems }) => {
   const navigate = useNavigate();
+
+  const [dragValues, setDragValues] = useState({source: {}, destination: {}});
 
   const editFoodItem = (item) => {
     navigate(`/biteandsip/admin/food-items/${item.id}`);
   };
 
+  const handleSort = () => {
+    //console.log(dragValues.dragged, dragValues.draggedOver)
+    updateFoodItems(dragValues.source, dragValues.destination)
+    setDragValues({source: {}, destination: {}})
+  }
+
+  const handleDragOver = (e, item) => {
+    e.preventDefault()
+    console.log(item)
+  }
+
   return (
     <table>
       <thead>
         <tr>
+          <th>#</th>
           <th>ITEM</th>
           <th>NAME</th>
           <th style={{width: "200px", display: "inline-block"}}>DESC.</th>
@@ -23,9 +38,17 @@ const TableDisplay = ({ foodItems }) => {
         </tr>
       </thead>
       <tbody>
-        {foodItems.map((item) => {
+        {foodItems.map((item, index) => {
           return (
-            <tr key={item.id}>
+            <tr key={item.id}
+              
+              draggable
+              onDragOver={() => handleDragOver(event, item)}
+              onDragStart={() => setDragValues({...dragValues, source: item})}         
+              onDragEnter={() => setDragValues({...dragValues, destination: item})}
+              onDragEnd={handleSort}
+            >
+              <td>{index+1}</td>
               <td>
                 <img
                   src={item.imageSource}
@@ -58,12 +81,16 @@ const TableDisplay = ({ foodItems }) => {
                   </span>
                 )}
               </td>
-              <td style={{ textAlign: "end" }}>
+              <td className="food-items-table-actions-container">
                 <span
                   className="material-symbols-rounded table-row-action-icon"
                   onClick={() => editFoodItem(item)}
                 >
                   edit
+                </span>
+
+                <span className="material-symbols-rounded table-row-action-icon table-row-dragger" >
+                  drag_indicator
                 </span>
               </td>
             </tr>

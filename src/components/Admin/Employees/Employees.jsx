@@ -21,7 +21,7 @@ const Employees = () => {
       setActiveNavbarItem("EMPLOYEES")
         axios.get(`${BACKEND_URL}/api/v1/app/admin/users/employees`, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
         .then((res) => {
-            console.log(res.data.message)
+            
             setEmployees(res.data.message)
         })
         .catch((err) => {

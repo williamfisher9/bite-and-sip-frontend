@@ -80,7 +80,6 @@ const Checkout = ({paymentId}) => {
 
     let cartItems = []
     JSON.parse(localStorage.getItem("cartItems")).forEach((element) => {
-      console.log(element)
       cartItems.push({"foodItemId": element.id, "quantity": element.quantity})
     })
 

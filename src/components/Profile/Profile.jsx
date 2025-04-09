@@ -27,7 +27,7 @@ const Profile = () => {
         axios.post(`${BACKEND_URL}/api/v1/app/users/profile`, {userId: Cookies.get("userId")}, 
         {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
         .then((res) => {
-            console.log(res.data.message)
+            
             setFormFields({...formFields, 
                 username: res.data.message.username, 
                 firstName: res.data.message.firstName, 
@@ -54,7 +54,7 @@ const Profile = () => {
         let hasErrors = false;
         let newErrors = {};
 
-        console.log(formFields.username)
+       
 
         if(formFields.username.trim() == ""){
             newErrors["username"] = "Username address is required"
@@ -121,7 +121,7 @@ const Profile = () => {
     }
 
     const handleFieldChange = () => {
-        console.log(event.target.name, event.target.value)
+        
         setFormFields({...formFields, [event.target.name]: event.target.value})
 
         if(event.target.name == "password" && event.target.value != ""){

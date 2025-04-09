@@ -79,7 +79,7 @@ const FoodItemEditor = () => {
           { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
         )
         .then((res) => {
-          console.log(res)
+          
           if (res.status == 200) {
             setFormFields({
               ...formFields,

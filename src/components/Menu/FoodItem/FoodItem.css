@@ -13,7 +13,6 @@
     row-gap: 20px;
     column-gap: 20px;
     justify-content: space-evenly;
-    margin: 0 0 20px 0;
 }
 
 .menu-item {
@@ -123,6 +122,8 @@
     .image-container {
         width: 200px;
         height: 200px;
+        border-radius: 5px;
+        overflow: hidden;
     }
 
     .text-container {

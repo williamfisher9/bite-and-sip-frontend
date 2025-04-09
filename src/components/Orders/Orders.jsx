@@ -53,7 +53,7 @@ const Orders = () => {
             res.data.message.map((item) => {
               item.showDetails = false;
             });
-            console.log(res.data.message);
+            
             setOrders(res.data.message);
           })
           .catch((err) => {
@@ -73,7 +73,7 @@ const Orders = () => {
             res.data.message.map((item) => {
               item.showDetails = false;
             });
-            console.log(res.data.message);
+            
             setOrders(res.data.message);
           })
           .catch((err) => {

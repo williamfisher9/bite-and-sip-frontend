@@ -23,7 +23,7 @@ const Customers = () => {
       setActiveNavbarItem("CUSTOMERS")
         axios.get(`${BACKEND_URL}/api/v1/app/admin/users/customers`, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
         .then((res) => {
-            console.log(res.data.message)
+            
             setCustomers(res.data.message)
         })
         .catch(err => {

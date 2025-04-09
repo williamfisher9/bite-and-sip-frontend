@@ -29,6 +29,7 @@ const FoodItems = () => {
       })
       .then((res) => {
         if (res.status == 200) {
+          //console.log(res.data.message.foodItems)
           setMenu({
             foodItems: res.data.message.foodItems,
             foodCategories: res.data.message.categories,
@@ -62,7 +63,7 @@ const FoodItems = () => {
       )
       .then((res) => {
         if (res.status == 200) {
-          setMenu({ ...menu, foodItems: res.data.message });
+          setMenu({ ...menu, foodItems: res.data.message.foodItems});
         }
       })
       .catch((err) => {
@@ -73,6 +74,28 @@ const FoodItems = () => {
   const addNewFoodItem = () => {
     navigate(`/biteandsip/admin/food-items/new`);
   };
+
+  const updateFoodItems = (v1, v2) => {
+    console.log(v1, v2)
+
+    axios.post(`${BACKEND_URL}/api/v1/app/admin/food-items/update-order`,
+      { item1Id: v1.id, item2Id: v2.id},
+      { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
+    )
+    .then((res) => {
+      if (res.status == 200) {
+        setMenu({
+          foodItems: res.data.message.foodItems,
+          foodCategories: res.data.message.categories,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+
+  }
 
   return (
     <div className="main-container">
@@ -103,6 +126,7 @@ const FoodItems = () => {
       ) : (
         <TableDisplay
           foodItems={menu.foodItems}
+          updateFoodItems = {updateFoodItems}
           foodCategories={menu.categories}
         />
       )}

@@ -12,6 +12,7 @@ const TableDisplay = ({ foodCategories }) => {
     <table>
       <thead>
         <tr>
+          <th>#</th>
           <th>ITEM</th>
           <th>NAME</th>
           <th>ACTIVE</th>
@@ -19,9 +20,10 @@ const TableDisplay = ({ foodCategories }) => {
         </tr>
       </thead>
       <tbody>
-        {foodCategories.map((item) => {
+        {foodCategories.map((item, index) => {
           return (
             <tr key={item.id}>
+              <td>{index+1}</td>
               <td>
                 <img
                   src={item.imageSource}

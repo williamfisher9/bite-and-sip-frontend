@@ -62,7 +62,7 @@ const EmployeeEditor = () => {
           headers: { Authorization: `Bearer ${Cookies.get("token")}` },
         })
         .then((res) => {
-          console.log(res.data.message);
+          
           setFormFields(res.data.message);
         });
     }

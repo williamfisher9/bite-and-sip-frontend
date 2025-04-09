@@ -13,7 +13,6 @@ import Cart from './components/Cart/Cart'
 import StripeCheckout from './components/Checkout/StripeCheckout'
 import Coupons from './components/Admin/Coupons/Coupons'
 import CouponsEditor from './components/Admin/Coupons/Editor'
-import PaymentStatus from './components/Checkout/PaymentStatus'
 import Customers from './components/Admin/Customers/Customers'
 import Employees from './components/Admin/Employees/Employees'
 import EmployeeEditor from './components/Admin/Employees/Editor'
@@ -44,7 +43,6 @@ const App = () => {
               <Route path='/biteandsip/cart/checkout' element={<StripeCheckout />}></Route>
               <Route path='/biteandsip/:source/orders' element={<Orders />}></Route>
               <Route path='/biteandsip/profile' element={<Profile />}></Route>
-              <Route path='/biteandsip/cart/payment-status' element={<PaymentStatus />}></Route>
               
               <Route path='/biteandsip/admin/food-categories' element={<FoodCategories />}></Route>
               <Route path='/biteandsip/admin/food-items' element={<FoodItems />}></Route>

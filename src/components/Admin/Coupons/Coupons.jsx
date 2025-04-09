@@ -26,7 +26,6 @@ const Coupons = () => {
       })
       .then((res) => {
         if (res.status == 200) {
-          console.log(res.data.message)
           setCoupons(res.data.message);
         }
       })

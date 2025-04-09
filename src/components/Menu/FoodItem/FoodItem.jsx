@@ -4,18 +4,21 @@ import { useParams } from 'react-router-dom';
 import { CartContext } from '../../../context/Cart';
 
 const FoodItem = ({foodItems, foodCategories}) => {
-    const [filteredMenuItems, setFilteredMenuItems] = useState([])
     const params = useParams();
 
     const { cartItems, addToCart, removeFromCart } = useContext(CartContext)
 
+    const [scrollVal, setScrollVal] = useState(0)
+
     useEffect(() => {
-        if(params.category == null){
-            setFilteredMenuItems(foodItems)
-        } else {
-            setFilteredMenuItems(foodItems.filter((item) => item.category.id == params.category))
-        }
-    }, [params.category])
+        window.addEventListener('scroll', () => {
+            setScrollVal(window.scrollY);
+        });
+
+        return window.removeEventListener('scroll', () => {
+            setScrollVal(window.screenY);
+        })
+    }, [])
 
     
     const isMenuItemInCart = (menuItem) => {
@@ -52,7 +55,11 @@ const FoodItem = ({foodItems, foodCategories}) => {
 
         <div className='menu-items-grid'>
         {
-            filteredMenuItems.map((item) => {
+            
+            
+            foodItems.filter((item) => (params.category != null && item.category.id == params.category) || params.category == null)
+            .slice(0, scrollVal == 0 ? 4 : Math.ceil(scrollVal/300) * 4)
+            .map((item) => {
                 return <div className='menu-item' key={item.id}>
                     <div className='image-container'>
                         <span className="menu-item-type">{item.category.name}</span>
@@ -74,9 +81,15 @@ const FoodItem = ({foodItems, foodCategories}) => {
                     
                 </div>
             })
+
+            
         }
         </div>
     </div>
 }
 
 export default FoodItem;
+
+
+
+

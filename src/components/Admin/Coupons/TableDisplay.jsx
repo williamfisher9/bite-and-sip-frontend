@@ -12,6 +12,7 @@ const TableDisplay = ({ coupons }) => {
     <table>
       <thead>
         <tr>
+          <th>#</th>
           <th>CODE</th>
           <th>AMOUNT</th>
           <th>FROM DATE</th>
@@ -21,18 +22,10 @@ const TableDisplay = ({ coupons }) => {
         </tr>
       </thead>
       <tbody>
-        {coupons.map((item) => {
-
-          const date = new Date(item.fromDate + "T00:00:00");
-          const [month, day, year] = [
-            date.getMonth()+1,
-            date.getDate(),
-            date.getFullYear(),
-          ];
-
+        {coupons.map((item, index) => {
           return (
             <tr key={item.id}>
-
+              <td>{index+1}</td>
               <td>{item.code}</td>
               <td>{item.amount}</td>
               <td>{`${new Date(item.fromDate + "T00:00:00").getMonth()+1}/${new Date(item.fromDate + "T00:00:00").getDate()}/${new Date(item.fromDate + "T00:00:00").getFullYear()}`}</td>

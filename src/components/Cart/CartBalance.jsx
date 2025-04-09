@@ -31,7 +31,7 @@ const CartBalance = () => {
       setLoading(true)
       axios.get(`${BACKEND_URL}/api/v1/app/public/coupons/code/${code}`)
       .then((res) => {
-        console.log(res.data.message)
+        
         setLoading(false)
         window.localStorage.setItem("coupon", res.data.message.code)
         setCoupon({valid: true, details: res.data.message, value: "", fieldError: false})

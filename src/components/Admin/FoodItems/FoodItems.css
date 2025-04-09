@@ -51,6 +51,10 @@
 
 /* TableDisplay CSS -> START */
 
+.food-items-table-actions-container {
+    text-align: end;
+}
+
 .item-description-ellipses {
     width: 150px;
     height: 100%;
@@ -114,6 +118,7 @@
     color: #7963c0;
     cursor: pointer;
     border: 2px solid #7963c0;
+    margin-right: 5px;
 }
 
 .table-row-action-icon:hover {
@@ -433,3 +438,11 @@
 }
 
 /* MEDIA QUERIES -> END */
+
+
+
+
+.table-row-dragger {
+    user-select: none;
+    
+}

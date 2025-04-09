@@ -36,7 +36,7 @@ const CustomerDetails = () => {
           res.data.message.orders.map(item => {
             item.showDetails = false;
           })
-          //console.log(res.data.message);
+          
           setFormFields(res.data.message);
         })
         .catch(err => {
