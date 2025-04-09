@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { GlobalStateContext } from "../../context/GlobalState";
 import Menu from "../Menu/Menu";
+import FormButton from "../FormButton/FormButton";
 
 const Home = () => {
   const { setActiveCategory, setActiveNavbarItem } = useContext(GlobalStateContext);
@@ -31,28 +32,23 @@ const Home = () => {
         <img src={heroImg} alt="hero-img" id="hero-img" />
 
         <div className="hero-img-text">
-          <p style={{ fontSize: "30px" }}>VIEW & ORDER YOUR FAVORITE FOOD</p>
-          <p style={{ marginTop: "5px" }}>
+          <p className="main-text">VIEW & ORDER YOUR FAVORITE FOOD</p>
+          <p className="sub-text">
             Our menu offers a diverse selection of delectable dishes, each
             crafted to perfection.
           </p>
-          <p style={{ marginTop: "5px" }}>
+          <p className="sub-text">
             Choose your favorite and prepare to be enchanted!
           </p>
-          <div
-            style={{
-              marginTop: "20px",
-              display: "inline-block",
-              textDecoration: "none",
-            }}
-            className="view-menu-btn"
-            onClick={() => {
-              navigate("/biteandsip/menu");
-              setActiveNavbarItem("MENU");
-            }}
-          >
-            View Menu
+
+          <div className="view-menu-container">
+          <FormButton handleRequest={() => { navigate("/biteandsip/menu"); setActiveNavbarItem("MENU"); }} customStyles={{width: "150px"
+            , boxShadow: "2px 2px 4px #fff, -2px -2px 4px #fff, -2px 2px 4px #fff, 2px -2px 4px #fff"}}>
+                <span>View Menu</span>
+          </FormButton>
           </div>
+          
+          
         </div>
       </div>
 

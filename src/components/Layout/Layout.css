@@ -14,7 +14,7 @@
 }
 
 .outlet-container {
-    padding: 25px;
+    
 }
 
 @media only screen and (max-width: 1100px) {
@@ -23,7 +23,7 @@
     }
 }
 
-@media only screen and (max-width: 530px) {
+@media only screen and (max-width: 650px) {
     .inner-layout {
         padding: 0 20px;
     }

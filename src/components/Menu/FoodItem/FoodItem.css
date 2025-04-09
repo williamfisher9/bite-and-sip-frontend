@@ -13,6 +13,7 @@
     row-gap: 20px;
     column-gap: 20px;
     justify-content: space-evenly;
+    margin: 0 0 20px 0;
 }
 
 .menu-item {
@@ -87,12 +88,14 @@
 }
 
 .text-container {
+    position: relative;
     margin-top: 10px;
+    height: 50%;
 }
 
 .price-container {
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
     padding-left: 10px;
     color: rgb(255, 132, 0);
 }
@@ -103,4 +106,27 @@
     padding: 3px;
     border-radius: 50%;
     
+}
+
+@media only screen and (max-width: 621px) {
+    .menu-items-grid {
+        grid-template-columns: 100%;
+    }
+
+    .menu-item {
+        box-shadow: none;
+        height: 200px;
+        display: flex;
+        background-color: transparent;
+    }
+
+    .image-container {
+        width: 200px;
+        height: 200px;
+    }
+
+    .text-container {
+        height: 100%;
+        width: calc(100% - 200px);
+    }
 }

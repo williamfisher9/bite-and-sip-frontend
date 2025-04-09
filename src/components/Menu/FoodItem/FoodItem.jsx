@@ -65,11 +65,13 @@ const FoodItem = ({foodItems, foodCategories}) => {
                     <div className='text-container'>
                         <p style={{textAlign: "center", margin: "10px 0", fontWeight: "500"}}>{item.name}</p>
                         <p style={{textAlign: "justify", margin: "10px 0", padding: "0 10px", fontSize: "12px"}}>{item.description}</p>
+
+                        <div className='price-container'>
+                            <p style={{textAlign: "start", margin: "10px 0", fontWeight: "500"}}>${item.price}</p>
+                        </div>
                     </div>
 
-                    <div className='price-container'>
-                        <p style={{textAlign: "start", margin: "10px 0", fontWeight: "500"}}>${item.price}</p>
-                    </div>
+                    
                 </div>
             })
         }
