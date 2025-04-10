@@ -75,10 +75,15 @@ const FoodItems = () => {
     navigate(`/biteandsip/admin/food-items/new`);
   };
 
-  const updateFoodItems = (v1, v2) => {
-    console.log(v1, v2)
+  const updateFoodItems = (list) => {
 
-    axios.post(`${BACKEND_URL}/api/v1/app/admin/food-items/update-order`,
+    setMenu({...menu, 
+      foodItems: list,
+    });
+
+    //console.log(v1, v2)
+
+    /*axios.post(`${BACKEND_URL}/api/v1/app/admin/food-items/update-order`,
       { item1Id: v1.id, item2Id: v2.id},
       { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
     )
@@ -91,9 +96,13 @@ const FoodItems = () => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      if(err.status == 401 || err.status == 403){
+        clearUserCookie();
+        clearMenuItemsState();
+        navigate("/biteandsip/login");
+    }
     });
-
+*/
 
   }
 

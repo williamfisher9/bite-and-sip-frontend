@@ -56,18 +56,22 @@
 }
 
 .item-description-ellipses {
-    width: 150px;
-    height: 100%;
-    display: inline-block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    width: 100%;
+    height: auto;
     
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .item-description-td {
     position: relative;
-    width: 175px;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .item-description-tooltip {
@@ -77,7 +81,7 @@
     background-color: #7963c0;
     text-align: left;
     top: 0;
-    right: -250px;
+    left: 0;
     z-index: 9999;
     display: none;
     text-wrap: wrap;
@@ -88,9 +92,9 @@
     display: block;
 }
 
-.item-img {
-    width: 75px;
-    height: 75px;
+.data-item-img {
+    width: 100px;
+    height: 100px;
     border-radius: 5px;
 }
 
@@ -445,4 +449,19 @@
 .table-row-dragger {
     user-select: none;
     
+}
+
+
+
+/* ================================================ */
+
+.item-data-field {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.food-items-container > div:nth-child(even) {
+    background-color: rgba(121, 99, 192, 0.1);
+    border-radius: 5px;
 }

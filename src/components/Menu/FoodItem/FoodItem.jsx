@@ -58,7 +58,7 @@ const FoodItem = ({foodItems, foodCategories}) => {
             
             
             foodItems.filter((item) => (params.category != null && item.category.id == params.category) || params.category == null)
-            .slice(0, scrollVal == 0 ? 4 : Math.ceil(scrollVal/300) * 4)
+            .slice(0, scrollVal <= 0 ? 4 : Math.ceil(scrollVal/300) * 4)
             .map((item) => {
                 return <div className='menu-item' key={item.id}>
                     <div className='image-container'>
