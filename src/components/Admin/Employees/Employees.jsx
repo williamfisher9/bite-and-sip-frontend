@@ -8,11 +8,12 @@ import CardDisplay from "./CardDisplay";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
+import { useWindowSize } from "../../../hooks/useWindowSize";
 
 const Employees = () => {
     const [employees, setEmployees] = useState([]);
     const navigate = useNavigate()
-    const [windowSize, setWindowSize] = useState(window.innerWidth);
+    const windowSize = useWindowSize();
 
     const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
         const {clearMenuItemsState} = useContext(MenuContext)
@@ -27,14 +28,6 @@ const Employees = () => {
         .catch((err) => {
             console.log(err)
         })
-
-        window.addEventListener("resize", () => {
-            setWindowSize(window.innerWidth);
-          });
-    
-        return window.removeEventListener("resize", () => {
-          setWindowSize(window.innerWidth);
-        });
     }, [])
 
     const addNewEmployee = () => {

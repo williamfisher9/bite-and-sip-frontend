@@ -86,8 +86,8 @@ const Login = () => {
     return <div className='outer-container'>
         <form className='form-container'>
             <div className='tabs-toggle'>
-                <Link to="/biteandsip/login" className='tab' style={{backgroundColor: "#7963c0", color: "white", fontWeight: "500", fontSize: "larger"}}>Sign In</Link>
-                <Link to="/biteandsip/register" className='tab'  style={{color: "#7963c0", fontWeight: "500", fontSize: "larger"}}>Sign Up</Link>
+                <Link to="/biteandsip/login" className='tab' style={{backgroundColor: "var(--main-color)", color: "white", fontWeight: "500", fontSize: "larger"}}>Sign In</Link>
+                <Link to="/biteandsip/register" className='tab'  style={{color: "var(--main-color)", fontWeight: "500", fontSize: "larger"}}>Sign Up</Link>
             </div>
 
             <img src={logoImg} alt='logo' style={{height: "50px", margin: "5px 0"}} />

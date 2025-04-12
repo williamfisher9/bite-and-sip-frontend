@@ -139,8 +139,8 @@ const Register = () => {
     return <div className='outer-container'>
         <form className='form-container'>
             <div className='tabs-toggle'>
-                <Link to="/biteandsip/login" className='tab' style={{color: "#7963c0", fontWeight: "500", fontSize: "larger"}}>Sign In</Link>
-                <Link to="/biteandsip/register" className='tab' style={{backgroundColor: "#7963c0", color: "white", fontWeight: "500", fontSize: "larger"}}>Sign Up</Link>
+                <Link to="/biteandsip/login" className='tab' style={{color: "var(--main-color)", fontWeight: "500", fontSize: "larger"}}>Sign In</Link>
+                <Link to="/biteandsip/register" className='tab' style={{backgroundColor: "var(--main-color)", color: "white", fontWeight: "500", fontSize: "larger"}}>Sign Up</Link>
             </div>
 
             <img src={logoImg} alt='logo' style={{height: "50px", margin: "5px 0"}} />
@@ -180,7 +180,7 @@ const Register = () => {
                 <span className="material-symbols-rounded form-field-icon">password</span>
                 <span className="material-symbols-rounded show-password-icon" onClick={handleShowPassword}>{passwordFieldVisibilityIcon}</span>
                 <p className='form-field-error'>{formFieldsErrors.password}</p>
-                <ul style={{position: "absolute", left: "2px", color: "#7963c0", bottom: `${formFieldsErrors.password != "" ? '-120px' : '-105px'}`}}>
+                <ul style={{position: "absolute", left: "2px", color: "var(--main-color)", bottom: `${formFieldsErrors.password != "" ? '-120px' : '-105px'}`}}>
                     <li className='password-rule'>{passwordHasErrors["rule1"] == false ? <span className="material-symbols-rounded text-green">check_circle</span> : <span className="material-symbols-rounded text-red">cancel</span>}At least 8 characters long</li>
                     <li className='password-rule'>{passwordHasErrors["rule2"] == false ? <span className="material-symbols-rounded text-green">check_circle</span> : <span className="material-symbols-rounded text-red">cancel</span>}At least 1 uppercase letter</li>
                     <li className='password-rule'>{passwordHasErrors["rule3"] == false ? <span className="material-symbols-rounded text-green">check_circle</span> : <span className="material-symbols-rounded text-red">cancel</span>}At least 1 digit</li>

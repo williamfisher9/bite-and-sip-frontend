@@ -30,7 +30,7 @@
 .delete-profile-img {
     width: 200px;
     height: 30px;
-    background-color: #7963c0;
+    background-color: var(--main-color);
     color: white;
     border: none;
     outline: none;

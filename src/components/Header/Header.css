@@ -28,7 +28,7 @@
 .navbar-menu > .admin-menu > li {
     list-style-type: none;
     cursor: pointer;
-    color: #7963c0;
+    color: var(--main-color);
     font-size: larger;
     position: relative;
     padding: 0 10px;
@@ -44,7 +44,7 @@
     width: 0;
     height: 2px;
     transition: width 0.3s;
-    background-color: #7963c0;
+    background-color: var(--main-color);
 }
 
 .navbar-menu > li::before {
@@ -55,7 +55,7 @@
     width: 0;
     height: 2px;
     transition: width 0.3s;
-    background-color: #7963c0;
+    background-color: var(--main-color);
 }
 
 .navbar-menu > li:hover:after {
@@ -67,8 +67,8 @@
 }
 
 .navbar-menu > .active-navbar {
-    border-bottom: 2px solid #7963c0;
-    border-top: 2px solid #7963c0;
+    border-bottom: 2px solid var(--main-color);
+    border-top: 2px solid var(--main-color);
 }
 
 .actions-container {
@@ -82,10 +82,10 @@
     width: 100px;
     height: 35px;
     background-color: transparent;
-    color: #7963c0;
+    color: var(--main-color);
     cursor: pointer;
     position: relative;
-    border: 2px solid #7963c0;
+    border: 2px solid var(--main-color);
     outline: none;
 }
 
@@ -107,7 +107,7 @@
     left: 0;
     top: 0;
     position: absolute;
-    background-color: #7963c0;
+    background-color: var(--main-color);
     transition: 0.3s;
     z-index: -1;
 }
@@ -118,7 +118,7 @@
     left: 49%;
     top: 0;
     position: absolute;
-    background-color: #7963c0;
+    background-color: var(--main-color);
     transition: 0.3s;
     z-index: -1;
 }
@@ -129,7 +129,7 @@
     left: 24%;
     bottom: 0;
     position: absolute;
-    background-color: #7963c0;
+    background-color: var(--main-color);
     transition: 0.3s;
     z-index: -1;
 }
@@ -140,7 +140,7 @@
     left: 73%;
     bottom: 0;
     position: absolute;
-    background-color: #7963c0;
+    background-color: var(--main-color);
     transition: 0.3s;
     z-index: -1;
 }
@@ -165,7 +165,7 @@
 .icon {
     font-size: xx-large;
     cursor: pointer;
-    color: #7963c0;
+    color: var(--main-color);
 }
 
 .admin-menu-container {

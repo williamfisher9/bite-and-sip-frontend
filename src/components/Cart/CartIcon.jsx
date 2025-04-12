@@ -7,7 +7,7 @@ import { GlobalStateContext } from '../../context/GlobalState';
 import CartHoverableBalanceSummary from './CartHoverableBalanceSummary';
 
 const CartIcon = ({windowSize}) => {
-    const { cartItems, getCartItemsCount, clearCart } = useContext(CartContext)
+    const {getCartItemsCount} = useContext(CartContext)
     const {setActiveNavbarItem} = useContext(GlobalStateContext)
     const navigate = useNavigate()
     const [showCartSummary, setShowCartSummary] = useState(false);

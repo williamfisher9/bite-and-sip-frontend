@@ -9,6 +9,7 @@ import CardDisplay from "./CardDisplay";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
+import { useWindowSize } from "../../../hooks/useWindowSize";
 
 const Customers = () => {
     const [customers, setCustomers] = useState([]);
@@ -17,7 +18,7 @@ const Customers = () => {
     const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
         const {clearMenuItemsState} = useContext(MenuContext)
 
-    const [windowSize, setWindowSize] = useState(window.innerWidth);
+    const windowSize = useWindowSize();
 
     useEffect(() => {
       setActiveNavbarItem("CUSTOMERS")
@@ -34,13 +35,6 @@ const Customers = () => {
           }
       });
 
-        window.addEventListener("resize", () => {
-            setWindowSize(window.innerWidth);
-          });
-    
-        return window.removeEventListener("resize", () => {
-          setWindowSize(window.innerWidth);
-        });
     }, [])
     
       const handleSearchBarChange = () => {

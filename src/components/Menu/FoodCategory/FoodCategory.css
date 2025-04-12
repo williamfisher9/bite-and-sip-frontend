@@ -25,13 +25,13 @@
 
 .item-container > img:hover {
     scale: 0.9;
-    outline: 3px solid #7963c0;
+    outline: 3px solid var(--main-color);
     border: 5px solid transparent;
 }
 
 .active-category {
     scale: 0.9;
-    outline: 3px solid #7963c0;
+    outline: 3px solid var(--main-color);
     border: 5px solid transparent;
 }
 

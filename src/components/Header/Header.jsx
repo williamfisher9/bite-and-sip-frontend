@@ -9,26 +9,16 @@ import Cookies from 'js-cookie';
 import { MenuContext } from '../../context/Menu.jsx';
 import TopNavbar from './TopNavbar.jsx';
 import SideNavbar from './SideNavbar.jsx';
+import { useWindowSize } from '../../hooks/useWindowSize.jsx';
 
 const Header = () => {
     const { setActiveNavbarItem, clearUserCookie } = useContext(GlobalStateContext)
     const navigate = useNavigate()
-    const [windowSize, setWindowSize] = useState(window.innerWidth)
+    const windowSize = useWindowSize();
     const [showSideMenu, setShowSideMenu] = useState(false)
     const {menuItemsState, clearMenuItemsState} = useContext(MenuContext);
     const [administrationMenu, setAdministrationMenu] = useState([])
     const [generalMenu, setGeneralMenu] = useState([])
-
-    
-    useEffect(() => {
-        window.addEventListener("resize", () => {
-            setWindowSize(window.innerWidth)
-        })
-
-        return window.removeEventListener("resize", () => {
-            setWindowSize(window.innerWidth)
-        })
-    }, [])
 
     useEffect(() => {
         let general = [];
@@ -118,7 +108,7 @@ const Header = () => {
 
             {
                 windowSize <= 1200 && <span className="material-symbols-rounded" onClick={() => setShowSideMenu(prev => !prev)}
-                style={{color: "#7963c0", cursor: "pointer", fontSize: "30px"}}>menu</span>
+                style={{color: "var(--main-color)", cursor: "pointer", fontSize: "30px"}}>menu</span>
             }
 
             <SideNavbar showSideMenu={showSideMenu} windowSize={windowSize} closeSideMenu={() => setShowSideMenu(false)}/>

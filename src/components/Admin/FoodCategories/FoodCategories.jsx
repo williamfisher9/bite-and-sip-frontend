@@ -9,6 +9,7 @@ import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { BACKEND_URL } from "../../../constants/Constants";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
+import { useWindowSize } from "../../../hooks/useWindowSize";
 
 const FoodCategories = () => {
     const navigate = useNavigate();
@@ -17,16 +18,12 @@ const FoodCategories = () => {
 
     const [foodCategories, setFoodCategories] = useState([]);
 
-    const [windowSize, setWindowSize] = useState(window.innerWidth)
+    const windowSize = useWindowSize();
 
     
 
     useEffect(() => {
         setActiveNavbarItem("FOOD CATEGORIES")
-        window.addEventListener("resize", () => {
-            setWindowSize(window.innerWidth)
-        })
-
         axios.get(`${BACKEND_URL}/api/v1/app/admin/food-categories`, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
         .then(res => {
             if(res.status==200){
@@ -39,10 +36,6 @@ const FoodCategories = () => {
           clearMenuItemsState();
           navigate("/biteandsip/login");
             }
-        })
-
-        return window.removeEventListener("resize", () => {
-            setWindowSize(window.innerWidth)
         })
     }, [])
 

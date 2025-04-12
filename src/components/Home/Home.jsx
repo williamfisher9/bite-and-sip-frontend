@@ -1,7 +1,7 @@
 import heroImg from "../../assets/dish.png";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalStateContext } from "../../context/GlobalState";
 import Menu from "../Menu/Menu";
 import FormButton from "../FormButton/FormButton";
@@ -10,20 +10,8 @@ const Home = () => {
   const { setActiveCategory, setActiveNavbarItem } = useContext(GlobalStateContext);
   const navigate = useNavigate();
 
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
-
   useEffect(() => {
-
-
     setActiveCategory("ALL");
-
-    window.addEventListener("resize", () => {
-      setWindowSize(window.innerWidth);
-    });
-
-    return window.removeEventListener("resize", () => {
-      setWindowSize(window.innerWidth);
-    });
   }, []);
 
   return (

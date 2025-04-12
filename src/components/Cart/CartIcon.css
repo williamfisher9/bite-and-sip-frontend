@@ -5,7 +5,7 @@
 .icon {
     font-size: xx-large;
     cursor: pointer;
-    color: #7963c0;
+    color: var(--main-color);
 }
 
 #cart-count {

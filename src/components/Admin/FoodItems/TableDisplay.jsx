@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import './FoodItems.css'
 import {  useState } from "react";
+import Pagination from "../Pagination/Pagination";
 
-const TableDisplay = ({ foodItems, updateFoodItems }) => {
+const TableDisplay = ({ foodItems, updateFoodItems, paginationData, loadPage, updateSelectedPageSize }) => {
   const navigate = useNavigate();
 
   const [dragValues, setDragValues] = useState({draggedItem: null, dragOverItem: null});
@@ -12,6 +13,8 @@ const TableDisplay = ({ foodItems, updateFoodItems }) => {
   };
 
   const handleOnDragStart = (e) => {
+    //e.preventDefault()
+    console.log(e.target)
     setDragValues({...dragValues, draggedItem: e.target.id});
   }
 
@@ -30,12 +33,13 @@ const TableDisplay = ({ foodItems, updateFoodItems }) => {
 
     const dragItemContent = copyListItems[dragValues.draggedItem]
 
-    copyListItems.splice(dragValues.draggedItem, 1)  // delete one element at index dragItem.current
-    copyListItems.splice(dragValues.dragOverItem, 0, dragItemContent) // insert item dragItemContent at index dragOverItem.current
+    copyListItems.splice(dragValues.draggedItem, 1)  // deletes one element at index dragItem.current and shifts all items down
+    copyListItems.splice(dragValues.dragOverItem, 0, dragItemContent) // insert item dragItemContent at index dragOverItem.current and shifts items from this index to the end up
+
+    updateFoodItems(copyListItems, dragValues.draggedItem, dragValues.dragOverItem)  
 
     setDragValues({draggedItem: null, dragOverItem: null})
     console.log(copyListItems)
-    updateFoodItems(copyListItems)  
   }
 
   return <div style={{width: "100%", position: "relative"}} className="table-outer-container">
@@ -44,7 +48,6 @@ const TableDisplay = ({ foodItems, updateFoodItems }) => {
           <div style={{width: "100%", display: "flex"}}>
             <div style={{width: "10%", textAlign: "left"}}>ITEM</div>
             <div style={{width: "15%", textAlign: "left"}}>NAME</div>
-            
             <div style={{width: "10%", textAlign: "left", paddingLeft: "10px"}}>PRICE</div>
             <div style={{width: "10%", textAlign: "left"}}>RATING</div>
             <div style={{width: "10%", textAlign: "left"}}>CATEGORY</div>
@@ -65,12 +68,18 @@ const TableDisplay = ({ foodItems, updateFoodItems }) => {
                                             display: "flex",
                                             padding: "5px",
                                             transition: "all 0.3s", 
-                                            opacity:  dragValues.draggedItem == index ? "0.2" : 1 }}
+                                            opacity: dragValues.draggedItem == index ? "0.2" : 1,
+                                            backgroundColor:  dragValues.dragOverItem == index && dragValues.draggedItem != dragValues.dragOverItem ? 
+                                            "rgba(0, 0, 255 ,0.2)" : "transparent" }}
                                 draggable
                                 onDragStart={(e) => handleOnDragStart(e)} 
                                 onDragOver={(e) => e.preventDefault()}
                                 onDragEnter={(e) => handleOnDragEnter(e)} 
                                 onDragEnd={handleOnDragEnd} 
+
+                                //onTouchStart={(e) => handleOnDragStart(e)} 
+                                //onTouchMove={(e) => handleOnDragEnter(e)} 
+                                //onTouchEnd={handleOnDragEnd} 
                       >
                     
 
@@ -134,7 +143,9 @@ const TableDisplay = ({ foodItems, updateFoodItems }) => {
           
         })}
 
-</div>
+        </div>
+
+        <Pagination paginationData={paginationData} loadPage={loadPage} updateSelectedPageSize={updateSelectedPageSize} />
 
       </div>
 };

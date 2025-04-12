@@ -1,5 +1,5 @@
 .active-form-btn {
-    background-color: #7963c0;
+    background-color: var(--main-color);
     color: white;
     cursor: pointer;
 }

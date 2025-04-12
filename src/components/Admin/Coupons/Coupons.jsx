@@ -10,11 +10,12 @@ import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { BACKEND_URL } from "../../../constants/Constants";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
+import { useWindowSize } from "../../../hooks/useWindowSize";
 
 const Coupons = () => {
   const [coupons, setCoupons] = useState([]);
   const navigate = useNavigate();
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const windowSize = useWindowSize();
    const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
       const {clearMenuItemsState} = useContext(MenuContext)
 
@@ -37,15 +38,6 @@ const Coupons = () => {
         }
       });
 
-
-
-      window.addEventListener("resize", () => {
-        setWindowSize(window.innerWidth);
-      });
-
-    return window.removeEventListener("resize", () => {
-      setWindowSize(window.innerWidth);
-    });
   }, []);
 
   const addNewFoodItem = () => {

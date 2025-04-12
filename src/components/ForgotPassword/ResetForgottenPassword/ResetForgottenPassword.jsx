@@ -126,7 +126,7 @@ const ResetForgottenPassword = () => {
                 <span className="material-symbols-rounded form-field-icon">password</span>
                 <span className="material-symbols-rounded show-password-icon" onClick={handleShowPassword}>{passwordFieldVisibilityIcon}</span>
                 <p className='form-field-error'>{formFieldsErrors.password}</p>
-                <ul style={{position: "absolute", left: "2px", color: "#7963c0", bottom: `${formFieldsErrors.password != "" ? '-120px' : '-105px'}`}}>
+                <ul style={{position: "absolute", left: "2px", color: "var(--main-color)", bottom: `${formFieldsErrors.password != "" ? '-120px' : '-105px'}`}}>
                     <li className='password-rule'>{passwordHasErrors["rule1"] == false ? <span className="material-symbols-rounded text-green">check_circle</span> : <span className="material-symbols-rounded text-red">cancel</span>}At least 8 characters long</li>
                     <li className='password-rule'>{passwordHasErrors["rule2"] == false ? <span className="material-symbols-rounded text-green">check_circle</span> : <span className="material-symbols-rounded text-red">cancel</span>}At least 1 uppercase letter</li>
                     <li className='password-rule'>{passwordHasErrors["rule3"] == false ? <span className="material-symbols-rounded text-green">check_circle</span> : <span className="material-symbols-rounded text-red">cancel</span>}At least 1 digit</li>

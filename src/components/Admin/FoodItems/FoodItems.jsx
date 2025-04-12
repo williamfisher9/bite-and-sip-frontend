@@ -10,81 +10,76 @@ import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import { BACKEND_URL } from "../../../constants/Constants";
 import { GlobalStateContext } from "../../../context/GlobalState";
 import { MenuContext } from "../../../context/Menu";
+import { useWindowSize } from "../../../hooks/useWindowSize";
 
 
 const FoodItems = () => {
   const navigate = useNavigate();
-  const [menu, setMenu] = useState({ foodItems: [], categories: [] });
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const [menu, setMenu] = useState({ foodItems: [], categories: [], paginationData: null });
+  const [searchBarVal, setSearchBarVal] = useState("")
+  const [selectedPageSize, setSelectedPageSize] = useState(window.innerWidth < 800 ? 1000 : 5)
+  const windowSize = useWindowSize();
 
   const {clearUserCookie, setActiveNavbarItem} = useContext(GlobalStateContext);
-      const {clearMenuItemsState} = useContext(MenuContext)
+  const {clearMenuItemsState} = useContext(MenuContext)
 
   useEffect(() => {
     setActiveNavbarItem("FOOD ITEMS")
 
-    axios
-      .get(`${BACKEND_URL}/api/v1/app/admin/food-items`, {
-        headers: { Authorization: `Bearer ${Cookies.get("token")}` },
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          //console.log(res.data.message.foodItems)
-          setMenu({
-            foodItems: res.data.message.foodItems,
-            foodCategories: res.data.message.categories,
-          });
-        }
-      })
-      .catch((err) => {
-        if (err.status == 401 || err.status == 403) {
-          clearUserCookie();
-          clearMenuItemsState();
-          navigate("/biteandsip/login");
-        }
-      });
-
-
-      window.addEventListener("resize", () => {
-        setWindowSize(window.innerWidth);
-      });
-
-    return window.removeEventListener("resize", () => {
-      setWindowSize(window.innerWidth);
-    });
+    loadData();
   }, []);
 
+  const loadData = (pageNumber=0, pageSize=selectedPageSize, searchVal="") => {
+    axios.get(`${BACKEND_URL}/api/v1/app/admin/food-items?page_number=${pageNumber}&page_size=${pageSize}&search_val=${searchVal}`, 
+                {headers: { Authorization: `Bearer ${Cookies.get("token")}` }})   
+    .then((res) => {
+      if (res.status == 200) {
+        setMenu({
+          foodItems: res.data.message.foodItems.content,
+          foodCategories: res.data.message.categories,
+          paginationData: {number: res.data.message.foodItems.number, 
+            empty: res.data.message.foodItems.empty, 
+            first: res.data.message.foodItems.first, 
+            last: res.data.message.foodItems.last, 
+            numberOfElements: res.data.message.foodItems.numberOfElements, 
+            size: res.data.message.foodItems.size, 
+            totalElements: res.data.message.foodItems.totalElements, 
+            totalPages: res.data.message.foodItems.totalPages}
+        });
+      }
+    })
+    /*.catch((err) => {
+      if (err.status == 401 || err.status == 403) {
+        clearUserCookie();
+        clearMenuItemsState();
+        navigate("/biteandsip/login");
+      }
+    });*/
+  }
+
+  const updateSelectedPageSize = (pageSize) => {
+    setSelectedPageSize(pageSize)
+  }
+
   const handleSearchBarChange = () => {
-    axios
-      .post(
-        `${BACKEND_URL}/api/v1/app/admin/food-items/search`,
-        { val: event.target.value },
-        { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
-      )
-      .then((res) => {
-        if (res.status == 200) {
-          setMenu({ ...menu, foodItems: res.data.message.foodItems});
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    setSearchBarVal(event.target.value)
+    loadData(0, selectedPageSize, event.target.value)
+  }
+
 
   const addNewFoodItem = () => {
     navigate(`/biteandsip/admin/food-items/new`);
   };
 
-  const updateFoodItems = (list) => {
+  const loadPage = (pageNum, pageSize) => {
+    loadData(pageNum, pageSize, searchBarVal)
+  }
 
-    setMenu({...menu, 
-      foodItems: list,
-    });
 
-    //console.log(v1, v2)
+  const updateFoodItems = (list, draggedItem, draggedOverItem) => {
 
-    /*axios.post(`${BACKEND_URL}/api/v1/app/admin/food-items/update-order`,
-      { item1Id: v1.id, item2Id: v2.id},
+    axios.post(`${BACKEND_URL}/api/v1/app/admin/food-items/update-order`,
+      { draggedItemIndex: draggedItem, draggedOverItemIndex: draggedOverItem},
       { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
     )
     .then((res) => {
@@ -102,7 +97,6 @@ const FoodItems = () => {
         navigate("/biteandsip/login");
     }
     });
-*/
 
   }
 
@@ -127,18 +121,23 @@ const FoodItems = () => {
         </button>
       </div>
 
-      {windowSize < 800 ? (
-        <CardDisplay
-          foodItems={menu.foodItems}
-          foodCategories={menu.categories}
-        />
-      ) : (
-        <TableDisplay
-          foodItems={menu.foodItems}
-          updateFoodItems = {updateFoodItems}
-          foodCategories={menu.categories}
-        />
-      )}
+      {
+          windowSize < 800 ? (
+              <CardDisplay
+                foodItems={menu.foodItems}
+                foodCategories={menu.categories}
+              />
+            ) : (
+            menu.paginationData != null && <TableDisplay
+              foodItems={menu.foodItems}
+              updateFoodItems = {updateFoodItems}
+              foodCategories={menu.categories}
+              paginationData={menu.paginationData}
+              loadPage={loadPage}
+              updateSelectedPageSize={updateSelectedPageSize}
+            />
+          )
+      }
     </div>
   );
 };

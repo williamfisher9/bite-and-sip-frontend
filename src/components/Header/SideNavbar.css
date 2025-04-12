@@ -5,7 +5,7 @@
     z-index: 9999;
     top: 0;
     left: 0;
-    background-color: #7963c0;
+    background-color: var(--main-color);
 }
 
 #closeIcon {

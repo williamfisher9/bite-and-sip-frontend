@@ -6,7 +6,7 @@
 .item-status-toggler {
     width: 80px;
     height: 100%;
-    border: 2px solid #7963c0;
+    border: 2px solid var(--main-color);
     border-radius: 5px;
     position: relative;
 }
