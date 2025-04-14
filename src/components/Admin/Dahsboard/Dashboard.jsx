@@ -17,8 +17,7 @@ const Dashboard = () => {
     useEffect(() => {
         setActiveNavbarItem("DASHBOARD")
 
-        const interval = setInterval(() => {
-            axios.get(`${BACKEND_URL}/api/v1/app/admin/dashboard`, {headers: { Authorization: `Bearer ${Cookies.get("token")}`}})
+        axios.get(`${BACKEND_URL}/api/v1/app/admin/dashboard`, {headers: { Authorization: `Bearer ${Cookies.get("token")}`}})
         .then((res) => {
             console.log(res.data.message)
             setResult(res.data.message)
@@ -30,7 +29,26 @@ const Dashboard = () => {
                 navigate("/biteandsip/login");
             }
         });
-          }, 60000);
+
+        const interval = setInterval(() => {
+            axios
+              .get(`${BACKEND_URL}/api/v1/app/admin/dashboard`, {
+                headers: {
+                  Authorization: `Bearer ${Cookies.get("token")}`,
+                },
+              })
+              .then((res) => {
+                console.log(res.data.message);
+                setResult(res.data.message);
+              })
+              .catch((err) => {
+                if (err.status == 401 || err.status == 403) {
+                  clearUserCookie();
+                  clearMenuItemsState();
+                  navigate("/biteandsip/login");
+                }
+              });
+          }, parseInt(JSON.parse(Cookies.get("dashboardRefreshInterval")) * 1000));
         
           return () => clearInterval(interval);
 
@@ -45,8 +63,8 @@ const Dashboard = () => {
                                 <p className='title'>ORDERS COUNT BY STATUS</p>
                             </div>
                     {
-                        result.orders_count_by_status.map((item) => {
-                            return <div className='orders-count-by-status-item'>
+                        result.orders_count_by_status.map((item, index) => {
+                            return <div className='orders-count-by-status-item' key={index}>
                                 <p className='item-title'>{item[0]}</p>
                                 <p className='item-value'>{item[1]}</p>
                             </div>

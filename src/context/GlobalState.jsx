@@ -24,6 +24,7 @@ export const GlobalStateProvider = ({ children }) => {
     Cookies.remove("menuItems");
     Cookies.remove("authorityId");
     Cookies.remove("username");
+    Cookies.remove("dashboardRefreshInterval");
   };
 
   return (

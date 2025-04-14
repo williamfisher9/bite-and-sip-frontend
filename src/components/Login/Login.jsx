@@ -56,6 +56,7 @@ const Login = () => {
                     Cookies.set("authorityId", res.data.message.authorityId);
                     Cookies.set("menuItems", JSON.stringify(res.data.message.menuItems));
                     Cookies.set("isAuthenticated", true);
+                    Cookies.set("dashboardRefreshInterval", JSON.stringify(res.data.message.dashboardRefreshInterval));
                     setLoginRequestError("")
                     navigate(`${res.data.message.homePageUrl}`)
                 }
