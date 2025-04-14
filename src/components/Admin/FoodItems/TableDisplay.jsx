@@ -14,93 +14,81 @@ const TableDisplay = ({ foodItems, updateFoodItems, paginationData, loadPage, up
 
   const handleOnDragStart = (e) => {
     //e.preventDefault()
-    console.log(e.target)
     setDragValues({...dragValues, draggedItem: e.target.id});
   }
-
-  
 
   const handleOnDragEnter = (e) => {
     setDragValues({...dragValues, dragOverItem: e.currentTarget.id});
   }
 
-
-
   const handleOnDragEnd = () => {
     const copyListItems = [...foodItems]
-
-    console.log(dragValues)
 
     const dragItemContent = copyListItems[dragValues.draggedItem]
 
     copyListItems.splice(dragValues.draggedItem, 1)  // deletes one element at index dragItem.current and shifts all items down
     copyListItems.splice(dragValues.dragOverItem, 0, dragItemContent) // insert item dragItemContent at index dragOverItem.current and shifts items from this index to the end up
 
-    updateFoodItems(copyListItems, dragValues.draggedItem, dragValues.dragOverItem)  
+    updateFoodItems(dragValues.draggedItem, dragValues.dragOverItem)  
 
     setDragValues({draggedItem: null, dragOverItem: null})
-    console.log(copyListItems)
+
   }
 
-  return <div style={{width: "100%", position: "relative"}} className="table-outer-container">
+  return <div className="table-outer-container">
+        <table className="food-categories-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ITEM</th>
+                    <th>NAME</th>
+                    <th>PRICE</th>
+                    <th>RATING</th>
+                    <th>CATEGORY</th>
+                    <th>ACTIVE</th>
+                    <th>DESC.</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {
+              foodItems.map((item, index) => {
+                return <tr key={index} id={index} style={{fontSize: "14px", transition: "all 0.3s", 
+                  opacity: dragValues.draggedItem == index ? "0.2" : 1,
+                  backgroundColor:  dragValues.dragOverItem == index && dragValues.draggedItem != dragValues.dragOverItem ? "rgba(0, 0, 255 ,0.2)" : "transparent" }}
         
-        <div style={{width: "100%", padding: "5px", marginBottom: "10px", fontWeight: "500", fontSize: "16px"}}>
-          <div style={{width: "100%", display: "flex"}}>
-            <div style={{width: "10%", textAlign: "left"}}>ITEM</div>
-            <div style={{width: "15%", textAlign: "left"}}>NAME</div>
-            <div style={{width: "10%", textAlign: "left", paddingLeft: "10px"}}>PRICE</div>
-            <div style={{width: "10%", textAlign: "left"}}>RATING</div>
-            <div style={{width: "10%", textAlign: "left"}}>CATEGORY</div>
-            <div style={{width: "10%", textAlign: "left"}}>ACTIVE</div>
-            <div style={{width: "25%", textAlign: "left", display: "inline-block"}}>DESC.</div>
-            <div style={{width: "10%"}}></div>
-          </div>
-        </div>
-
-
-
-
-        <div className="food-items-container" style={{ width: "100%", marginBottom: "10px", fontWeight: "500", fontSize: "16px" }}>
-        
-        {foodItems.map((item, index) => {
-          return <div key={index} id={index} style={{width: "100%", 
-                                            fontSize: "14px",
-                                            display: "flex",
-                                            padding: "5px",
-                                            transition: "all 0.3s", 
-                                            opacity: dragValues.draggedItem == index ? "0.2" : 1,
-                                            backgroundColor:  dragValues.dragOverItem == index && dragValues.draggedItem != dragValues.dragOverItem ? 
-                                            "rgba(0, 0, 255 ,0.2)" : "transparent" }}
-                                draggable
-                                onDragStart={(e) => handleOnDragStart(e)} 
-                                onDragOver={(e) => e.preventDefault()}
-                                onDragEnter={(e) => handleOnDragEnter(e)} 
-                                onDragEnd={handleOnDragEnd} 
-
-                                //onTouchStart={(e) => handleOnDragStart(e)} 
-                                //onTouchMove={(e) => handleOnDragEnter(e)} 
-                                //onTouchEnd={handleOnDragEnd} 
-                      >
+                  draggable
+                  onDragStart={(e) => handleOnDragStart(e)} 
+                  onDragOver={(e) => e.preventDefault()}
+                  onDragEnter={(e) => handleOnDragEnter(e)} 
+                  onDragEnd={handleOnDragEnd} >
                     
 
+                    <td style={{width: "40px"}}>
+                      {index+1}
+                    </td>
 
-                      <div style={{width: "10%"}} className='item-data-field'>
+
+                      <td style={{width: "100px"}}>
                         <img
                           src={item.imageSource}
                           alt={item.name}
                           className="data-item-img"
                         />
-                      </div>
+                      </td>
 
-                      <div style={{width: "15%", textWrap: "wrap"}} className='item-data-field'>{item.name}</div>
+                      <td style={{width: "230px", textWrap: "wrap"}} className=''>
+                        {item.name}
+                      </td>
 
                       
 
-                      <div style={{width: "10%", paddingLeft: "10px"}} className='item-data-field'>${item.price}</div>
-                      <div style={{width: "10%"}} className='item-data-field'>{item.rating}</div>
-                      <div style={{width: "10%"}} className='item-data-field'>{item.category?.name}</div>
+                      <td style={{width: "100px"}} className=''>${item.price}</td>
+                      <td style={{width: "50px"}} className=''>{item.rating}</td>
+                      <td style={{width: "100px"}} className=''>{item.category?.name}</td>
 
-                      <div style={{width: "10%"}} className='item-data-field'>
+                      <td style={{width: "100px"}}>
                         {item.active ? (
                           <span style={{ backgroundColor: "rgb(24, 131, 0)", color: "#fff" }} className="item-status-icon">
                             ACTIVE
@@ -110,9 +98,9 @@ const TableDisplay = ({ foodItems, updateFoodItems, paginationData, loadPage, up
                             INACTIVE
                           </span>
                         )}
-                      </div>
+                      </td>
 
-                      <div className="item-description-td">
+                      <td style={{width: "400px", position: "relative"}}>
                         <div className="item-description-ellipses">
                           {item.description}
                           <div className="item-description-tooltip">
@@ -121,9 +109,9 @@ const TableDisplay = ({ foodItems, updateFoodItems, paginationData, loadPage, up
                               {item.description}
                           </div>
                         </div>
-                      </div>
+                      </td>
 
-                      <div style={{width: "10%", display: "flex", justifyContent: "end", alignItems: "center"}} className="food-items-table-actions-container">
+                      <td style={{ textAlign: "end"}}>
                         <span
                           className="material-symbols-rounded table-row-action-icon"
                           onClick={() => editFoodItem(item)}
@@ -134,16 +122,18 @@ const TableDisplay = ({ foodItems, updateFoodItems, paginationData, loadPage, up
                         <span className="material-symbols-rounded table-row-action-icon table-row-dragger" >
                           drag_indicator
                         </span>
-                      </div>
+                      </td>
+
+
+                    </tr>
+        })
+        }
+            </tbody>
+        </table>
 
 
 
-                    </div>
-
-          
-        })}
-
-        </div>
+        
 
         <Pagination paginationData={paginationData} loadPage={loadPage} updateSelectedPageSize={updateSelectedPageSize} />
 

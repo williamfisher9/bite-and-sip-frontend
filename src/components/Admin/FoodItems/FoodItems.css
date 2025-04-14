@@ -51,27 +51,16 @@
 
 /* TableDisplay CSS -> START */
 
-.food-items-table-actions-container {
-    text-align: end;
-}
 
 .item-description-ellipses {
     width: 100%;
-    height: auto;
+    height: 100%;
     
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-
-.item-description-td {
-    position: relative;
-    width: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .item-description-tooltip {
@@ -456,12 +445,20 @@
 /* ================================================ */
 
 .item-data-field {
-    display: flex;
-    justify-content: start;
-    align-items: center;
+    width: 200px;
 }
 
 .food-items-container > div:nth-child(even) {
     background-color: rgba(121, 99, 192, 0.1);
     border-radius: 5px;
+}
+
+.table-outer-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-direction: column;
 }

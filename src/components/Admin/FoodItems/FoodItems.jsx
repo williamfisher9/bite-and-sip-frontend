@@ -35,30 +35,25 @@ const FoodItems = () => {
     .then((res) => {
       if (res.status == 200) {
         setMenu({
-          foodItems: res.data.message.foodItems.content,
-          foodCategories: res.data.message.categories,
-          paginationData: {number: res.data.message.foodItems.number, 
-            empty: res.data.message.foodItems.empty, 
-            first: res.data.message.foodItems.first, 
-            last: res.data.message.foodItems.last, 
-            numberOfElements: res.data.message.foodItems.numberOfElements, 
-            size: res.data.message.foodItems.size, 
-            totalElements: res.data.message.foodItems.totalElements, 
-            totalPages: res.data.message.foodItems.totalPages}
+          foodItems: res.data.message.content,
+          paginationData: {number: res.data.message.number, 
+            empty: res.data.message.empty, 
+            first: res.data.message.first, 
+            last: res.data.message.last, 
+            numberOfElements: res.data.message.numberOfElements, 
+            size: res.data.message.size, 
+            totalElements: res.data.message.totalElements, 
+            totalPages: res.data.message.totalPages}
         });
       }
     })
-    /*.catch((err) => {
+    .catch((err) => {
       if (err.status == 401 || err.status == 403) {
         clearUserCookie();
         clearMenuItemsState();
         navigate("/biteandsip/login");
       }
-    });*/
-  }
-
-  const updateSelectedPageSize = (pageSize) => {
-    setSelectedPageSize(pageSize)
+    });
   }
 
   const handleSearchBarChange = () => {
@@ -66,27 +61,36 @@ const FoodItems = () => {
     loadData(0, selectedPageSize, event.target.value)
   }
 
+  const loadPage = (pageNum, pageSize) => {
+    loadData(pageNum, pageSize, searchBarVal)
+  }
+
+  const updateSelectedPageSize = (pageSize) => {
+    setSelectedPageSize(pageSize)
+  }
 
   const addNewFoodItem = () => {
     navigate(`/biteandsip/admin/food-items/new`);
   };
 
-  const loadPage = (pageNum, pageSize) => {
-    loadData(pageNum, pageSize, searchBarVal)
-  }
-
-
-  const updateFoodItems = (list, draggedItem, draggedOverItem) => {
+  const updateFoodItems = (draggedItem, draggedOverItem) => {
 
     axios.post(`${BACKEND_URL}/api/v1/app/admin/food-items/update-order`,
-      { draggedItemIndex: draggedItem, draggedOverItemIndex: draggedOverItem},
+      { draggedItemIndex: draggedItem, draggedOverItemIndex: draggedOverItem, pageNumber: menu.paginationData.number, pageSize: menu.paginationData.size},
       { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
     )
     .then((res) => {
       if (res.status == 200) {
         setMenu({
-          foodItems: res.data.message.foodItems,
-          foodCategories: res.data.message.categories,
+          foodItems: res.data.message.content,
+          paginationData: {number: res.data.message.number, 
+            empty: res.data.message.empty, 
+            first: res.data.message.first, 
+            last: res.data.message.last, 
+            numberOfElements: res.data.message.numberOfElements, 
+            size: res.data.message.size, 
+            totalElements: res.data.message.totalElements, 
+            totalPages: res.data.message.totalPages}
         });
       }
     })
@@ -97,7 +101,6 @@ const FoodItems = () => {
         navigate("/biteandsip/login");
     }
     });
-
   }
 
   return (

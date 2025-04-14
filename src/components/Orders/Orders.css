@@ -134,9 +134,27 @@
     font-size: 14px;
 }
 
+.order-status-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
+.order-status-actions > .status-action {
+    padding: 5px 7px;
+    background-color: rgba(121, 99, 192, 0.2);
+    border: 1px solid rgba(121, 99, 192, 0.2);
+    border-radius: 5px;
+    text-transform: uppercase;
+    outline: none;  
+    cursor: pointer;  
+}
 
-
+.order-status-actions > .status-action:hover {
+    background-color: rgba(121, 99, 192, 0.5);
+    color: #000;
+}
 
 
 

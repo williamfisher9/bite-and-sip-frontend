@@ -107,6 +107,19 @@ const Orders = () => {
     setOrders([...orders]);
   };
 
+  const moveOrder = (action, status, uuid) => {
+    axios.post(`${BACKEND_URL}/api/v1/app/admin/orders/update`, 
+      { action, status, uuid }, 
+      {headers: { Authorization: `Bearer ${Cookies.get("token")}`} })
+    .then((res) => {
+      console.log(res.data.message)
+      setOrders(res.data.message);
+    })
+    .catch((err) => {
+
+    })
+  }
+
   return (
     <div className="orders-outer-container">
       <div className='page-title'>ORDERS</div>
@@ -119,6 +132,15 @@ const Orders = () => {
                 <span>{getFormmattedDate(order.creationDate)}</span>
                 <span>{getFormmattedDate(order.lastUpdateDate)}</span>
                 <span>{order.status}</span>
+                {
+                  params.source == 'admin' && localStorage.getItem('authorityId') != 2 ?
+                  <div className="order-status-actions">
+                    <button className="status-action" onClick={() => moveOrder('cancel', order.status, order.uuid)}>cancel</button>
+                    <button className="status-action" onClick={() => moveOrder('proceed', order.status, order.uuid)}>proceed</button>
+                  </div>
+                  :
+                  null
+                }
               </div>
 
               <span

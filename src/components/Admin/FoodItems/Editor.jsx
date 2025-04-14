@@ -75,11 +75,10 @@ const FoodItemEditor = () => {
     } else {
       axios
         .get(
-          `${BACKEND_URL}/api/v1/app/admin/food-categories`,
+          `${BACKEND_URL}/api/v1/app/admin/food-categories-ddl`,
           { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
         )
         .then((res) => {
-          
           if (res.status == 200) {
             setFormFields({
               ...formFields,
