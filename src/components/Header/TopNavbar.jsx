@@ -31,7 +31,11 @@ const TopNavbar = ({generalMenu, administrationMenu}) => {
                             <ul>
                             {
                                 administrationMenu.length != 0 && administrationMenu.sort((a, b) => a.id - b.id).map((item, index) => {
-                                    return <li key={index} onClick={() => {navigate(`${item.menuItemLink}`); setActiveNavbarItem(item.menuItem);}}>{item.menuItem}</li>
+                                    return <li key={index} onClick={() => {
+                                        navigate(`${item.menuItemLink}`); 
+                                        setActiveNavbarItem(item.menuItem);
+                                        setShowAdminMenu(false);
+                                    }}>{item.menuItem}</li>
                                 })
                             }
                             </ul>

@@ -16,8 +16,11 @@ const Dashboard = () => {
 
     useEffect(() => {
         setActiveNavbarItem("DASHBOARD")
-        axios.get(`${BACKEND_URL}/api/v1/app/admin/dashboard`, {headers: { Authorization: `Bearer ${Cookies.get("token")}`}})
+
+        const interval = setInterval(() => {
+            axios.get(`${BACKEND_URL}/api/v1/app/admin/dashboard`, {headers: { Authorization: `Bearer ${Cookies.get("token")}`}})
         .then((res) => {
+            console.log(res.data.message)
             setResult(res.data.message)
         })
         .catch(err => {
@@ -27,10 +30,15 @@ const Dashboard = () => {
                 navigate("/biteandsip/login");
             }
         });
+          }, 60000);
+        
+          return () => clearInterval(interval);
+
+        
     }, [])
 
     return <div className="dashboard-outer-container">
-        {
+            {
                 result.orders_count_by_status != null ?
                 <div className='orders-count-by-status'>
                     <div className='orders-count-by-status-item'>
@@ -49,7 +57,7 @@ const Dashboard = () => {
                 null
             }
         
-        {
+            {
                 result.sum_of_delivered_orders != null ?
                 <div className='orders-count-by-status'>
                     <div className='orders-count-by-status-item'>
@@ -57,7 +65,7 @@ const Dashboard = () => {
                             </div>
                             <div className='orders-count-by-status-item'>
                                 <p className='item-title'>Total Amount</p>
-                                <p className='item-value'>{result.sum_of_delivered_orders}</p>
+                                <p className='item-value'>${result.sum_of_delivered_orders}</p>
                             </div>
                 </div> 
                 :

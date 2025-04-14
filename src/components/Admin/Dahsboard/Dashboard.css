@@ -25,7 +25,7 @@
     justify-content: center;
     align-items: center;
     font-weight: 500;
-    font-size: larger;
+    font-size: large;
     padding: 10px 0;
 }
 
@@ -37,12 +37,12 @@
 }
 
 .orders-count-by-status > .orders-count-by-status-item:nth-child(even){
-    background-color: rgba(0, 0, 222, 0.2);
+    background-color: rgba(0, 0, 222, 0.1);
 }
 
 @media only screen and (min-width: 1000px) {
     .orders-count-by-status {
-        width: 50%;
+        width: 33%;
     }
 
     .dashboard-outer-container {
