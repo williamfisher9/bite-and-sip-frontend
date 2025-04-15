@@ -65,7 +65,7 @@ const Dashboard = () => {
                     {
                         result.orders_count_by_status.map((item, index) => {
                             return <div className='orders-count-by-status-item' key={index}>
-                                <p className='item-title'>{item[0]}</p>
+                                <p className='item-title'>{item[0].state}</p>
                                 <p className='item-value'>{item[1]}</p>
                             </div>
                         })
@@ -75,20 +75,15 @@ const Dashboard = () => {
                 null
             }
         
-            {
-                result.sum_of_delivered_orders != null ?
-                <div className='orders-count-by-status'>
+            <div className='orders-count-by-status'>
                     <div className='orders-count-by-status-item'>
                                 <p className='title'>DELIVERED ORDERS TOTAL AMOUNT</p>
                             </div>
                             <div className='orders-count-by-status-item'>
                                 <p className='item-title'>Total Amount</p>
-                                <p className='item-value'>${result.sum_of_delivered_orders}</p>
+                                <p className='item-value'>${result.sum_of_delivered_orders != null ? result.sum_of_delivered_orders : 0}</p>
                             </div>
-                </div> 
-                :
-                null
-            }
+            </div> 
     </div>
 }
 

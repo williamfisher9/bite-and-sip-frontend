@@ -6,6 +6,7 @@ const TableDisplay = ({data}) => {
     const editEmployee = (element) => {
         navigate(`/biteandsip/admin/employees/${element.id}`)
     }
+    
     return <table>
         <thead>
             <tr>

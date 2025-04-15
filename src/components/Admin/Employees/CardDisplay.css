@@ -1,0 +1,86 @@
+.users-cards-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: 20px;
+    column-gap: 20px;
+    justify-content: space-evenly;
+}
+
+.user-card {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user-card-img-and-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-card-img-and-actions > img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-card-img-and-actions > .user-card-action{
+    cursor: pointer; background-color: green;
+        padding: 5px 10px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3px;
+}
+
+
+.user-card-img-and-actions > img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px dashed var(--main-color);
+}
+
+.user-card-details {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.users-cards-grid > .user-card:nth-child(even) {
+    background-color: rgba(0, 0, 255, 0.1);
+    border-radius: 5px;
+}
+
+.user-card-field {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-state {
+    color: white;
+    padding: 3px 6px;
+    border-radius: 5px;
+}
+
+.active-user {
+    background-color: green;
+}
+
+.inactive-user {
+    background-color: red;
+}

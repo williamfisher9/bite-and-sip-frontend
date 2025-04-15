@@ -22,12 +22,15 @@ const Employees = () => {
       setActiveNavbarItem("EMPLOYEES")
         axios.get(`${BACKEND_URL}/api/v1/app/admin/users/employees`, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
         .then((res) => {
-            
             setEmployees(res.data.message)
         })
         .catch((err) => {
-            console.log(err)
-        })
+          if (err.status == 401 || err.status == 403) {
+            clearUserCookie();
+            clearMenuItemsState();
+            navigate("/biteandsip/login");
+            }
+        });
     }, [])
 
     const addNewEmployee = () => {
@@ -79,10 +82,10 @@ const Employees = () => {
         </div>
 
         {
-                windowSize > 800 ?
-                <TableDisplay data={employees}/> :
-                <CardDisplay data={employees} /> 
-            }
+          windowSize > 800 ?
+          <TableDisplay data={employees}/> :
+          <CardDisplay data={employees} /> 
+        }
       </div>
 
     </div>

@@ -23,6 +23,7 @@ const CustomerDetails = () => {
         lastName: "",
         phoneNumber: "",
         imageSource: "",
+        enabled: false,
         orders: []
       });
 
@@ -32,7 +33,7 @@ const CustomerDetails = () => {
           headers: { Authorization: `Bearer ${Cookies.get("token")}` },
         })
         .then((res) => {
-          
+          console.log(res.data.message)
           res.data.message.orders.map(item => {
             item.showDetails = false;
           })
@@ -81,6 +82,8 @@ const CustomerDetails = () => {
                             <span className="material-symbols-rounded">phone</span>
                             <span>{formFields.phoneNumber}</span>
                         </div>
+
+                        
                     </div>
             </div>
 

@@ -29,8 +29,15 @@
     padding: 10px 0;
 }
 
-.orders-count-by-status-item > .item-title, .item-value {
-    width: 50%;
+.orders-count-by-status-item > .item-title {
+    width: 60%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.orders-count-by-status-item > .item-value {
+    width: 40%;
     display: flex;
     justify-content: start;
     align-items: center;

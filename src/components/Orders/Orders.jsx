@@ -8,7 +8,6 @@ import { GlobalStateContext } from "../../context/GlobalState";
 import { MenuContext } from "../../context/Menu";
 
 import { BACKEND_URL } from "../../constants/Constants";
-import Breadcrumbs from "../Admin/Breadcrumbs/Breadcrumbs";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -30,6 +29,7 @@ const Orders = () => {
             { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
           )
           .then((res) => {
+            console.log(res.data.message)
             res.data.message.map((item) => {
               item.showDetails = false;
             });
@@ -50,6 +50,7 @@ const Orders = () => {
             headers: { Authorization: `Bearer ${Cookies.get("token")}` },
           })
           .then((res) => {
+            console.log(res.data.message)
             res.data.message.map((item) => {
               item.showDetails = false;
             });
@@ -112,11 +113,14 @@ const Orders = () => {
       { action, status, uuid }, 
       {headers: { Authorization: `Bearer ${Cookies.get("token")}`} })
     .then((res) => {
-      console.log(res.data.message)
       setOrders(res.data.message);
     })
     .catch((err) => {
-
+      if(err.status == 400 || err.status== 401 || err.status == 401){
+        clearUserCookie();
+              clearMenuItemsState();
+              navigate("/biteandsip/login");
+      }
     })
   }
 
@@ -127,29 +131,45 @@ const Orders = () => {
       {orders.sort((a, b) => new Date(b.creationDate) - new Date(a.creationDate)).map((order) => {
         return (
           <div className="order-items-container" key={order.uuid}>
-            <div className="order-item-header">
-              <div className="order-item-header-details">
-                <span>{getFormmattedDate(order.creationDate)}</span>
-                <span>{getFormmattedDate(order.lastUpdateDate)}</span>
-                <span>{order.status}</span>
-                {
-                  params.source == 'admin' && localStorage.getItem('authorityId') != 2 ?
-                  <div className="order-status-actions">
-                    <button className="status-action" onClick={() => moveOrder('cancel', order.status, order.uuid)}>cancel</button>
-                    <button className="status-action" onClick={() => moveOrder('proceed', order.status, order.uuid)}>proceed</button>
-                  </div>
-                  :
-                  null
-                }
-              </div>
 
-              <span
-                className="material-symbols-rounded more-info-btn"
-                onClick={() => showOrderDetails(order.uuid)}
-              >
-                more_horiz
-              </span>
-            </div>
+            <table>
+              <tbody>
+                <tr className="first-row">
+                  <td className="order-item-header-first-column">
+                    <div className="order-item-header-value">{getFormmattedDate(order.creationDate)}</div>
+                    <div className="order-item-header-value">{getFormmattedDate(order.lastUpdateDate)}</div>
+                    <div className="order-item-header-value">{order.status.state}</div>
+
+                    {
+                        params.source == 'admin' && localStorage.getItem('authorityId') != 2 ?
+                        <div className="order-item-header-value order-status-actions">
+                          {
+                            !order.status.terminalState ? 
+                            <>
+                            <button className="status-action" 
+                            onClick={() => moveOrder('cancel', order.status.id, order.uuid)}>cancel</button>
+                          <button className="status-action" 
+                            onClick={() => moveOrder('proceed', order.status.id, order.uuid)}>proceed</button>
+                            </>
+                            :
+                            null
+                          }
+                        </div>
+                        :
+                        null
+                    }
+                  </td>
+
+                  <td  style={{textAlign: "end"}}>
+                      <span 
+                      className="material-symbols-rounded more-info-btn"
+                      onClick={() => showOrderDetails(order.uuid)}
+                      >more_horiz</span>
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
 
             {order.showDetails && (
               <div className="order-item-body">

@@ -1,7 +1,14 @@
+import { IoIosMore } from "react-icons/io";
 import { createSearchParams, useNavigate } from "react-router-dom"
+import { useWindowSize } from "../../../hooks/useWindowSize";
+import { RiIdCardLine } from "react-icons/ri";
+import { MdOutlineLocalPhone, MdOutlineMail } from "react-icons/md";
+import { BiRun } from "react-icons/bi";
+
+import './Customers.css'
 
 const CardDisplay = ({data}) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const showCustomerDetails = (id) => {
         navigate({
@@ -11,33 +18,47 @@ const CardDisplay = ({data}) => {
             }).toString()
         });
     }
-    return <div className='cards-grid'>
-    {
-        data.map((item) => {
-            return <div className='card-item' key={item.id}>                
-                <div>
-                    <p style={{textAlign: "center", margin: "10px 0", fontWeight: "500", fontSize: "14px"}}>{item.username}</p>
+
+    return <div className='users-cards-grid'>
+        {
+            data.map((item) => {
+                return <div className='user-card' key={item.id}>
+                        <div className='user-card-img-and-actions'>
+                            <img src={item.imageSource} alt={item.imageSource} />
+    
+                            <div className='user-card-action' onClick={() => showCustomerDetails(item.id)}>
+                                <IoIosMore size={20} color='#fff'/>
+                            </div>
+                        </div>
+    
+                        <div className='user-card-details'>
+                            <div className='user-card-field'>
+                                <RiIdCardLine size={25}/>
+                                <span>{item.firstName} {item.lastName}</span>
+                            </div> 
+    
+                            <div className='user-card-field'>
+                                <MdOutlineMail size={25}/>
+                                <span>{item.username}</span>
+                            </div> 
+    
+                            <div className='user-card-field'>
+                                <MdOutlineLocalPhone size={25}/>
+                                <span>{item.phoneNumber}</span>
+                            </div> 
+                            
+                            <div className='user-card-field'>
+                                <BiRun size={25}/>
+                                <p className={`user-state ${item.enabled ? 'active-user' : 'inactive-user'}`}>{item.enabled ? 'ACTIVE' : 'INACTIVE' }</p>
+                            </div> 
+                        </div>
+                
+    
+                    
                 </div>
-
-                <div>
-                    <p style={{textAlign: "center", margin: "10px 0", fontWeight: "500", fontSize: "18px"}}>{item.firstName} {item.lastName}</p>
-                </div> 
-
-               
-                <div>
-                    <p style={{textAlign: "center", margin: "10px 0", fontWeight: "500", fontSize: "18px"}}>{item.enabled ? <span style={{backgroundColor: "green", color: "white", padding: "3px 6px", borderRadius: "5px"}}>ACTIVE</span> : <span style={{backgroundColor: "red", color: "white", padding: "3px 6px", borderRadius: "5px"}}>INACTIVE</span>}</p>
-                </div> 
-
-                <div>
-                <span className="material-symbols-rounded" 
-                style={{border: "2px solid black", borderRadius: "5px", padding: "5px", cursor: "pointer"}}
-                onClick={() => showCustomerDetails(item.id)}>more_horiz</span>
-                </div>
-  
-            </div>
-        })
-    }
-    </div>
+            })
+        }
+        </div>
 
 }
 
