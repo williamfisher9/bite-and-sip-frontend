@@ -49,13 +49,14 @@ const Login = () => {
             .then((res) => {
                 setLoading(false)
                 if(res.status == 200){
+                    console.log(res.data.message.homePageUrl)
                     updateMenuItemsState(res.data.message.menuItems)
                     Cookies.set("token", res.data.message.token);
                     Cookies.set("username", res.data.message.username);
                     Cookies.set("userId", res.data.message.userId);
                     Cookies.set("authorityId", res.data.message.authorityId);
                     Cookies.set("menuItems", JSON.stringify(res.data.message.menuItems));
-                    Cookies.set("isAuthenticated", true);
+                    Cookies.set("isAuthenticated", JSON.stringify(res.data.message.isAuthenticated));
                     Cookies.set("dashboardRefreshInterval", JSON.stringify(res.data.message.dashboardRefreshInterval));
                     setLoginRequestError("")
                     navigate(`${res.data.message.homePageUrl}`)

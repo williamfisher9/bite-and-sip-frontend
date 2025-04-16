@@ -139,22 +139,16 @@ const Orders = () => {
                     <div className="order-item-header-value">{order.status.state}</div>
 
                     {
-                        params.source == 'admin' && localStorage.getItem('authorityId') != 2 ?
-                        <div className="order-item-header-value order-status-actions">
+                        params.source == 'admin' && <div className="order-item-header-value order-status-actions">
                           {
-                            !order.status.terminalState ? 
-                            <>
-                            <button className="status-action" 
-                            onClick={() => moveOrder('cancel', order.status.id, order.uuid)}>cancel</button>
-                          <button className="status-action" 
-                            onClick={() => moveOrder('proceed', order.status.id, order.uuid)}>proceed</button>
+                            !order.status.terminalState && <>
+                                <button className="status-action" 
+                                onClick={() => moveOrder('cancel', order.status.id, order.uuid)}>cancel</button>
+                              <button className="status-action" 
+                                onClick={() => moveOrder('proceed', order.status.id, order.uuid)}>proceed</button>
                             </>
-                            :
-                            null
                           }
                         </div>
-                        :
-                        null
                     }
                   </td>
 
