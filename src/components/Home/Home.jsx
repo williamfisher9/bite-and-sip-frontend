@@ -31,8 +31,7 @@ const Home = () => {
 
           <div className="view-menu-container">
           <FormButton handleRequest={() => { navigate("/biteandsip/menu"); setActiveNavbarItem("MENU"); }} 
-            customStyles={{width: "150px", backgroundColor: "#fff", color: "#000", 
-              boxShadow: "1px 1px 2px #000, -1px -1px 2px #000, -1px 1px 2px #000, 1px -1px 2px #000"
+            customStyles={{width: "125px", height: "40px", backgroundColor: "#fff", color: "#000"
             }}>
                 <span>View Menu</span>
           </FormButton>
