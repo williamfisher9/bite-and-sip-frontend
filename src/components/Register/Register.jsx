@@ -1,8 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Register.css'
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 import logoImg from '../../assets/logo.png'
 import { BACKEND_URL } from '../../constants/Constants';

@@ -1,14 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import './Coupons.css'
+import Pagination from "../Pagination/Pagination";
 
-const TableDisplay = ({ coupons }) => {
+const TableDisplay = ({ coupons, paginationData, loadPage, updateSelectedPageSize }) => {
   const navigate = useNavigate();
 
   const editCoupon = (item) => {
     navigate(`/biteandsip/admin/coupons/${item.id}`);
   };
 
-  return (
+  return <div className="table-outer-container">
     <table>
       <thead>
         <tr>
@@ -54,7 +55,10 @@ const TableDisplay = ({ coupons }) => {
         })}
       </tbody>
     </table>
-  );
+
+    <Pagination paginationData={paginationData} loadPage={loadPage} updateSelectedPageSize={updateSelectedPageSize} />
+
+    </div>
 };
 
 export default TableDisplay;

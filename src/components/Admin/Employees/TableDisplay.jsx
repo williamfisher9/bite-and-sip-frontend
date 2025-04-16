@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom"
+import Pagination from "../Pagination/Pagination";
 
-const TableDisplay = ({data}) => {
+const TableDisplay = ({ data, paginationData, loadPage, updateSelectedPageSize }) => {
     const navigate = useNavigate();
     
     const editEmployee = (element) => {
         navigate(`/biteandsip/admin/employees/${element.id}`)
     }
     
-    return <table>
+    return <div className="table-outer-container">
+        <table>
         <thead>
             <tr>
                 <th>EMAIL</th>
@@ -34,6 +36,8 @@ const TableDisplay = ({data}) => {
             }
         </tbody>
     </table>
+    <Pagination paginationData={paginationData} loadPage={loadPage} updateSelectedPageSize={updateSelectedPageSize} />
+    </div>
 }
 
 export default TableDisplay

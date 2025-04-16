@@ -1,6 +1,6 @@
 import { IoIosMore } from "react-icons/io";
 import { createSearchParams, useNavigate } from "react-router-dom"
-import { useWindowSize } from "../../../hooks/useWindowSize";
+import avatarImg from '../../../assets/avatar.png';
 import { RiIdCardLine } from "react-icons/ri";
 import { MdOutlineLocalPhone, MdOutlineMail } from "react-icons/md";
 import { BiRun } from "react-icons/bi";
@@ -24,7 +24,7 @@ const CardDisplay = ({data}) => {
             data.map((item) => {
                 return <div className='user-card' key={item.id}>
                         <div className='user-card-img-and-actions'>
-                            <img src={item.imageSource} alt={item.imageSource} />
+                            <img src={item.imageSource != null ? item.imageSource : avatarImg} alt={item.imageSource} />
     
                             <div className='user-card-action' onClick={() => showCustomerDetails(item.id)}>
                                 <IoIosMore size={20} color='#fff'/>

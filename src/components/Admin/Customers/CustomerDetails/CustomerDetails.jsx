@@ -33,7 +33,6 @@ const CustomerDetails = () => {
           headers: { Authorization: `Bearer ${Cookies.get("token")}` },
         })
         .then((res) => {
-          console.log(res.data.message)
           res.data.message.orders.map(item => {
             item.showDetails = false;
           })

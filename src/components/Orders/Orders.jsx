@@ -29,7 +29,6 @@ const Orders = () => {
             { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
           )
           .then((res) => {
-            console.log(res.data.message)
             res.data.message.map((item) => {
               item.showDetails = false;
             });
@@ -50,7 +49,6 @@ const Orders = () => {
             headers: { Authorization: `Bearer ${Cookies.get("token")}` },
           })
           .then((res) => {
-            console.log(res.data.message)
             res.data.message.map((item) => {
               item.showDetails = false;
             });
