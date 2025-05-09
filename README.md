@@ -42,8 +42,8 @@ This web application enables restaurants to:
 
 1. **Clone the Repository**
 ```bash
-git clone https://github.com/yourusername/restaurant-management-frontend.git
-cd restaurant-management-frontend
+git clone https://github.com/williamfisher9/bite-and-sip-backend
+cd bite-and-sip-backend
 ```
 
 2. **Install Dependencies**
