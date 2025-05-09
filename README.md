@@ -1,4 +1,4 @@
-# 🍽️ Bite & Sip - A Restaurant Management App – Frontend
+# 🍽️ Bite & Sip - Restaurant Management App – Frontend
 
 This is the frontend of a full-stack restaurant management platform designed to streamline online food ordering, admin control, and payment processing. Built with modern UI technologies and integrated with a secure backend, it offers both customer and admin features.
 
@@ -64,4 +64,4 @@ This frontend interfaces with a Java + Spring Boot backend API that handles:
 - Stripe server-side integration
 
 ## 🌐 Live Demo
-[Live App Link] (https://willtechbooth.dev/biteandsip/)
+[Link to Live Demo](https://willtechbooth.dev/salaries/)
